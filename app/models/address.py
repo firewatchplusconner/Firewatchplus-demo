@@ -42,7 +42,7 @@ class Address(db.Model):
             'nextInspectionDate': self.nextInspectionDate
         }
 
-    def to_inspection_dict(self):
+    def to_dict_basic_info(self):
         return {
             'id': self.id,
             'firstAddressLine': self.firstAddressLine,
