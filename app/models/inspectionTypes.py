@@ -28,8 +28,8 @@ class QuestionCategory(db.Model):
     category = db.Column(db.String(255), nullable=False)
     inspection_type_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('inspection_types.id')), nullable=False)
 
-    inspection_type = db.relationship('InspectionType', back_populates='categories')
-    questions = db.relationship('Questions', back_populates='question_category')
+    inspection_type = db.relationship('InspectionType', back_populates='question_categories')
+    questions = db.relationship('Question', back_populates='question_category')
 
     def to_dict(self):
         return {
