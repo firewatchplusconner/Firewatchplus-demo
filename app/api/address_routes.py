@@ -83,7 +83,7 @@ def update_address(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
-@address_routes.route('/<int:id>', methods='DELETE')
+@address_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_address(id):
     '''

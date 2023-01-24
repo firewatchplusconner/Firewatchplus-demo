@@ -18,7 +18,7 @@ def seed_addresses():
         notes = 'App Academy San Fracisco Location',
         nextInspectionDate = ''
     )
-    address1 = Address(
+    address2 = Address(
         firstAddressLine = '90 5th Ave',
         city = 'New York',
         state = 'NY',
@@ -32,7 +32,7 @@ def seed_addresses():
         ownerZipCode = '10011',
         notes = 'App Academy New York Location',
     )
-    address1 = Address(
+    address3 = Address(
         firstAddressLine = '1600 Pennsylvania Ave NW',
         city = 'Washington',
         state = 'DC',
@@ -46,6 +46,12 @@ def seed_addresses():
         ownerZipCode = '20500',
         notes = 'The White House',
     )
+
+    db.session.add(address1)
+    db.session.add(address2)
+    db.session.add(address3)
+    db.session.commit()
+
 
 def undo_addresses():
     if environment == "production":
