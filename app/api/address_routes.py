@@ -71,9 +71,10 @@ def update_address(id):
         db.session.add(address)
         db.session.commit()
 
-        return address.to_dict()
+        return address.to_dict(), 200
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
 
 @address_routes.route('/<int:id>', methods='DELETE')
 @login_required
@@ -88,7 +89,9 @@ def delete_address(id):
 
     db.session.delete(deleteAddress)
     db.session.commit()
+
     address = Address.query.get(id)
+
     if not address:
         return {'message': 'Address successfully deleted'}, 200
 
