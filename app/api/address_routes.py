@@ -15,6 +15,7 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
+
 @address_routes.route('/')
 @login_required
 def addresses():
@@ -23,6 +24,7 @@ def addresses():
     '''
     addresses = Address.query.all()
     return {addresses: [address.to_dict_basic_info() for address in addresses]}, 200
+
 
 @address_routes.route('/<int:id>')
 @login_required
@@ -35,6 +37,7 @@ def address(id):
         return {'errors': ['No address found']}, 404
 
     return address.to_dict(), 200
+
 
 @address_routes.route('/', methods=['POST'])
 @login_required
@@ -54,6 +57,7 @@ def add_address():
         return address.to_dict(), 201
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
 
 @address_routes.route('/<int:id>', methods=['PUT'])
 @login_required
