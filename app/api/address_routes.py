@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import login_required
 from app.models import Address, db
 from app.forms import AddressForm
@@ -32,7 +32,7 @@ def address(id):
     '''
     address = Address.query.get(id)
     if not address:
-        return {'errors': ['no address found']}, 404
+        return {'errors': ['No address found']}, 404
 
     return address.to_dict(), 200
 
@@ -43,6 +43,7 @@ def add_address():
     Add an address and return it in a dictionary with all associated data
     '''
     form = AddressForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         address = Address()
@@ -63,8 +64,10 @@ def update_address(id):
     address = Address.query.get(id)
 
     form = AddressForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
     if not address:
-        return {'errors': ['no address found']}, 404
+        return {'errors': ['No address found']}, 404
 
     if form.validate_on_submit():
         form.populate_obj(address)
@@ -85,7 +88,7 @@ def delete_address(id):
     deleteAddress = Address.query.get(id)
 
     if not deleteAddress:
-        return {'errors': ['no address found']}, 404
+        return {'errors': ['No address found']}, 404
 
     db.session.delete(deleteAddress)
     db.session.commit()
