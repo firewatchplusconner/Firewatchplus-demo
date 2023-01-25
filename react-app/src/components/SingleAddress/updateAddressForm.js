@@ -7,7 +7,6 @@ import { updateAddress } from "../../store/addresses";
 const UpdateAddressForm = () => {
     const { closeModal } = useModal();
     const singleAddress = useSelector(state => state.addresses.singleAddress)
-    const history = useHistory()
     const [errors, setErrors] = useState([]);
     // const [firstAddressLine, setFirstAddressLine] = useState(singleAddress.firstAddressLine);
     // const [secondAddressLine, setSecondAddressLine] = useState(singleAddress.secondAddressLine);
@@ -28,7 +27,6 @@ const UpdateAddressForm = () => {
     const states = [
         "Alabama",
         "Alaska",
-        "American Samoa",
         "Arizona",
         "Arkansas",
         "California",
@@ -36,7 +34,6 @@ const UpdateAddressForm = () => {
         "Connecticut",
         "Delaware",
         "District of Columbia",
-        "Federated States of Micronesia",
         "Florida",
         "Georgia",
         "Guam",
@@ -49,7 +46,6 @@ const UpdateAddressForm = () => {
         "Kentucky",
         "Louisiana",
         "Maine",
-        "Marshall Islands",
         "Maryland",
         "Massachusetts",
         "Michigan",
@@ -65,13 +61,10 @@ const UpdateAddressForm = () => {
         "New York",
         "North Carolina",
         "North Dakota",
-        "Northern Mariana Islands",
         "Ohio",
         "Oklahoma",
         "Oregon",
-        "Palau",
         "Pennsylvania",
-        "Puerto Rico",
         "Rhode Island",
         "South Carolina",
         "South Dakota",

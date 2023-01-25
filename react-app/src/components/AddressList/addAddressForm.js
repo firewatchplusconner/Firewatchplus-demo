@@ -6,8 +6,9 @@ import { addAddress } from "../../store/addresses";
 
 const AddAddressForm = () => {
     const { closeModal } = useModal();
-    const history = useHistory()
+    const history = useHistory();
     const [errors, setErrors] = useState([]);
+    const [googleErrors, setGoogleErrors] = useState(false)
     const [firstAddressLine, setFirstAddressLine] = useState("");
     const [secondAddressLine, setSecondAddressLine] = useState("");
     const [city, setCity] = useState("");
@@ -22,12 +23,11 @@ const AddAddressForm = () => {
     const [ownerZipCode, setOwnerZipCode] = useState("");
     const [notes, setNotes] = useState("");
     const [nextInspectionDate, setNextInspectionDate] = useState("");
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const states = [
         "Alabama",
         "Alaska",
-        "American Samoa",
         "Arizona",
         "Arkansas",
         "California",
@@ -35,7 +35,6 @@ const AddAddressForm = () => {
         "Connecticut",
         "Delaware",
         "District of Columbia",
-        "Federated States of Micronesia",
         "Florida",
         "Georgia",
         "Guam",
@@ -48,7 +47,6 @@ const AddAddressForm = () => {
         "Kentucky",
         "Louisiana",
         "Maine",
-        "Marshall Islands",
         "Maryland",
         "Massachusetts",
         "Michigan",
@@ -64,13 +62,10 @@ const AddAddressForm = () => {
         "New York",
         "North Carolina",
         "North Dakota",
-        "Northern Mariana Islands",
         "Ohio",
         "Oklahoma",
         "Oregon",
-        "Palau",
         "Pennsylvania",
-        "Puerto Rico",
         "Rhode Island",
         "South Carolina",
         "South Dakota",
@@ -86,18 +81,140 @@ const AddAddressForm = () => {
         "Wyoming",
     ];
     const stateOptions = states.map((state) => {
-        return <option key={state} value={state}>{state}</option>;
+        return (
+            <option key={state} value={state}>
+                {state}
+            </option>
+        );
     });
+
+    const api_key = process.env.REACT_APP_API_KEY;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await dispatch(addAddress({firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
-        if (data.errors) {
-            setErrors(data.errors);
-        } else {
-            await closeModal()
-            history.push(`/address/${data.id}`)
+
+        const response = await fetch(
+            `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    address: {
+                        revision: 0,
+                        addressLines: [
+                            firstAddressLine,
+                            secondAddressLine,
+                            `${city}, ${state} ${zipCode}`,
+                        ],
+                    },
+                    previousResponseId: "",
+                    enableUspsCass: true,
+                }),
+            }
+        );
+        const addressResponse = await response.json();
+        console.log(addressResponse)
+
+        if (addressResponse.result.verdict.hasReplacedComponents){
+            addressResponse.result.address.addressComponents.forEach((component) => {
+                if (component.replaced == true) {
+                    if (component.componentType === 'locality'){
+                        setCity(component.componentName.text)
+                    } else if (component.componentType === 'postal_code'){
+                        console.log('component-text ----- ',component.componentName.text)
+                        setZipCode(component.componentName.text)
+                        console.log('zipCode ------', zipCode)
+                    } else if (component.componentType === 'subpremise') {
+                        setSecondAddressLine(component.componentName.text)
+                    }
+                }
+            })
         }
+
+        if (
+            addressResponse.result.verdict.hasUnconfirmedComponents ||
+            addressResponse.result.address.missingComponentTypes ||
+            addressResponse.result.verdict.validationGranularity === "OTHER" ||
+            addressResponse.result.address.unresolvedTokens
+        ) {
+            const unconfirmedComponents =
+                addressResponse.result.address.unconfirmedComponentTypes;
+            const unconfirmedErrors = unconfirmedComponents?.map(
+                (component) => {
+                    if (component === "route") {
+                        return "Street: Please provide a valid street name.";
+                    } else if (component === "locality") {
+                        return "City: Please provide a valid city.";
+                    } else if (component === "postal_code") {
+                        return "Zip Code: Please provide a valid Zip Code.";
+                    } else if (component === "street_number") {
+                        return "Street Number: Please provide a valid Street Number.";
+                    } else if (component === "subpremise") {
+                        return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
+                    } else {
+                        return null;
+                    }
+                }
+            );
+            if (unconfirmedErrors) {
+                setErrors(unconfirmedErrors);
+                setGoogleErrors(true)
+            }
+
+            const missingComponents =
+                addressResponse.result.address.missingComponentTypes;
+            const missingErrors = missingComponents?.map((component) => {
+                if (component === "route") {
+                    return "Street: Please provide a valid street name.";
+                } else if (component === "locality") {
+                    return "City: Please provide a valid city.";
+                } else if (component === "postal_code") {
+                    return "Zip Code: Please provide a valid Zip Code.";
+                } else if (component === "street_number") {
+                    return "Street Number: Please provide a valid Street Number.";
+                } else if (component === "subpremise") {
+                    return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
+                } else {
+                    return null;
+                }
+            });
+            console.log(missingErrors)
+            if (missingErrors) {
+                console.log('in missing errors--------', missingErrors)
+                setErrors([...errors, ...missingErrors]);
+                setGoogleErrors(true)
+            }
+
+            if (addressResponse.result.address.unresolvedTokens) {
+                setErrors([...errors, "Invalid Input: Please provide a valid address.",]);
+                setGoogleErrors(true)
+            }
+        } else {
+            const data = await dispatch(
+                addAddress({
+                    firstAddressLine,
+                    secondAddressLine,
+                    city,
+                    state,
+                    zipCode,
+                    ownerName,
+                    ownerEmail,
+                    ownerFirstAddressLine,
+                    ownerSecondAddressLine,
+                    ownerCity,
+                    ownerState,
+                    ownerZipCode,
+                    notes,
+                    nextInspectionDate,
+                })
+            );
+            if (data.errors) {
+                setErrors(data.errors);
+            } else {
+                await closeModal();
+                history.push(`/address/${data.id}`);
+            }
+        }
+
     };
 
     return (
@@ -145,9 +262,12 @@ const AddAddressForm = () => {
                         name="state"
                         onChange={(e) => setState(e.target.value)}
                         required={true}
-                        defaultValue=''
+                        defaultValue=""
                     >
-                        <option disabled value=''> -- select a State -- </option>
+                        <option disabled value="">
+                            {" "}
+                            -- select a State --{" "}
+                        </option>
                         {stateOptions}
                     </select>
                 </div>
@@ -185,7 +305,9 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerFirstAddressLine"
-                        onChange={(e) => setOwnerFirstAddressLine(e.target.value)}
+                        onChange={(e) =>
+                            setOwnerFirstAddressLine(e.target.value)
+                        }
                         value={ownerFirstAddressLine}
                     ></input>
                 </div>
@@ -194,7 +316,9 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerSecondAddressLine"
-                        onChange={(e) => setOwnerSecondAddressLine(e.target.value)}
+                        onChange={(e) =>
+                            setOwnerSecondAddressLine(e.target.value)
+                        }
                         value={ownerSecondAddressLine}
                     ></input>
                 </div>
@@ -213,9 +337,9 @@ const AddAddressForm = () => {
                         type="select"
                         name="ownerState"
                         onChange={(e) => setOwnerState(e.target.value)}
-                        defaultValue=''
+                        defaultValue=""
                     >
-                        <option value=''> -- select a State -- </option>
+                        <option value=""> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>
