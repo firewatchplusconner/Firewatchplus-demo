@@ -34,7 +34,7 @@ const AddressList = () => {
     return (
         <>
             {loaded && (
-                <div>
+                <div className="mar20b">
                     <h2>Address List</h2>
                     <div>{addressContent}</div>
                     <OpenModalButton

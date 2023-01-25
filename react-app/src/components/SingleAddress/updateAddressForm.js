@@ -9,11 +9,11 @@ const UpdateAddressForm = () => {
     const singleAddress = useSelector(state => state.addresses.singleAddress)
     const history = useHistory()
     const [errors, setErrors] = useState([]);
-    const [firstAddressLine, setFirstAddressLine] = useState(singleAddress.firstAddressLine);
-    const [secondAddressLine, setSecondAddressLine] = useState(singleAddress.secondAddressLine);
-    const [city, setCity] = useState(singleAddress.city);
-    const [state, setState] = useState(singleAddress.state);
-    const [zipCode, setZipCode] = useState(singleAddress.zipCode);
+    // const [firstAddressLine, setFirstAddressLine] = useState(singleAddress.firstAddressLine);
+    // const [secondAddressLine, setSecondAddressLine] = useState(singleAddress.secondAddressLine);
+    // const [city, setCity] = useState(singleAddress.city);
+    // const [state, setState] = useState(singleAddress.state);
+    // const [zipCode, setZipCode] = useState(singleAddress.zipCode);
     const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
     const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
     const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(singleAddress.ownerFirstAddressLine);
@@ -86,18 +86,26 @@ const UpdateAddressForm = () => {
         "Wisconsin",
         "Wyoming",
     ];
-    const stateOptions = states.map((state) => {
-        return <option key={state} value={state}>{state}</option>;
+
+    // const updateState = async (e) => {
+    //     console.log('initial state ------------------', state)
+    //     console.log('value', e.target.value)
+    //     await setState(e.target.value)
+    //     console.log('after state ------------------', state)
+    // }
+
+    const stateOptions = states.map((stateOption) => {
+        return <option key={stateOption} value={stateOption}>{stateOption}</option>;
     });
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await dispatch(updateAddress(singleAddress.id, {firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
+        const data = await dispatch(updateAddress(singleAddress.id, {ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
         if (data) {
             setErrors(data);
         } else {
             await closeModal()
-            // history.push(`/address/${singleAddress.id}`)
         }
     };
 
@@ -110,7 +118,7 @@ const UpdateAddressForm = () => {
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <div className="fdcol mar20b">
+                {/* <div className="fdcol mar20b">
                     <label>Street Address *</label>
                     <input
                         type="text"
@@ -125,8 +133,7 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="secondAddressLine"
-                        onChange={(e) => setSecondAddressLine(e.target.value)}
-                        value={secondAddressLine}
+                        defaultValue={state}
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -142,12 +149,10 @@ const UpdateAddressForm = () => {
                 <div className="fdcol mar20b">
                     <label>State *</label>
                     <select
-                        type="select"
                         name="state"
-                        onChange={(e) => setState(e.target.value)}
                         required={true}
+                        onChange={updateState}
                     >
-                        <option disabled selected value> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>
@@ -160,7 +165,7 @@ const UpdateAddressForm = () => {
                         value={zipCode}
                         required={true}
                     ></input>
-                </div>
+                </div> */}
                 <div className="fdcol mar20b">
                     <label>Owner Name</label>
                     <input
@@ -213,8 +218,9 @@ const UpdateAddressForm = () => {
                         type="select"
                         name="ownerState"
                         onChange={(e) => setOwnerState(e.target.value)}
+                        defaultValue={ownerState ? ownerState : ''}
                     >
-                        <option selected value> -- select a State -- </option>
+                        <option value=''> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>

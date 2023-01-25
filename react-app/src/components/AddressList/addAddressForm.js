@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { addAddress } from "../../store/addresses";
@@ -23,7 +23,6 @@ const AddAddressForm = () => {
     const [notes, setNotes] = useState("");
     const [nextInspectionDate, setNextInspectionDate] = useState("");
     const dispatch = useDispatch()
-    const singleAddress = useSelector(state => state.addresses.singleAddress)
 
     const states = [
         "Alabama",
@@ -93,11 +92,11 @@ const AddAddressForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = await dispatch(addAddress({firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
-        if (data) {
-            setErrors(data);
+        if (data.errors) {
+            setErrors(data.errors);
         } else {
             await closeModal()
-            history.push(`/address/${singleAddress.id}`)
+            history.push(`/address/${data.id}`)
         }
     };
 
@@ -146,8 +145,9 @@ const AddAddressForm = () => {
                         name="state"
                         onChange={(e) => setState(e.target.value)}
                         required={true}
+                        defaultValue=''
                     >
-                        <option disabled selected value> -- select a State -- </option>
+                        <option disabled value=''> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>
@@ -213,8 +213,9 @@ const AddAddressForm = () => {
                         type="select"
                         name="ownerState"
                         onChange={(e) => setOwnerState(e.target.value)}
+                        defaultValue=''
                     >
-                        <option selected value> -- select a State -- </option>
+                        <option value=''> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>
