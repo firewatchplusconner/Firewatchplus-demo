@@ -58,7 +58,7 @@ export const deleteAddress = (id) => async (dispatch) => {
 };
 
 export const addAddress = (address) => async (dispatch) => {
-    const response = await fetch("/api/address", {
+    const response = await fetch("/api/address/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

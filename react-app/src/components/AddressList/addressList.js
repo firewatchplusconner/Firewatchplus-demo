@@ -25,7 +25,7 @@ const AddressList = () => {
 
     const addressContent = addressList.map(address => {
         return (
-            <NavLink to={`/address/${address.id}`} className="tdnone tclight mar20 nhvr">
+            <NavLink to={`/address/${address.id}`} className="tdnone tclight mar20 nhvr" key={`${address.id}`}>
                 <div className="nhvr">{address.firstAddressLine} {address.city}, {address.state} {address.zipCode}</div>
             </NavLink>
         )
