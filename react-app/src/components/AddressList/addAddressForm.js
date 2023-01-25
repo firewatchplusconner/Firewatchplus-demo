@@ -22,8 +22,7 @@ const AddAddressForm = () => {
     const [ownerZipCode, setOwnerZipCode] = useState("");
     const [notes, setNotes] = useState("");
     const [nextInspectionDate, setNextInspectionDate] = useState("");
-    const [googleResponse, setGoogleResponse] = useState('')
-    const [googleErrors, setGoogleErrors] = useState(true)
+    const [googleResponse, setGoogleResponse] = useState(false);
     const dispatch = useDispatch();
 
     const states = [
@@ -92,7 +91,6 @@ const AddAddressForm = () => {
     const api_key = process.env.REACT_APP_API_KEY;
 
     const handleGoogleResponse = (addressResponse) => {
-        let zipCodeToSet = "";
         if (addressResponse.result.verdict.hasReplacedComponents) {
             addressResponse.result.address.addressComponents.forEach(
                 (component) => {
@@ -100,15 +98,7 @@ const AddAddressForm = () => {
                         if (component.componentType === "locality") {
                             setCity(component.componentName.text);
                         } else if (component.componentType === "postal_code") {
-                            console.log(
-                                "---- in the postal_code else if block ----"
-                            );
-                            console.log(
-                                "component-text ----- ",
-                                component.componentName.text
-                            );
                             setZipCode(component.componentName.text);
-                            zipCodeToSet = component.componentName.text;
                             console.log("zipCode ------", zipCode);
                         } else if (component.componentType === "subpremise") {
                             setSecondAddressLine(component.componentName.text);
@@ -117,10 +107,6 @@ const AddAddressForm = () => {
                 }
             );
         }
-
-        console.log("zip code to set ----", zipCodeToSet);
-        setZipCode(zipCodeToSet ? zipCodeToSet : zipCode);
-        console.log("after setting zip code ----", zipCode);
 
         if (
             addressResponse.result.verdict.hasUnconfirmedComponents ||
@@ -180,11 +166,39 @@ const AddAddressForm = () => {
             }
         }
 
-        submitNewAddress()
+        setGoogleResponse(true);
     };
 
-    const submitNewAddress = async () => {
-        if (!errors[0]) {
+
+    const HandleSubmit = async (e) => {
+        e.preventDefault();
+        setErrors([]);
+        setGoogleResponse(false);
+        const response = await fetch(
+            `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    address: {
+                        revision: 0,
+                        addressLines: [
+                            firstAddressLine,
+                            secondAddressLine,
+                            `${city}, ${state} ${zipCode}`,
+                        ],
+                    },
+                    previousResponseId: "",
+                    enableUspsCass: true,
+                }),
+            }
+        );
+        const addressResponse = await response.json();
+
+        handleGoogleResponse(addressResponse);
+    };
+
+    useEffect(() => {
+        const submitNewAddress = async () => {
             const data = await dispatch(
                 addAddress({
                     firstAddressLine,
@@ -209,35 +223,14 @@ const AddAddressForm = () => {
                 await closeModal();
                 history.push(`/address/${data.id}`);
             }
-        }
-    };
-
-    const HandleSubmit = async (e) => {
-        e.preventDefault();
-
-        const response = await fetch(
-            `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
-            {
-                method: "POST",
-                body: JSON.stringify({
-                    address: {
-                        revision: 0,
-                        addressLines: [
-                            firstAddressLine,
-                            secondAddressLine,
-                            `${city}, ${state} ${zipCode}`,
-                        ],
-                    },
-                    previousResponseId: "",
-                    enableUspsCass: true,
-                }),
+        };
+        
+        if (googleResponse) {
+            if (!errors[0]) {
+                submitNewAddress();
             }
-        );
-        const addressResponse = await response.json();
-        console.log(addressResponse);
-
-        handleGoogleResponse(addressResponse);
-    };
+        }
+    }, [googleResponse, errors]);
 
     return (
         <div className="pad30 fdcol w30vw">
