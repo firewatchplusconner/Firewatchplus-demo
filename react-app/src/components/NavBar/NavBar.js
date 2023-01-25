@@ -21,7 +21,7 @@ const NavBar = () => {
                 </div>
                 {user && (
                     <div>
-                        <NavLink to="/addresses" className="tdnone tclight">
+                        <NavLink to="/address" className="tdnone tclight">
                             Addresses
                         </NavLink>
                     </div>
@@ -64,5 +64,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-
