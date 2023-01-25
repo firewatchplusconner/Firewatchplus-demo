@@ -88,7 +88,7 @@ const AddAddressForm = () => {
         );
     });
 
-    const api_key = process.env.REACT_APP_API_KEY;
+    const api_key = process.env.REACT_APP_GOOGLE_API_KEY;
 
     const handleGoogleResponse = (addressResponse) => {
         if (addressResponse.result.verdict.hasReplacedComponents) {
