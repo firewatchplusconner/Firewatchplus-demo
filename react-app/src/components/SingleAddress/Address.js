@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { loadSingleAddress } from "../../store/addresses";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import UpdateAddressForm from "./updateAddressForm";
+import OpenModalButton from "../OpenModalButton";
 
 const Address = () => {
-    const { addressId } = useParams()
+    const { addressId } = useParams();
     const address = useSelector((state) => state.addresses.singleAddress);
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
@@ -21,19 +23,33 @@ const Address = () => {
         <>
             {loaded && (
                 <div>
-                    <h2>{address.firstAddressLine} {address.city}, {address.state} {address.zipCode}</h2>
+                    <h2>
+                        {address.firstAddressLine} {address.city},{" "}
+                        {address.state} {address.zipCode}
+                    </h2>
                     <div>Owner: {address.ownerName}</div>
                     <div>Owner Phone Number: {address.ownerPhone}</div>
                     <div>Owner Email Address: {address.ownerEmail}</div>
-                    <div>Owner Address: {address.ownerFirstAddressLine} {address.ownerCity}, {address.ownerState} {address.ownerZipCode}</div>
-                    <div>Notes
+                    <div>
+                        Owner Address: {address.ownerFirstAddressLine}{" "}
+                        {address.ownerCity}, {address.ownerState}{" "}
+                        {address.ownerZipCode}
+                    </div>
+                    <div>
+                        Notes
                         <div>{address.notes}</div>
                     </div>
-                    <div>Next Inspection Date: {address.nextInspectionDate}</div>
+                    <div>
+                        Next Inspection Date: {address.nextInspectionDate}
+                    </div>
+                    <OpenModalButton
+                        buttonText="Update Address"
+                        modalComponent={<UpdateAddressForm />}
+                    />
                 </div>
             )}
         </>
-    )
-}
+    );
+};
 
-export default Address
+export default Address;

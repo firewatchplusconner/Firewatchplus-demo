@@ -21,7 +21,7 @@ def address_exists(form, field):
 
 class AddressForm(FlaskForm):
     firstAddressLine = StringField('First Address Line', validators=[DataRequired(), address_exists])
-    secondAddressLine = StringField('Second Address Line', validators=[DataRequired(), address_exists])
+    secondAddressLine = StringField('Second Address Line', validators=[address_exists])
     city = StringField('City', validators=[DataRequired(), address_exists])
     state = StringField('State', validators=[DataRequired(), address_exists])
     zipCode = StringField('Zipcode', validators=[DataRequired(), address_exists])
