@@ -1,1 +1,223 @@
 /* TODO Add site wide styles */
+* {
+    --space-cadet: #1a2d57ff;
+    --celadon: #b2d3a8ff;
+    --olivine: #b6d094ff;
+    --barn-red: #6f1a07ff;
+    --gunmetal: rgb(31, 36, 43);
+    --gray-web: #7c7c7cff;
+    --morning-blue: #88a09eff;
+    --saddle-brown: #874000ff;
+    --pullman-brown-ups-brown: #5b3000ff;
+    --black-bean: #301100ff;
+    font-family: "Lato","Lucida Grande","Lucida Sans Unicode","Lucida Sans","Geneva","Verdana",sans-serif;;
+}
+
+.fxlar {
+    font-size: x-large
+}
+
+.flar {
+    font-size: large;
+}
+
+.fmed {
+    font-size: medium
+}
+
+.fbold {
+    font-weight: bold;
+}
+
+.fxbold {
+    font-weight: bolder;
+}
+
+.tdnone {
+    text-decoration: none;
+}
+
+.tclight {
+    color: lightgray
+}
+
+.bsbb {
+    box-sizing: border-box;
+}
+
+.bred {
+    border: 3px solid red;
+}
+
+.bgreen {
+    border: 3px solid green
+}
+
+.byellow {
+    border: 3px solid yellow
+}
+
+.darkbg {
+    background-color: var(--gunmetal);
+    color: var(--morning-blue);
+}
+
+.sticky {
+    display: sticky;
+}
+
+.flex {
+    display: flex
+}
+
+.fdrow {
+    display: flex;
+    flex-direction: row;
+}
+
+.fdcol {
+    display: flex;
+    flex-direction: column;
+}
+
+.aicen {
+    display: flex;
+    align-items: center;
+}
+
+.accen {
+    display: flex;
+    align-content: center;
+}
+
+.jccen {
+    display: flex;
+    justify-content: center;
+}
+
+.sb {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sa {
+    display: flex;
+    justify-content: space-around;
+}
+
+.wauto {
+    width: auto
+}
+
+.hauto {
+    height: auto
+}
+
+.w100vw {
+    width: 100vw
+}
+
+.w100p {
+    width: 100%
+}
+
+.w80p {
+    width: 80%
+}
+
+.w60p {
+    width: 60%
+}
+
+.w70p {
+    width: 70%
+}
+
+.w50p {
+    width: 50%
+}
+
+
+.h100vh {
+    height: 100vh
+}
+
+.h100p {
+    height: 100%
+}
+
+.h80p {
+    height: 80%
+}
+
+.h50p {
+    height: 50%
+}
+
+.pad0 {
+    padding: none;
+}
+
+.pad10 {
+    padding: 10px;
+}
+
+.pad10l {
+    padding-left: 10px;
+}
+
+.pad10r {
+    padding-right: 10px
+}
+
+.pad10t {
+    padding-top: 10px;
+}
+
+.pad10b {
+    padding-bottom: 10px
+}
+
+.marlrauto {
+    margin: 0 auto;
+}
+
+.mar10 {
+    margin: 10px
+}
+
+.mar20 {
+    margin: 20px
+}
+
+.mar10t {
+    margin-top: 10px
+}
+
+.mar30t {
+    margin-top: 30px
+}
+
+.mar20t {
+    margin-top: 20px
+}
+
+.mar10b {
+    margin-bottom: 10px
+}
+
+.mar20b {
+    margin-bottom: 20px
+}
+
+.mar10l {
+    margin-left: 10px
+}
+
+.mar10r {
+    margin-right: 10px
+}
+
+.mar0 {
+    margin: 0;
+}
