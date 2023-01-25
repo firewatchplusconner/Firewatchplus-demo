@@ -197,6 +197,8 @@ const AddAddressForm = () => {
         handleGoogleResponse(addressResponse);
     };
 
+
+
     useEffect(() => {
         const submitNewAddress = async () => {
             const data = await dispatch(
@@ -224,13 +226,13 @@ const AddAddressForm = () => {
                 history.push(`/address/${data.id}`);
             }
         };
-        
+
         if (googleResponse) {
             if (!errors[0]) {
                 submitNewAddress();
             }
         }
-    }, [googleResponse, errors]);
+    }, [googleResponse, errors, firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate, closeModal, dispatch, history]);
 
     return (
         <div className="pad30 fdcol w30vw">

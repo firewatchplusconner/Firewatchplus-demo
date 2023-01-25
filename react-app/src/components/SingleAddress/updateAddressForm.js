@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { updateAddress } from "../../store/addresses";
 
@@ -8,11 +7,7 @@ const UpdateAddressForm = () => {
     const { closeModal } = useModal();
     const singleAddress = useSelector(state => state.addresses.singleAddress)
     const [errors, setErrors] = useState([]);
-    // const [firstAddressLine, setFirstAddressLine] = useState(singleAddress.firstAddressLine);
-    // const [secondAddressLine, setSecondAddressLine] = useState(singleAddress.secondAddressLine);
-    // const [city, setCity] = useState(singleAddress.city);
-    // const [state, setState] = useState(singleAddress.state);
-    // const [zipCode, setZipCode] = useState(singleAddress.zipCode);
+
     const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
     const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
     const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(singleAddress.ownerFirstAddressLine);
@@ -111,54 +106,6 @@ const UpdateAddressForm = () => {
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                {/* <div className="fdcol mar20b">
-                    <label>Street Address *</label>
-                    <input
-                        type="text"
-                        name="firstAddressLine"
-                        onChange={(e) => setFirstAddressLine(e.target.value)}
-                        value={firstAddressLine}
-                        required={true}
-                    ></input>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>Apt, suite, or unit</label>
-                    <input
-                        type="text"
-                        name="secondAddressLine"
-                        defaultValue={state}
-                    ></input>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>City *</label>
-                    <input
-                        type="text"
-                        name="City"
-                        onChange={(e) => setCity(e.target.value)}
-                        value={city}
-                        required={true}
-                    ></input>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>State *</label>
-                    <select
-                        name="state"
-                        required={true}
-                        onChange={updateState}
-                    >
-                        {stateOptions}
-                    </select>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>Zip Code *</label>
-                    <input
-                        type="text"
-                        name="zipCode"
-                        onChange={(e) => setZipCode(e.target.value)}
-                        value={zipCode}
-                        required={true}
-                    ></input>
-                </div> */}
                 <div className="fdcol mar20b">
                     <label>Owner Name</label>
                     <input
