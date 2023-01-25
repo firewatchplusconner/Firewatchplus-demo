@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required
 from app.models import Address, db
-from app.forms import AddressForm
+from app.forms import AddressForm, UpdateAddressForm
 
 address_routes = Blueprint('addresses', __name__)
 
@@ -67,7 +67,7 @@ def update_address(id):
     '''
     address = Address.query.get(id)
 
-    form = AddressForm()
+    form = UpdateAddressForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if not address:

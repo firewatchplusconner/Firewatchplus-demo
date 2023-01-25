@@ -1,19 +1,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { updateAddress } from "../../store/addresses";
 
 const UpdateAddressForm = () => {
     const { closeModal } = useModal();
     const singleAddress = useSelector(state => state.addresses.singleAddress)
-    const history = useHistory()
     const [errors, setErrors] = useState([]);
-    const [firstAddressLine, setFirstAddressLine] = useState(singleAddress.firstAddressLine);
-    const [secondAddressLine, setSecondAddressLine] = useState(singleAddress.secondAddressLine);
-    const [city, setCity] = useState(singleAddress.city);
-    const [state, setState] = useState(singleAddress.state);
-    const [zipCode, setZipCode] = useState(singleAddress.zipCode);
+
     const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
     const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
     const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(singleAddress.ownerFirstAddressLine);
@@ -28,7 +22,6 @@ const UpdateAddressForm = () => {
     const states = [
         "Alabama",
         "Alaska",
-        "American Samoa",
         "Arizona",
         "Arkansas",
         "California",
@@ -36,7 +29,6 @@ const UpdateAddressForm = () => {
         "Connecticut",
         "Delaware",
         "District of Columbia",
-        "Federated States of Micronesia",
         "Florida",
         "Georgia",
         "Guam",
@@ -49,7 +41,6 @@ const UpdateAddressForm = () => {
         "Kentucky",
         "Louisiana",
         "Maine",
-        "Marshall Islands",
         "Maryland",
         "Massachusetts",
         "Michigan",
@@ -65,13 +56,10 @@ const UpdateAddressForm = () => {
         "New York",
         "North Carolina",
         "North Dakota",
-        "Northern Mariana Islands",
         "Ohio",
         "Oklahoma",
         "Oregon",
-        "Palau",
         "Pennsylvania",
-        "Puerto Rico",
         "Rhode Island",
         "South Carolina",
         "South Dakota",
@@ -86,18 +74,26 @@ const UpdateAddressForm = () => {
         "Wisconsin",
         "Wyoming",
     ];
-    const stateOptions = states.map((state) => {
-        return <option key={state} value={state}>{state}</option>;
+
+    // const updateState = async (e) => {
+    //     console.log('initial state ------------------', state)
+    //     console.log('value', e.target.value)
+    //     await setState(e.target.value)
+    //     console.log('after state ------------------', state)
+    // }
+
+    const stateOptions = states.map((stateOption) => {
+        return <option key={stateOption} value={stateOption}>{stateOption}</option>;
     });
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await dispatch(updateAddress(singleAddress.id, {firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
+        const data = await dispatch(updateAddress(singleAddress.id, {ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
         if (data) {
             setErrors(data);
         } else {
             await closeModal()
-            // history.push(`/address/${singleAddress.id}`)
         }
     };
 
@@ -109,57 +105,6 @@ const UpdateAddressForm = () => {
                     {errors.map((error, ind) => (
                         <div key={ind}>{error}</div>
                     ))}
-                </div>
-                <div className="fdcol mar20b">
-                    <label>Street Address *</label>
-                    <input
-                        type="text"
-                        name="firstAddressLine"
-                        onChange={(e) => setFirstAddressLine(e.target.value)}
-                        value={firstAddressLine}
-                        required={true}
-                    ></input>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>Apt, suite, or unit</label>
-                    <input
-                        type="text"
-                        name="secondAddressLine"
-                        onChange={(e) => setSecondAddressLine(e.target.value)}
-                        value={secondAddressLine}
-                    ></input>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>City *</label>
-                    <input
-                        type="text"
-                        name="City"
-                        onChange={(e) => setCity(e.target.value)}
-                        value={city}
-                        required={true}
-                    ></input>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>State *</label>
-                    <select
-                        type="select"
-                        name="state"
-                        onChange={(e) => setState(e.target.value)}
-                        required={true}
-                    >
-                        <option disabled selected value> -- select a State -- </option>
-                        {stateOptions}
-                    </select>
-                </div>
-                <div className="fdcol mar20b">
-                    <label>Zip Code *</label>
-                    <input
-                        type="text"
-                        name="zipCode"
-                        onChange={(e) => setZipCode(e.target.value)}
-                        value={zipCode}
-                        required={true}
-                    ></input>
                 </div>
                 <div className="fdcol mar20b">
                     <label>Owner Name</label>
@@ -213,8 +158,9 @@ const UpdateAddressForm = () => {
                         type="select"
                         name="ownerState"
                         onChange={(e) => setOwnerState(e.target.value)}
+                        defaultValue={ownerState ? ownerState : ''}
                     >
-                        <option selected value> -- select a State -- </option>
+                        <option value=''> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>
