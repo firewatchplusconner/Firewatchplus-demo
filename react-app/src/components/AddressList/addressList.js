@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { loadAllAddresses } from "../../store/addresses";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import AddAddressForm from "./addAddressForm";
 
 const AddressList = () => {
     const addresses = useSelector((state) => state.addresses.allAddresses);
@@ -10,7 +12,7 @@ const AddressList = () => {
 
     useEffect(() => {
         dispatch(loadAllAddresses()).then(() => setLoaded(true));
-    }, []);
+    }, [dispatch]);
 
     let addressList = null;
     if (addresses) {
@@ -23,7 +25,7 @@ const AddressList = () => {
 
     const addressContent = addressList.map(address => {
         return (
-            <NavLink to={`/address/${address.id}`} className="tdnone tclight mar20 nhvr">
+            <NavLink to={`/address/${address.id}`} className="tdnone tclight mar20 nhvr" key={`${address.id}`}>
                 <div className="nhvr">{address.firstAddressLine} {address.city}, {address.state} {address.zipCode}</div>
             </NavLink>
         )
@@ -35,6 +37,10 @@ const AddressList = () => {
                 <div>
                     <h2>Address List</h2>
                     <div>{addressContent}</div>
+                    <OpenModalButton
+                        buttonText='Add Address'
+                        modalComponent={<AddAddressForm />}
+                    />
                 </div>
             )}
         </>

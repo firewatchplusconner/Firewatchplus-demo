@@ -7,8 +7,8 @@ const NavBar = () => {
     const user = useSelector((state) => state.session.user);
 
     return (
-        <div className="jccen">
-            <nav className="flex sb tdnone mar10t w70p sticky">
+        <div className="jccen lighterbg pad30">
+            <nav className="flex sb tdnone w70p sticky">
                 <div>
                     <NavLink
                         to="/"
@@ -55,9 +55,10 @@ const NavBar = () => {
                         </div>
                     </>
                 )}
+                {user &&
                 <div>
                     <LogoutButton />
-                </div>
+                </div>}
             </nav>
         </div>
     );
