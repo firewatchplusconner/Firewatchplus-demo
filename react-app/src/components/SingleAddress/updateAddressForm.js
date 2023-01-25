@@ -2,28 +2,28 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import { addAddress } from "../../store/addresses";
+import { updateAddress } from "../../store/addresses";
 
-const AddAddressForm = () => {
+const UpdateAddressForm = () => {
     const { closeModal } = useModal();
+    const singleAddress = useSelector(state => state.addresses.singleAddress)
     const history = useHistory()
     const [errors, setErrors] = useState([]);
-    const [firstAddressLine, setFirstAddressLine] = useState("");
-    const [secondAddressLine, setSecondAddressLine] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [zipCode, setZipCode] = useState("");
-    const [ownerName, setOwnerName] = useState("");
-    const [ownerEmail, setOwnerEmail] = useState("");
-    const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState("");
-    const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState("");
-    const [ownerCity, setOwnerCity] = useState("");
-    const [ownerState, setOwnerState] = useState("");
-    const [ownerZipCode, setOwnerZipCode] = useState("");
-    const [notes, setNotes] = useState("");
-    const [nextInspectionDate, setNextInspectionDate] = useState("");
+    const [firstAddressLine, setFirstAddressLine] = useState(singleAddress.firstAddressLine);
+    const [secondAddressLine, setSecondAddressLine] = useState(singleAddress.secondAddressLine);
+    const [city, setCity] = useState(singleAddress.city);
+    const [state, setState] = useState(singleAddress.state);
+    const [zipCode, setZipCode] = useState(singleAddress.zipCode);
+    const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
+    const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
+    const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(singleAddress.ownerFirstAddressLine);
+    const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState(singleAddress.ownerSecondAddressLine);
+    const [ownerCity, setOwnerCity] = useState(singleAddress.ownerCity);
+    const [ownerState, setOwnerState] = useState(singleAddress.ownerState);
+    const [ownerZipCode, setOwnerZipCode] = useState(singleAddress.ownerZipCode);
+    const [notes, setNotes] = useState(singleAddress.notes);
+    const [nextInspectionDate, setNextInspectionDate] = useState(singleAddress.nextInspectionDate);
     const dispatch = useDispatch()
-    const singleAddress = useSelector(state => state.addresses.singleAddress)
 
     const states = [
         "Alabama",
@@ -92,18 +92,18 @@ const AddAddressForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await dispatch(addAddress({firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
+        const data = await dispatch(updateAddress(singleAddress.id, {firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
         if (data) {
             setErrors(data);
         } else {
             await closeModal()
-            history.push(`/address/${singleAddress.id}`)
+            // history.push(`/address/${singleAddress.id}`)
         }
     };
 
     return (
         <div className="pad30 fdcol w30vw">
-            <h1>Add Address</h1>
+            <h1>Update Address</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
@@ -247,7 +247,7 @@ const AddAddressForm = () => {
                 </div>
                 <div className="jccen mar20t">
                     <button type="submit" className="w100p">
-                        Add Address
+                        Save
                     </button>
                 </div>
             </form>
@@ -255,4 +255,4 @@ const AddAddressForm = () => {
     );
 };
 
-export default AddAddressForm;
+export default UpdateAddressForm

@@ -82,7 +82,7 @@ export const addAddress = (address) => async (dispatch) => {
 
 export const updateAddress = (id, address) => async (dispatch) => {
     const response = await fetch(`/api/address/${id}`, {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
