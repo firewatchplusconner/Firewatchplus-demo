@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { loadAllAddresses } from "../../store/addresses";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import AddAddressForm from "./addAddressForm";
 
 const AddressList = () => {
     const addresses = useSelector((state) => state.addresses.allAddresses);
@@ -35,6 +37,10 @@ const AddressList = () => {
                 <div>
                     <h2>Address List</h2>
                     <div>{addressContent}</div>
+                    <OpenModalButton
+                        buttonText='Add Address'
+                        modalComponent={<AddAddressForm />}
+                    />
                 </div>
             )}
         </>
