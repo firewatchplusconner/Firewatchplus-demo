@@ -29,7 +29,7 @@ function App() {
     return (
         <>
             <NavBar />
-            <div className="jccen bred w80p marlrauto mar20t">
+            <div className="jccen w80p marlrauto mar20t">
                 <Switch>
                     <Route path="/login" exact={true}>
                         <LoginForm />
