@@ -41,6 +41,12 @@
     color: lightgray
 }
 
+.nhvr:hover {
+    color: var(--gray-web);
+    text-decoration: underline;
+    text-decoration-color: var(--gray-web);
+}
+
 .bsbb {
     box-sizing: border-box;
 }

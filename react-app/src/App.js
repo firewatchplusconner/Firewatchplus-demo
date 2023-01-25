@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -9,6 +9,7 @@ import UsersList from "./components/User/UsersList";
 import User from "./components/User/User";
 import AddressList from "./components/AddressList/addressList";
 import { authenticate } from "./store/session";
+import Address from "./components/SingleAddress/Address";
 
 function App() {
     const [loaded, setLoaded] = useState(false);
@@ -36,7 +37,10 @@ function App() {
                     <Route path="/sign-up" exact={true}>
                         <SignUpForm />
                     </Route>
-                    <ProtectedRoute path="/addresses">
+                    <ProtectedRoute path='/address/:addressId'>
+                        <Address />
+                    </ProtectedRoute>
+                    <ProtectedRoute path="/address">
                         <AddressList />
                     </ProtectedRoute>
                     <ProtectedRoute path="/users" exact={true}>
