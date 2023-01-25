@@ -23,7 +23,7 @@ def addresses():
     Query for all addresses and return them in a list of user dictionaries without associated inspections
     '''
     addresses = Address.query.all()
-    return {addresses: [address.to_dict_basic_info() for address in addresses]}, 200
+    return {address.id: address.to_dict_basic_info() for address in addresses}, 200
 
 
 @address_routes.route('/<int:id>')
