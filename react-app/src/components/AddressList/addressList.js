@@ -12,7 +12,7 @@ const AddressList = () => {
 
     useEffect(() => {
         dispatch(loadAllAddresses()).then(() => setLoaded(true));
-    }, []);
+    }, [dispatch]);
 
     let addressList = null;
     if (addresses) {

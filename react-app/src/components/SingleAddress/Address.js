@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { loadSingleAddress } from "../../store/addresses";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Address = () => {
     const { addressId } = useParams()
@@ -11,7 +11,7 @@ const Address = () => {
 
     useEffect(() => {
         dispatch(loadSingleAddress(addressId)).then(() => setLoaded(true));
-    }, []);
+    }, [dispatch, addressId]);
 
     if (!loaded) {
         return null;
