@@ -8,7 +8,6 @@ const AddAddressForm = () => {
     const { closeModal } = useModal();
     const history = useHistory();
     const [errors, setErrors] = useState([]);
-    const [googleErrors, setGoogleErrors] = useState(false)
     const [firstAddressLine, setFirstAddressLine] = useState("");
     const [secondAddressLine, setSecondAddressLine] = useState("");
     const [city, setCity] = useState("");
@@ -157,7 +156,6 @@ const AddAddressForm = () => {
             );
             if (unconfirmedErrors) {
                 setErrors(unconfirmedErrors);
-                setGoogleErrors(true)
             }
 
             const missingComponents =
@@ -177,16 +175,12 @@ const AddAddressForm = () => {
                     return null;
                 }
             });
-            console.log(missingErrors)
             if (missingErrors) {
-                console.log('in missing errors--------', missingErrors)
                 setErrors([...errors, ...missingErrors]);
-                setGoogleErrors(true)
             }
 
             if (addressResponse.result.address.unresolvedTokens) {
                 setErrors([...errors, "Invalid Input: Please provide a valid address.",]);
-                setGoogleErrors(true)
             }
         } else {
             const data = await dispatch(
