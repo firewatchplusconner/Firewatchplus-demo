@@ -5,6 +5,7 @@
     --olivine: #b6d094ff;
     --barn-red: #6f1a07ff;
     --gunmetal: rgb(31, 36, 43);
+    --light-gunmetal: rgb(49, 58, 70);
     --gray-web: #7c7c7cff;
     --morning-blue: #88a09eff;
     --saddle-brown: #874000ff;
@@ -41,6 +42,10 @@
     color: lightgray
 }
 
+.btnhvr:hover {
+    cursor: pointer;
+}
+
 .nhvr:hover {
     color: var(--gray-web);
     text-decoration: underline;
@@ -66,6 +71,11 @@
 .darkbg {
     background-color: var(--gunmetal);
     color: var(--morning-blue);
+}
+
+.lighterbg {
+    background-color: var(--light-gunmetal);
+    color: var(--morning-blue)
 }
 
 .sticky {
@@ -123,6 +133,14 @@
     width: 100vw
 }
 
+.w40vw {
+    width: 40vw
+}
+
+.w30vw {
+    width: 30vw
+}
+
 .w100p {
     width: 100%
 }
@@ -166,6 +184,10 @@
 
 .pad10 {
     padding: 10px;
+}
+
+.pad30 {
+    padding: 30px;
 }
 
 .pad10l {
