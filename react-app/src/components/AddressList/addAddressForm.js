@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
@@ -22,6 +22,8 @@ const AddAddressForm = () => {
     const [ownerZipCode, setOwnerZipCode] = useState("");
     const [notes, setNotes] = useState("");
     const [nextInspectionDate, setNextInspectionDate] = useState("");
+    const [googleResponse, setGoogleResponse] = useState('')
+    const [googleErrors, setGoogleErrors] = useState(true)
     const dispatch = useDispatch();
 
     const states = [
@@ -89,45 +91,36 @@ const AddAddressForm = () => {
 
     const api_key = process.env.REACT_APP_API_KEY;
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const response = await fetch(
-            `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
-            {
-                method: "POST",
-                body: JSON.stringify({
-                    address: {
-                        revision: 0,
-                        addressLines: [
-                            firstAddressLine,
-                            secondAddressLine,
-                            `${city}, ${state} ${zipCode}`,
-                        ],
-                    },
-                    previousResponseId: "",
-                    enableUspsCass: true,
-                }),
-            }
-        );
-        const addressResponse = await response.json();
-        console.log(addressResponse)
-
-        if (addressResponse.result.verdict.hasReplacedComponents){
-            addressResponse.result.address.addressComponents.forEach((component) => {
-                if (component.replaced == true) {
-                    if (component.componentType === 'locality'){
-                        setCity(component.componentName.text)
-                    } else if (component.componentType === 'postal_code'){
-                        console.log('component-text ----- ',component.componentName.text)
-                        setZipCode(component.componentName.text)
-                        console.log('zipCode ------', zipCode)
-                    } else if (component.componentType === 'subpremise') {
-                        setSecondAddressLine(component.componentName.text)
+    const handleGoogleResponse = (addressResponse) => {
+        let zipCodeToSet = "";
+        if (addressResponse.result.verdict.hasReplacedComponents) {
+            addressResponse.result.address.addressComponents.forEach(
+                (component) => {
+                    if (component.replaced === true) {
+                        if (component.componentType === "locality") {
+                            setCity(component.componentName.text);
+                        } else if (component.componentType === "postal_code") {
+                            console.log(
+                                "---- in the postal_code else if block ----"
+                            );
+                            console.log(
+                                "component-text ----- ",
+                                component.componentName.text
+                            );
+                            setZipCode(component.componentName.text);
+                            zipCodeToSet = component.componentName.text;
+                            console.log("zipCode ------", zipCode);
+                        } else if (component.componentType === "subpremise") {
+                            setSecondAddressLine(component.componentName.text);
+                        }
                     }
                 }
-            })
+            );
         }
+
+        console.log("zip code to set ----", zipCodeToSet);
+        setZipCode(zipCodeToSet ? zipCodeToSet : zipCode);
+        console.log("after setting zip code ----", zipCode);
 
         if (
             addressResponse.result.verdict.hasUnconfirmedComponents ||
@@ -180,9 +173,18 @@ const AddAddressForm = () => {
             }
 
             if (addressResponse.result.address.unresolvedTokens) {
-                setErrors([...errors, "Invalid Input: Please provide a valid address.",]);
+                setErrors([
+                    ...errors,
+                    "Invalid Input: Please provide a valid address.",
+                ]);
             }
-        } else {
+        }
+
+        submitNewAddress()
+    };
+
+    const submitNewAddress = async () => {
+        if (!errors[0]) {
             const data = await dispatch(
                 addAddress({
                     firstAddressLine,
@@ -208,13 +210,39 @@ const AddAddressForm = () => {
                 history.push(`/address/${data.id}`);
             }
         }
+    };
 
+    const HandleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(
+            `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    address: {
+                        revision: 0,
+                        addressLines: [
+                            firstAddressLine,
+                            secondAddressLine,
+                            `${city}, ${state} ${zipCode}`,
+                        ],
+                    },
+                    previousResponseId: "",
+                    enableUspsCass: true,
+                }),
+            }
+        );
+        const addressResponse = await response.json();
+        console.log(addressResponse);
+
+        handleGoogleResponse(addressResponse);
     };
 
     return (
         <div className="pad30 fdcol w30vw">
             <h1>Add Address</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={HandleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
                         <div key={ind}>{error}</div>
