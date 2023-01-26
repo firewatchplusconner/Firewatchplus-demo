@@ -23,13 +23,20 @@ const AddressList = () => {
         return null;
     }
 
-    const addressContent = addressList.map(address => {
+    const addressContent = addressList.map((address) => {
         return (
-            <NavLink to={`/address/${address.id}`} className="tdnone tclight mar20 nhvr" key={`${address.id}`}>
-                <div className="nhvr">{address.firstAddressLine} {address.city}, {address.state} {address.zipCode}</div>
+            <NavLink
+                to={`/address/${address.id}`}
+                className="tdnone tclight mar20 nhvr"
+                key={`${address.id}`}
+            >
+                <div className="nhvr">
+                    {address.firstAddressLine} {address.city}, {address.state}{" "}
+                    {address.zipCode}
+                </div>
             </NavLink>
-        )
-    })
+        );
+    });
 
     return (
         <>
@@ -37,10 +44,12 @@ const AddressList = () => {
                 <div className="mar20b">
                     <h2>Address List</h2>
                     <div>{addressContent}</div>
-                    <OpenModalButton
-                        buttonText='Add Address'
-                        modalComponent={<AddAddressForm />}
-                    />
+                    <div className="modal-button-container jccen">
+                        <OpenModalButton
+                            buttonText="Add Address"
+                            modalComponent={<AddAddressForm />}
+                        />
+                    </div>
                 </div>
             )}
         </>

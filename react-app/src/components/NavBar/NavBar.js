@@ -8,20 +8,20 @@ const NavBar = () => {
 
     return (
         <div className="jccen lighterbg pad30">
-            <nav className="flex sb tdnone w70p sticky">
+            <nav className="flex sb tdnone w70p sticky aicen">
                 <div>
                     <NavLink
                         to="/"
                         exact={true}
                         activeClassName="active"
-                        className="tdnone tclight"
+                        className="tdnone tclight nhvr"
                     >
                         Home
                     </NavLink>
                 </div>
                 {user && (
                     <div>
-                        <NavLink to="/address" className="tdnone tclight">
+                        <NavLink to="/address" className="tdnone tclight nhvr">
                             Addresses
                         </NavLink>
                     </div>
@@ -38,7 +38,7 @@ const NavBar = () => {
                                 to="/sign-up"
                                 exact={true}
                                 activeClassName="active"
-                                className="tdnone tclight"
+                                className="tdnone tclight nhvr"
                             >
                                 Sign Up
                             </NavLink>
@@ -48,7 +48,7 @@ const NavBar = () => {
                                 to="/login"
                                 exact={true}
                                 activeClassName="active"
-                                className="tdnone tclight"
+                                className="tdnone tclight nhvr"
                             >
                                 Login
                             </NavLink>

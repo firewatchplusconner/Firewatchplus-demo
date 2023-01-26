@@ -4,12 +4,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import UpdateAddressForm from "./updateAddressForm";
 import OpenModalButton from "../OpenModalButton";
+import DeleteAddressModal from "./deleteAddressModal";
 
 const Address = () => {
     const { addressId } = useParams();
     const address = useSelector((state) => state.addresses.singleAddress);
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
+
+    let deletable = false;
+    if (address) {
+        if (address.id !== 1 && address.id !== 2 && address.id !== 3) {
+            deletable = true;
+        }
+    }
 
     useEffect(() => {
         dispatch(loadSingleAddress(addressId)).then(() => setLoaded(true));
@@ -42,10 +50,22 @@ const Address = () => {
                     <div>
                         Next Inspection Date: {address.nextInspectionDate}
                     </div>
-                    <OpenModalButton
-                        buttonText="Update Address"
-                        modalComponent={<UpdateAddressForm />}
-                    />
+                    <div className="sa mar30">
+                        <div className="modal-button-container jccen">
+                            <OpenModalButton
+                                buttonText="Update Address"
+                                modalComponent={<UpdateAddressForm />}
+                            />
+                        </div>
+                        {deletable && (
+                            <div className="modal-button-container jccen">
+                                <OpenModalButton
+                                    buttonText="Delete Address"
+                                    modalComponent={<DeleteAddressModal />}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
         </>

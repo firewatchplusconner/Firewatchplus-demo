@@ -82,7 +82,7 @@ const AddAddressForm = () => {
     ];
     const stateOptions = states.map((state) => {
         return (
-            <option key={state} value={state}>
+            <option key={state} value={state} className='opt h40px'>
                 {state}
             </option>
         );
@@ -235,8 +235,8 @@ const AddAddressForm = () => {
     }, [googleResponse, errors, firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate, closeModal, dispatch, history]);
 
     return (
-        <div className="pad30 fdcol w30vw">
-            <h1>Add Address</h1>
+        <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
+            <h1 className='marlrauto mar10b'>Add Address</h1>
             <form onSubmit={HandleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
@@ -251,6 +251,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setFirstAddressLine(e.target.value)}
                         value={firstAddressLine}
                         required={true}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -260,6 +261,7 @@ const AddAddressForm = () => {
                         name="secondAddressLine"
                         onChange={(e) => setSecondAddressLine(e.target.value)}
                         value={secondAddressLine}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -270,6 +272,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setCity(e.target.value)}
                         value={city}
                         required={true}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -280,6 +283,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setState(e.target.value)}
                         required={true}
                         defaultValue=""
+                        className='iflight bnone h40px state'
                     >
                         <option disabled value="">
                             {" "}
@@ -296,6 +300,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setZipCode(e.target.value)}
                         value={zipCode}
                         required={true}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -305,6 +310,7 @@ const AddAddressForm = () => {
                         name="ownerName"
                         onChange={(e) => setOwnerName(e.target.value)}
                         value={ownerName}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
 
@@ -315,6 +321,7 @@ const AddAddressForm = () => {
                         name="ownerEmail"
                         onChange={(e) => setOwnerEmail(e.target.value)}
                         value={ownerEmail}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -326,6 +333,7 @@ const AddAddressForm = () => {
                             setOwnerFirstAddressLine(e.target.value)
                         }
                         value={ownerFirstAddressLine}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -337,6 +345,7 @@ const AddAddressForm = () => {
                             setOwnerSecondAddressLine(e.target.value)
                         }
                         value={ownerSecondAddressLine}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -346,6 +355,7 @@ const AddAddressForm = () => {
                         name="ownerCity"
                         onChange={(e) => setOwnerCity(e.target.value)}
                         value={ownerCity}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -355,6 +365,7 @@ const AddAddressForm = () => {
                         name="ownerState"
                         onChange={(e) => setOwnerState(e.target.value)}
                         defaultValue=""
+                        className='iflight bnone h40px'
                     >
                         <option value=""> -- select a State -- </option>
                         {stateOptions}
@@ -367,6 +378,7 @@ const AddAddressForm = () => {
                         name="ownerZipCode"
                         onChange={(e) => setOwnerZipCode(e.target.value)}
                         value={ownerZipCode}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -376,6 +388,7 @@ const AddAddressForm = () => {
                         name="notes"
                         onChange={(e) => setNotes(e.target.value)}
                         value={notes}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -385,10 +398,11 @@ const AddAddressForm = () => {
                         name="nextInspectionDate"
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
-                <div className="jccen mar20t">
-                    <button type="submit" className="w100p">
+                <div className="jccen mar30t">
+                    <button type="submit" className='w100p h50px btndark pad0'>
                         Add Address
                     </button>
                 </div>
