@@ -99,7 +99,6 @@ const AddAddressForm = () => {
                             setCity(component.componentName.text);
                         } else if (component.componentType === "postal_code") {
                             setZipCode(component.componentName.text);
-                            console.log("zipCode ------", zipCode);
                         } else if (component.componentType === "subpremise") {
                             setSecondAddressLine(component.componentName.text);
                         }

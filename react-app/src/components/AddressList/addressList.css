@@ -1,0 +1,74 @@
+
+.address-modal-button-container>button {
+    background-color: lightgray;
+    color: var(--gunmetal);
+    border-radius: 10px;
+    width: 50%;
+    height: 40px
+}
+
+.address-modal-button-container>button:hover {
+    cursor: pointer;
+    background-color: rgb(160, 160, 160);
+}
+
+.address-list-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.address-list-header {
+    /* border: 3px solid  yellow; */
+    margin-bottom: 40px;
+}
+
+.address-container-header {
+    border: 4px solid var(--light-gunmetal);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    align-items: center;
+    font-size: large;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    --light-gunmetal: rgb(49, 58, 70)
+}
+
+.address-container {
+    border: 2px solid var(--light-gunmetal);
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+}
+
+.address-container:hover {
+    border: 2px solid rgb(85, 92, 102)
+}
+
+.id-container {
+    box-sizing: border-box;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    border-right: 2px solid var(--light-gunmetal)
+}
+
+.address {
+    width: 60%;
+    display:flex;
+    justify-content: center;
+}
+
+.next-inspection-date {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    border-left: 2px solid var(--light-gunmetal);
+    height: 100%;
+}
