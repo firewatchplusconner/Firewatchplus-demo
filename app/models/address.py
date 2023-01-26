@@ -23,13 +23,13 @@ class Address(db.Model):
     notes = db.Column(db.Text)
     nextInspectionDate = db.Column(db.String)
 
-    inspections = db.relationship('Inspection', back_populates='address')
+    inspections = db.relationship('Inspection', back_populates='address', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
             'id': self.id,
             'firstAddressLine': self.firstAddressLine,
-            'secondAddresLine': self.secondAddressLine,
+            'secondAddressLine': self.secondAddressLine,
             'city': self.city,
             'state': self.state,
             'zipCode': self.zipCode,
@@ -50,7 +50,7 @@ class Address(db.Model):
         return {
             'id': self.id,
             'firstAddressLine': self.firstAddressLine,
-            'secondAddresLine': self.secondAddressLine,
+            'secondAddressLine': self.secondAddressLine,
             'city': self.city,
             'state': self.state,
             'zipCode': self.zipCode,
