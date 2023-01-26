@@ -16,6 +16,8 @@ class User(db.Model, UserMixin):
     firstName = db.Column(db.String(255), nullable=False)
     lastName = db.Column(db.String(255), nullable=False)
 
+    inspections = db.relationship('Inspection', back_populates='inspector')
+
     @property
     def password(self):
         return self.hashed_password
@@ -35,5 +37,3 @@ class User(db.Model, UserMixin):
             'firstName': self.firstName,
             'lastName': self.lastName
         }
-
-

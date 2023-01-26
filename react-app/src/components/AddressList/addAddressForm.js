@@ -164,6 +164,82 @@ const AddAddressForm = () => {
                 ]);
             }
         }
+    };
+
+    const handleOwnerGoogleResponse = (addressResponse) => {
+        if (addressResponse.result.verdict.hasReplacedComponents) {
+            addressResponse.result.address.addressComponents.forEach(
+                (component) => {
+                    if (component.replaced === true) {
+                        if (component.componentType === "locality") {
+                            setOwnerCity(component.componentName.text);
+                        } else if (component.componentType === "postal_code") {
+                            setOwnerZipCode(component.componentName.text);
+                        } else if (component.componentType === "subpremise") {
+                            setOwnerSecondAddressLine(component.componentName.text);
+                        }
+                    }
+                }
+            );
+        }
+
+        if (
+            addressResponse.result.verdict.hasUnconfirmedComponents ||
+            addressResponse.result.address.missingComponentTypes ||
+            addressResponse.result.verdict.validationGranularity === "OTHER" ||
+            addressResponse.result.address.unresolvedTokens
+        ) {
+            const unconfirmedComponents =
+                addressResponse.result.address.unconfirmedComponentTypes;
+            const unconfirmedErrors = unconfirmedComponents?.map(
+                (component) => {
+                    if (component === "route") {
+                        return "Owner Street: Please provide a valid Owner street name.";
+                    } else if (component === "locality") {
+                        return "Owner City: Please provide a valid Owner city.";
+                    } else if (component === "postal_code") {
+                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                    } else if (component === "street_number") {
+                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                    } else if (component === "subpremise") {
+                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                    } else {
+                        return null;
+                    }
+                }
+            );
+            if (unconfirmedErrors) {
+                setErrors(unconfirmedErrors);
+            }
+
+            const missingComponents =
+                addressResponse.result.address.missingComponentTypes;
+            const missingErrors = missingComponents?.map((component) => {
+                if (component === "route") {
+                    return "Owner Street: Please provide a valid Owner street name.";
+                } else if (component === "locality") {
+                    return "Owner City: Please provide a valid Owner city.";
+                } else if (component === "postal_code") {
+                    return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                } else if (component === "street_number") {
+                    return "Owner Street Number: Please provide a valid Owner Street Number.";
+                } else if (component === "subpremise") {
+                    return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                } else {
+                    return null;
+                }
+            });
+            if (missingErrors) {
+                setErrors([...errors, ...missingErrors]);
+            }
+
+            if (addressResponse.result.address.unresolvedTokens) {
+                setErrors([
+                    ...errors,
+                    "Invalid Input: Please provide a valid Owner address.",
+                ]);
+            }
+        }
 
         setGoogleResponse(true);
     };
@@ -193,7 +269,33 @@ const AddAddressForm = () => {
         );
         const addressResponse = await response.json();
 
-        handleGoogleResponse(addressResponse);
+        await handleGoogleResponse(addressResponse);
+
+        if (ownerFirstAddressLine) {
+            const response = await fetch(
+                `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        address: {
+                            revision: 0,
+                            addressLines: [
+                                ownerFirstAddressLine,
+                                ownerSecondAddressLine,
+                                `${ownerCity}, ${ownerState} ${ownerZipCode}`,
+                            ],
+                        },
+                        previousResponseId: "",
+                        enableUspsCass: true,
+                    }),
+                }
+            );
+            const addressResponse = await response.json();
+
+            await handleOwnerGoogleResponse(addressResponse)
+        } else {
+            setGoogleResponse(true);
+        }
     };
 
 

@@ -1,23 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { updateAddress } from "../../store/addresses";
 
 const UpdateAddressForm = () => {
     const { closeModal } = useModal();
-    const singleAddress = useSelector(state => state.addresses.singleAddress)
+    const singleAddress = useSelector((state) => state.addresses.singleAddress);
     const [errors, setErrors] = useState([]);
-
     const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
     const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
-    const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(singleAddress.ownerFirstAddressLine);
-    const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState(singleAddress.ownerSecondAddressLine);
+    const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(
+        singleAddress.ownerFirstAddressLine
+    );
+    const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState(
+        singleAddress.ownerSecondAddressLine
+    );
     const [ownerCity, setOwnerCity] = useState(singleAddress.ownerCity);
     const [ownerState, setOwnerState] = useState(singleAddress.ownerState);
-    const [ownerZipCode, setOwnerZipCode] = useState(singleAddress.ownerZipCode);
+    const [ownerZipCode, setOwnerZipCode] = useState(
+        singleAddress.ownerZipCode
+    );
     const [notes, setNotes] = useState(singleAddress.notes);
-    const [nextInspectionDate, setNextInspectionDate] = useState(singleAddress.nextInspectionDate);
-    const dispatch = useDispatch()
+    const [nextInspectionDate, setNextInspectionDate] = useState(
+        singleAddress.nextInspectionDate
+    );
+    const [googleResponse, setGoogleResponse] = useState(false);
+    const dispatch = useDispatch();
 
     const states = [
         "Alabama",
@@ -75,31 +83,175 @@ const UpdateAddressForm = () => {
         "Wyoming",
     ];
 
-    // const updateState = async (e) => {
-    //     console.log('initial state ------------------', state)
-    //     console.log('value', e.target.value)
-    //     await setState(e.target.value)
-    //     console.log('after state ------------------', state)
-    // }
-
     const stateOptions = states.map((stateOption) => {
-        return <option key={stateOption} value={stateOption}>{stateOption}</option>;
+        return (
+            <option key={stateOption} value={stateOption}>
+                {stateOption}
+            </option>
+        );
     });
 
+    const api_key = process.env.REACT_APP_GOOGLE_API_KEY;
+
+    const handleOwnerGoogleResponse = (addressResponse) => {
+        if (addressResponse.result.verdict.hasReplacedComponents) {
+            addressResponse.result.address.addressComponents.forEach(
+                (component) => {
+                    if (component.replaced === true) {
+                        if (component.componentType === "locality") {
+                            setOwnerCity(component.componentName.text);
+                        } else if (component.componentType === "postal_code") {
+                            setOwnerZipCode(component.componentName.text);
+                        } else if (component.componentType === "subpremise") {
+                            setOwnerSecondAddressLine(
+                                component.componentName.text
+                            );
+                        }
+                    }
+                }
+            );
+        }
+
+        if (
+            addressResponse.result.verdict.hasUnconfirmedComponents ||
+            addressResponse.result.address.missingComponentTypes ||
+            addressResponse.result.verdict.validationGranularity === "OTHER" ||
+            addressResponse.result.address.unresolvedTokens
+        ) {
+            const unconfirmedComponents =
+                addressResponse.result.address.unconfirmedComponentTypes;
+            const unconfirmedErrors = unconfirmedComponents?.map(
+                (component) => {
+                    if (component === "route") {
+                        return "Owner Street: Please provide a valid Owner street name.";
+                    } else if (component === "locality") {
+                        return "Owner City: Please provide a valid Owner city.";
+                    } else if (component === "postal_code") {
+                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                    } else if (component === "street_number") {
+                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                    } else if (component === "subpremise") {
+                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                    } else {
+                        return null;
+                    }
+                }
+            );
+            if (unconfirmedErrors) {
+                setErrors(unconfirmedErrors);
+            }
+
+            const missingComponents =
+                addressResponse.result.address.missingComponentTypes;
+            const missingErrors = missingComponents?.map((component) => {
+                if (component === "route") {
+                    return "Owner Street: Please provide a valid Owner street name.";
+                } else if (component === "locality") {
+                    return "Owner City: Please provide a valid Owner city.";
+                } else if (component === "postal_code") {
+                    return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                } else if (component === "street_number") {
+                    return "Owner Street Number: Please provide a valid Owner Street Number.";
+                } else if (component === "subpremise") {
+                    return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                } else {
+                    return null;
+                }
+            });
+            if (missingErrors) {
+                setErrors([...errors, ...missingErrors]);
+            }
+
+            if (addressResponse.result.address.unresolvedTokens) {
+                setErrors([
+                    ...errors,
+                    "Invalid Input: Please provide a valid Owner address.",
+                ]);
+            }
+        }
+
+        setGoogleResponse(true);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await dispatch(updateAddress(singleAddress.id, {ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
-        if (data) {
-            setErrors(data);
+        setErrors([]);
+        setGoogleResponse(false);
+
+        if (ownerFirstAddressLine) {
+            const response = await fetch(
+                `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        address: {
+                            revision: 0,
+                            addressLines: [
+                                ownerFirstAddressLine,
+                                ownerSecondAddressLine,
+                                `${ownerCity}, ${ownerState} ${ownerZipCode}`,
+                            ],
+                        },
+                        previousResponseId: "",
+                        enableUspsCass: true,
+                    }),
+                }
+            );
+            const addressResponse = await response.json();
+
+            await handleOwnerGoogleResponse(addressResponse);
         } else {
-            await closeModal()
+            setGoogleResponse(true);
         }
     };
 
+    useEffect(() => {
+        const updateAddressFunc = async () => {
+            const data = await dispatch(
+                updateAddress(singleAddress.id, {
+                    ownerName,
+                    ownerEmail,
+                    ownerFirstAddressLine,
+                    ownerSecondAddressLine,
+                    ownerCity,
+                    ownerState,
+                    ownerZipCode,
+                    notes,
+                    nextInspectionDate,
+                })
+            );
+            if (data) {
+                setErrors(data);
+            } else {
+                await closeModal();
+            }
+        };
+
+        if (googleResponse) {
+            if (!errors[0]) {
+                updateAddressFunc();
+            }
+        }
+    }, [
+        googleResponse,
+        errors,
+        ownerName,
+        ownerEmail,
+        ownerFirstAddressLine,
+        ownerSecondAddressLine,
+        ownerCity,
+        ownerState,
+        ownerZipCode,
+        notes,
+        nextInspectionDate,
+        closeModal,
+        dispatch,
+        singleAddress.id,
+    ]);
+
     return (
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
-            <h1 className='marlrauto mar10b'>Update Address</h1>
+            <h1 className="marlrauto mar10b">Update Address</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
@@ -114,7 +266,7 @@ const UpdateAddressForm = () => {
                         placeholder="owner name"
                         onChange={(e) => setOwnerName(e.target.value)}
                         value={ownerName}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
 
@@ -126,7 +278,7 @@ const UpdateAddressForm = () => {
                         placeholder="owner email"
                         onChange={(e) => setOwnerEmail(e.target.value)}
                         value={ownerEmail}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -135,9 +287,11 @@ const UpdateAddressForm = () => {
                         type="text"
                         name="ownerFirstAddressLine"
                         placeholder="123 Streetname Ave"
-                        onChange={(e) => setOwnerFirstAddressLine(e.target.value)}
+                        onChange={(e) =>
+                            setOwnerFirstAddressLine(e.target.value)
+                        }
                         value={ownerFirstAddressLine}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -145,10 +299,12 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerSecondAddressLine"
-                        placeholder='apt, suite, or unit'
-                        onChange={(e) => setOwnerSecondAddressLine(e.target.value)}
+                        placeholder="apt, suite, or unit"
+                        onChange={(e) =>
+                            setOwnerSecondAddressLine(e.target.value)
+                        }
                         value={ownerSecondAddressLine}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -159,7 +315,7 @@ const UpdateAddressForm = () => {
                         placeholder="city"
                         onChange={(e) => setOwnerCity(e.target.value)}
                         value={ownerCity}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -169,10 +325,10 @@ const UpdateAddressForm = () => {
                         name="ownerState"
                         placeholder="state"
                         onChange={(e) => setOwnerState(e.target.value)}
-                        defaultValue={ownerState ? ownerState : ''}
-                        className='iflight bnone h40px'
+                        defaultValue={ownerState ? ownerState : ""}
+                        className="iflight bnone h40px"
                     >
-                        <option value=''> -- select a State -- </option>
+                        <option value=""> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>
@@ -184,7 +340,7 @@ const UpdateAddressForm = () => {
                         placeholder="zip code"
                         onChange={(e) => setOwnerZipCode(e.target.value)}
                         value={ownerZipCode}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -195,7 +351,7 @@ const UpdateAddressForm = () => {
                         placeholder="notes"
                         onChange={(e) => setNotes(e.target.value)}
                         value={notes}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -206,11 +362,11 @@ const UpdateAddressForm = () => {
                         placeholder="mm/dd/yyyy"
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="jccen mar30t">
-                    <button type="submit" className='w100p h50px btndark pad0'>
+                    <button type="submit" className="w100p h50px btndark pad0">
                         Save
                     </button>
                 </div>
@@ -219,4 +375,4 @@ const UpdateAddressForm = () => {
     );
 };
 
-export default UpdateAddressForm
+export default UpdateAddressForm;
