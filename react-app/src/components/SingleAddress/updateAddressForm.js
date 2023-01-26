@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { updateAddress } from "../../store/addresses";
@@ -7,7 +7,6 @@ const UpdateAddressForm = () => {
     const { closeModal } = useModal();
     const singleAddress = useSelector(state => state.addresses.singleAddress)
     const [errors, setErrors] = useState([]);
-
     const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
     const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
     const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(singleAddress.ownerFirstAddressLine);
@@ -17,6 +16,7 @@ const UpdateAddressForm = () => {
     const [ownerZipCode, setOwnerZipCode] = useState(singleAddress.ownerZipCode);
     const [notes, setNotes] = useState(singleAddress.notes);
     const [nextInspectionDate, setNextInspectionDate] = useState(singleAddress.nextInspectionDate);
+    const [googleResponse, setGoogleResponse] = useState(false);
     const dispatch = useDispatch()
 
     const states = [
@@ -75,20 +75,120 @@ const UpdateAddressForm = () => {
         "Wyoming",
     ];
 
-    // const updateState = async (e) => {
-    //     console.log('initial state ------------------', state)
-    //     console.log('value', e.target.value)
-    //     await setState(e.target.value)
-    //     console.log('after state ------------------', state)
-    // }
-
     const stateOptions = states.map((stateOption) => {
         return <option key={stateOption} value={stateOption}>{stateOption}</option>;
     });
 
+    const api_key = process.env.REACT_APP_GOOGLE_API_KEY;
+
+    const handleOwnerGoogleResponse = (addressResponse) => {
+        if (addressResponse.result.verdict.hasReplacedComponents) {
+            addressResponse.result.address.addressComponents.forEach(
+                (component) => {
+                    if (component.replaced === true) {
+                        if (component.componentType === "locality") {
+                            setOwnerCity(component.componentName.text);
+                        } else if (component.componentType === "postal_code") {
+                            setOwnerZipCode(component.componentName.text);
+                        } else if (component.componentType === "subpremise") {
+                            setOwnerSecondAddressLine(component.componentName.text);
+                        }
+                    }
+                }
+            );
+        }
+
+        if (
+            addressResponse.result.verdict.hasUnconfirmedComponents ||
+            addressResponse.result.address.missingComponentTypes ||
+            addressResponse.result.verdict.validationGranularity === "OTHER" ||
+            addressResponse.result.address.unresolvedTokens
+        ) {
+            const unconfirmedComponents =
+                addressResponse.result.address.unconfirmedComponentTypes;
+            const unconfirmedErrors = unconfirmedComponents?.map(
+                (component) => {
+                    if (component === "route") {
+                        return "Owner Street: Please provide a valid Owner street name.";
+                    } else if (component === "locality") {
+                        return "Owner City: Please provide a valid Owner city.";
+                    } else if (component === "postal_code") {
+                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                    } else if (component === "street_number") {
+                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                    } else if (component === "subpremise") {
+                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                    } else {
+                        return null;
+                    }
+                }
+            );
+            if (unconfirmedErrors) {
+                setErrors(unconfirmedErrors);
+            }
+
+            const missingComponents =
+                addressResponse.result.address.missingComponentTypes;
+            const missingErrors = missingComponents?.map((component) => {
+                if (component === "route") {
+                    return "Owner Street: Please provide a valid Owner street name.";
+                } else if (component === "locality") {
+                    return "Owner City: Please provide a valid Owner city.";
+                } else if (component === "postal_code") {
+                    return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                } else if (component === "street_number") {
+                    return "Owner Street Number: Please provide a valid Owner Street Number.";
+                } else if (component === "subpremise") {
+                    return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                } else {
+                    return null;
+                }
+            });
+            if (missingErrors) {
+                setErrors([...errors, ...missingErrors]);
+            }
+
+            if (addressResponse.result.address.unresolvedTokens) {
+                setErrors([
+                    ...errors,
+                    "Invalid Input: Please provide a valid Owner address.",
+                ]);
+            }
+        }
+
+        setGoogleResponse(true);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors([])
+        setGoogleResponse(false)
+
+        if (ownerFirstAddressLine) {
+            const response = await fetch(
+                `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
+                {
+                    method: "POST",
+                    body: JSON.stringify({
+                        address: {
+                            revision: 0,
+                            addressLines: [
+                                ownerFirstAddressLine,
+                                ownerSecondAddressLine,
+                                `${ownerCity}, ${ownerState} ${ownerZipCode}`,
+                            ],
+                        },
+                        previousResponseId: "",
+                        enableUspsCass: true,
+                    }),
+                }
+            );
+            const addressResponse = await response.json();
+
+            await handleOwnerGoogleResponse(addressResponse)
+        } else {
+            setGoogleResponse(true);
+        }
         const data = await dispatch(updateAddress(singleAddress.id, {ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
         if (data) {
             setErrors(data);
@@ -96,6 +196,23 @@ const UpdateAddressForm = () => {
             await closeModal()
         }
     };
+
+    useEffect(() => {
+        const updateAddressFunc = async () => {
+            const data = await dispatch(updateAddress(singleAddress.id, {ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
+        if (data) {
+            setErrors(data);
+        } else {
+            await closeModal()
+        }
+        };
+
+        if (googleResponse) {
+            if (!errors[0]) {
+                updateAddressFunc();
+            }
+        }
+    }, [googleResponse, errors, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate, closeModal, dispatch, singleAddress.id]);
 
     return (
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
