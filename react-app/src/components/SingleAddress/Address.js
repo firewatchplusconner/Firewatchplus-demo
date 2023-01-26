@@ -50,15 +50,15 @@ const Address = () => {
                     <div>
                         Next Inspection Date: {address.nextInspectionDate}
                     </div>
-                    <div className="sa mar30">
-                        <div className="modal-button-container jccen">
+                    <div className="sb mar30">
+                        <div className="modal-button-container jccen w100p h40px mar10l mar10r">
                             <OpenModalButton
                                 buttonText="Update Address"
                                 modalComponent={<UpdateAddressForm />}
                             />
                         </div>
                         {deletable && (
-                            <div className="modal-button-container jccen">
+                            <div className="modal-button-container jccen w100p h40px mar10l mar10r">
                                 <OpenModalButton
                                     buttonText="Delete Address"
                                     modalComponent={<DeleteAddressModal />}
