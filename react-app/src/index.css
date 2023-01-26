@@ -7,11 +7,12 @@
     --gunmetal: rgb(31, 36, 43);
     --light-gunmetal: rgb(49, 58, 70);
     --gray-web: #7c7c7cff;
-    --morning-blue: #88a09eff;
+    --morning-blue: rgb(183, 194, 193);
     --saddle-brown: #874000ff;
     --pullman-brown-ups-brown: #5b3000ff;
     --black-bean: #301100ff;
     font-family: "Lato","Lucida Grande","Lucida Sans Unicode","Lucida Sans","Geneva","Verdana",sans-serif;;
+    scrollbar-color: var(--gunmetal) var(--light-gunmetal);
 }
 
 .fxlar {
@@ -42,14 +43,80 @@
     color: lightgray
 }
 
+.iflight {
+    background-color: rgb(180, 180, 180);
+    color: var(--gunmetal);
+    border-radius: 8px;
+}
+
+.iflight:focus {
+    outline: none;
+    border: 2px solid var(--gunmetal);
+    background-color: rgb(196, 196, 196);;
+}
+
+.opt:checked {
+    background-color: var(--gunmetal);
+    color: var(--gray-web)
+}
+
+.btndark {
+    background-color: var(--light-gunmetal);
+    color: lightgray;
+    border-radius: 10px;
+}
+
+.btndark:hover {
+    background-color: var(--gunmetal);
+    cursor: pointer;
+}
+
+.btnlight {
+    background-color: lightgray;
+    color: var(--gunmetal)
+}
+
+.btnlight:hover {
+    cursor: pointer;
+    background-color: rgb(150, 148, 148);
+    color: var(--gunmetal)
+}
+
 .btnhvr:hover {
     cursor: pointer;
 }
 
 .nhvr:hover {
-    color: var(--gray-web);
+    color: rgb(170, 168, 168);
     text-decoration: underline;
-    text-decoration-color: var(--gray-web);
+    text-decoration-color: rgb(170, 168, 168);
+}
+
+.modal-button-container>button {
+    background-color: lightgray;
+    color: var(--gunmetal);
+    border-radius: 10px;
+}
+
+.modal-button-container>button:hover {
+    cursor: pointer;
+    background-color: rgb(160, 160, 160);
+}
+
+.ofyscroll {
+    overflow-y: scroll;
+}
+
+.ofhidden {
+    overflow: hidden;
+}
+
+.bnone {
+    border: none;
+}
+
+.br10px {
+    border-radius: 10px;
 }
 
 .bsbb {
@@ -161,6 +228,10 @@
     width: 50%
 }
 
+.w100px {
+    width: 100px;
+}
+
 
 .h100vh {
     height: 100vh
@@ -178,16 +249,38 @@
     height: 50%
 }
 
-.pad0 {
-    padding: none;
+.h20px {
+    height: 20px
+}
+
+.h60px {
+    height: 60px
+}
+
+.h50px {
+    height: 50px
+}
+
+.h40px {
+    height: 40px
+}
+
+.pad30 {
+    padding: 30px;
+}
+
+
+.pad20 {
+    padding: 20px;
 }
 
 .pad10 {
     padding: 10px;
 }
 
-.pad30 {
-    padding: 30px;
+.pad30lr {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .pad10l {
@@ -206,6 +299,15 @@
     padding-bottom: 10px
 }
 
+.pad0 {
+    padding: none;
+}
+
+.pad0t {
+    padding: none;
+}
+
+
 .marlrauto {
     margin: 0 auto;
 }
@@ -216,6 +318,10 @@
 
 .mar20 {
     margin: 20px
+}
+
+.mar30 {
+    margin: 30px
 }
 
 .mar10t {
