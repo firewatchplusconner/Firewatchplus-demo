@@ -18,11 +18,11 @@ export default function DeleteAddressModal() {
     }
 
     return (
-        <div>
-            <h3>Are you sure you want to delete this address and all associated data?</h3>
-            <div>
-                <button onClick={handleDelete}>Yes, Delete Address</button>
-                <button onClick={closeModal}>Cancel</button>
+        <div className="fdcol aicen">
+            <h3 className="tacen">Are you sure you want to delete this address and all associated data?</h3>
+            <div className="sa w100p">
+                <button onClick={handleDelete} className='btnlight p20 w100p br10px mar10l mar10r h40px'>Yes, Delete Address</button>
+                <button onClick={closeModal} className='btnlight p20 w100p br10px mar10l mar10r h40px'>Cancel</button>
             </div>
         </div>
     )
