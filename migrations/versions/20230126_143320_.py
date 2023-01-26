@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 8bfe81382c08
+Revision ID: b2f1c2983906
 Revises: 
-Create Date: 2023-01-26 10:59:41.513596
+Create Date: 2023-01-26 14:33:20.469646
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8bfe81382c08'
+revision = 'b2f1c2983906'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -57,12 +57,12 @@ def upgrade():
     op.create_table('inspections',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('inspectionNumber', sa.Integer(), nullable=False),
-    sa.Column('passing', sa.Boolean(), nullable=False),
+    sa.Column('passing', sa.Boolean(), nullable=True),
     sa.Column('notes', sa.Text(), nullable=True),
     sa.Column('date', sa.String(), nullable=False),
     sa.Column('addressId', sa.Integer(), nullable=False),
     sa.Column('inspectionTypeId', sa.Integer(), nullable=False),
-    sa.Column('inspectorId', sa.Integer(), nullable=False),
+    sa.Column('inspectorId', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['addressId'], ['addresses.id'], ),
     sa.ForeignKeyConstraint(['inspectionTypeId'], ['inspection_types.id'], ),
     sa.ForeignKeyConstraint(['inspectorId'], ['users.id'], ),
@@ -85,7 +85,7 @@ def upgrade():
     )
     op.create_table('inspection_answers',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('passing', sa.Boolean(), nullable=False),
+    sa.Column('passing', sa.Boolean(), nullable=True),
     sa.Column('comment', sa.Text(), nullable=True),
     sa.Column('inspectionId', sa.Integer(), nullable=False),
     sa.Column('questionId', sa.Integer(), nullable=False),

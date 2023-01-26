@@ -99,6 +99,28 @@ def update_inspection(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
+@inpsection_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_inspection(id):
+    '''
+    Delete an inspection and return a successful message
+    '''
+    deleteInspection = Inspection.query.get(id)
+
+    if not deleteInspection:
+        return {'errors': ['No inspection found']}, 404
+
+    db.session.delete(deleteInspection)
+    db.session.commit()
+
+    inspection = Inspection.query.get(id)
+
+    if not inspection:
+        return {'message': 'Inspection successfully deleted'}, 200
+
+    return {'message': 'Unable to delete inspection.'}
+
+
 @inpsection_routes.route('/<int:id>/answer', methods=["PUT"])
 @login_required
 def update_inspection_answer(id):
