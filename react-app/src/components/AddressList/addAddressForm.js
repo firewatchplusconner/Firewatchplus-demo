@@ -99,7 +99,6 @@ const AddAddressForm = () => {
                             setCity(component.componentName.text);
                         } else if (component.componentType === "postal_code") {
                             setZipCode(component.componentName.text);
-                            console.log("zipCode ------", zipCode);
                         } else if (component.componentType === "subpremise") {
                             setSecondAddressLine(component.componentName.text);
                         }
@@ -248,6 +247,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="firstAddressLine"
+                        placeholder="123 Streetname Ave"
                         onChange={(e) => setFirstAddressLine(e.target.value)}
                         value={firstAddressLine}
                         required={true}
@@ -259,6 +259,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="secondAddressLine"
+                        placeholder='apt, suite, or unit'
                         onChange={(e) => setSecondAddressLine(e.target.value)}
                         value={secondAddressLine}
                         className='iflight bnone h40px'
@@ -270,6 +271,7 @@ const AddAddressForm = () => {
                         type="text"
                         name="City"
                         onChange={(e) => setCity(e.target.value)}
+                        placeholder='city'
                         value={city}
                         required={true}
                         className='iflight bnone h40px'
@@ -297,6 +299,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="zipCode"
+                        placeholder="zip code"
                         onChange={(e) => setZipCode(e.target.value)}
                         value={zipCode}
                         required={true}
@@ -308,6 +311,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerName"
+                        placeholder="owner name"
                         onChange={(e) => setOwnerName(e.target.value)}
                         value={ownerName}
                         className='iflight bnone h40px'
@@ -319,6 +323,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerEmail"
+                        placeholder="owner email"
                         onChange={(e) => setOwnerEmail(e.target.value)}
                         value={ownerEmail}
                         className='iflight bnone h40px'
@@ -329,6 +334,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerFirstAddressLine"
+                        placeholder="123 Streetname Ave"
                         onChange={(e) =>
                             setOwnerFirstAddressLine(e.target.value)
                         }
@@ -341,6 +347,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerSecondAddressLine"
+                        placeholder='apt, suite, or unit'
                         onChange={(e) =>
                             setOwnerSecondAddressLine(e.target.value)
                         }
@@ -353,6 +360,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerCity"
+                        placeholder="city"
                         onChange={(e) => setOwnerCity(e.target.value)}
                         value={ownerCity}
                         className='iflight bnone h40px'
@@ -363,6 +371,7 @@ const AddAddressForm = () => {
                     <select
                         type="select"
                         name="ownerState"
+                        placeholder="state"
                         onChange={(e) => setOwnerState(e.target.value)}
                         defaultValue=""
                         className='iflight bnone h40px'
@@ -376,6 +385,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerZipCode"
+                        placeholder="zip code"
                         onChange={(e) => setOwnerZipCode(e.target.value)}
                         value={ownerZipCode}
                         className='iflight bnone h40px'
@@ -386,6 +396,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="notes"
+                        placeholder="notes"
                         onChange={(e) => setNotes(e.target.value)}
                         value={notes}
                         className='iflight bnone h40px'
@@ -396,6 +407,7 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="nextInspectionDate"
+                        placeholder="mm/dd/yyyy"
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
                         className='iflight bnone h40px'
