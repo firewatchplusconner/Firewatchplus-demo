@@ -97,15 +97,15 @@
 }
 
 .modal-button-container>button {
-    background-color: lightgray;
-    color: var(--gunmetal);
+    background-color: var(--light-gunmetal);
+    color: lightgray;
     border-radius: 10px;
     width: 100%;
 }
 
 .modal-button-container>button:hover {
     cursor: pointer;
-    background-color: rgb(160, 160, 160);
+    background-color: var(--gunmetal);
 }
 
 .ofyscroll {
@@ -203,6 +203,14 @@
 
 .w100vw {
     width: 100vw
+}
+
+.w60vw {
+    width: 60vw
+}
+
+.w50vw {
+    width: 50vw
 }
 
 .w40vw {

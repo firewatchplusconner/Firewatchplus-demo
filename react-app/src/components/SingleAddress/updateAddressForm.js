@@ -98,8 +98,8 @@ const UpdateAddressForm = () => {
     };
 
     return (
-        <div className="pad30 fdcol w30vw">
-            <h1>Update Address</h1>
+        <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
+            <h1 className='marlrauto mar10b'>Update Address</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
@@ -111,8 +111,10 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerName"
+                        placeholder="owner name"
                         onChange={(e) => setOwnerName(e.target.value)}
                         value={ownerName}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
 
@@ -121,8 +123,10 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerEmail"
+                        placeholder="owner email"
                         onChange={(e) => setOwnerEmail(e.target.value)}
                         value={ownerEmail}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -130,8 +134,10 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerFirstAddressLine"
+                        placeholder="123 Streetname Ave"
                         onChange={(e) => setOwnerFirstAddressLine(e.target.value)}
                         value={ownerFirstAddressLine}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -139,8 +145,10 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerSecondAddressLine"
+                        placeholder='apt, suite, or unit'
                         onChange={(e) => setOwnerSecondAddressLine(e.target.value)}
                         value={ownerSecondAddressLine}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -148,8 +156,10 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerCity"
+                        placeholder="city"
                         onChange={(e) => setOwnerCity(e.target.value)}
                         value={ownerCity}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -157,8 +167,10 @@ const UpdateAddressForm = () => {
                     <select
                         type="select"
                         name="ownerState"
+                        placeholder="state"
                         onChange={(e) => setOwnerState(e.target.value)}
                         defaultValue={ownerState ? ownerState : ''}
+                        className='iflight bnone h40px'
                     >
                         <option value=''> -- select a State -- </option>
                         {stateOptions}
@@ -169,8 +181,10 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerZipCode"
+                        placeholder="zip code"
                         onChange={(e) => setOwnerZipCode(e.target.value)}
                         value={ownerZipCode}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -178,8 +192,10 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="notes"
+                        placeholder="notes"
                         onChange={(e) => setNotes(e.target.value)}
                         value={notes}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -187,12 +203,14 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="nextInspectionDate"
+                        placeholder="mm/dd/yyyy"
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
+                        className='iflight bnone h40px'
                     ></input>
                 </div>
-                <div className="jccen mar20t">
-                    <button type="submit" className="w100p">
+                <div className="jccen mar30t">
+                    <button type="submit" className='w100p h50px btndark pad0'>
                         Save
                     </button>
                 </div>
