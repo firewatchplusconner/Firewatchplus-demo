@@ -133,7 +133,7 @@ def update_inspection_answer(id):
 
 
     if form.validate_on_submit():
-        inspectionAnswer = InspectionAnswer.query.filter(InspectionAnswer.inspectionId == id, InspectionAnswer.questionId == form.data['questionId'])
+        inspectionAnswer = InspectionAnswer.query.filter(InspectionAnswer.inspectionId == id, InspectionAnswer.questionId == form.data['questionId']).first()
 
         if not inspectionAnswer:
             return {'errors': ['Inspection error not found']}, 404
