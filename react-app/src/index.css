@@ -97,15 +97,15 @@
 }
 
 .modal-button-container>button {
-    background-color: lightgray;
-    color: var(--gunmetal);
+    background-color: var(--light-gunmetal);
+    color: lightgray;
     border-radius: 10px;
     width: 100%;
 }
 
 .modal-button-container>button:hover {
     cursor: pointer;
-    background-color: rgb(160, 160, 160);
+    background-color: var(--gunmetal);
 }
 
 .ofyscroll {

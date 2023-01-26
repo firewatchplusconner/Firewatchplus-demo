@@ -58,6 +58,7 @@ const SignUpForm = () => {
                     <input
                         type="text"
                         name="username"
+                        placeholder="username"
                         onChange={updateUsername}
                         value={username}
                         className="iflight bnone h40px"
@@ -68,6 +69,7 @@ const SignUpForm = () => {
                     <input
                         type="text"
                         name="email"
+                        placeholder="email"
                         onChange={updateEmail}
                         value={email}
                         className="iflight bnone h40px"
@@ -78,6 +80,7 @@ const SignUpForm = () => {
                     <input
                         type="text"
                         name="email"
+                        placeholder="first name"
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
                         className="iflight bnone h40px"
@@ -88,6 +91,7 @@ const SignUpForm = () => {
                     <input
                         type="text"
                         name="email"
+                        placeholder="last name"
                         onChange={(e) => setLastName(e.target.value)}
                         value={lastName}
                         className="iflight bnone h40px"
@@ -98,6 +102,7 @@ const SignUpForm = () => {
                     <input
                         type="password"
                         name="password"
+                        placeholder="password"
                         onChange={updatePassword}
                         value={password}
                         className="iflight bnone h40px"
@@ -108,6 +113,7 @@ const SignUpForm = () => {
                     <input
                         type="password"
                         name="repeat_password"
+                        placeholder="repeat password"
                         onChange={updateRepeatPassword}
                         value={repeatPassword}
                         required={true}
