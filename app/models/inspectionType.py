@@ -10,6 +10,7 @@ class InspectionType(db.Model):
     type = db.Column(db.String(40), nullable=False, unique=True)
 
     question_categories = db.relationship('QuestionCategory', back_populates='inspection_type', cascade='all, delete-orphan')
+    inspections = db.relationship('Inspection', back_populates='inspectionType')
 
     def to_dict(self):
         return {
@@ -49,6 +50,7 @@ class Question(db.Model):
     question_category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('question_categories.id')), nullable=False)
 
     question_category = db.relationship('QuestionCategory', back_populates='questions')
+    inspections = db.relationship('InspectionAnswer', back_populates='question')
 
     def to_dict(self):
         return {
