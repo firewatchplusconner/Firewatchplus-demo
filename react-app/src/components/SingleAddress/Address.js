@@ -26,13 +26,13 @@ const Address = () => {
     if (!loaded) {
         return null;
     }
-
+   // TODO - add second addres line
     return (
         <>
             {loaded && (
                 <div>
                     <h2>
-                        {address.firstAddressLine} {address.city},{" "}
+                        {address.firstAddressLine}{address.secondAddressLine ? ` ${address.secondAddressLine}` : ''} {address.city},{" "}
                         {address.state} {address.zipCode}
                     </h2>
                     <div>Owner: {address.ownerName}</div>

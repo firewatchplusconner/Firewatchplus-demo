@@ -5,19 +5,27 @@ import { updateAddress } from "../../store/addresses";
 
 const UpdateAddressForm = () => {
     const { closeModal } = useModal();
-    const singleAddress = useSelector(state => state.addresses.singleAddress)
+    const singleAddress = useSelector((state) => state.addresses.singleAddress);
     const [errors, setErrors] = useState([]);
     const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
     const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
-    const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(singleAddress.ownerFirstAddressLine);
-    const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState(singleAddress.ownerSecondAddressLine);
+    const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(
+        singleAddress.ownerFirstAddressLine
+    );
+    const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState(
+        singleAddress.ownerSecondAddressLine
+    );
     const [ownerCity, setOwnerCity] = useState(singleAddress.ownerCity);
     const [ownerState, setOwnerState] = useState(singleAddress.ownerState);
-    const [ownerZipCode, setOwnerZipCode] = useState(singleAddress.ownerZipCode);
+    const [ownerZipCode, setOwnerZipCode] = useState(
+        singleAddress.ownerZipCode
+    );
     const [notes, setNotes] = useState(singleAddress.notes);
-    const [nextInspectionDate, setNextInspectionDate] = useState(singleAddress.nextInspectionDate);
+    const [nextInspectionDate, setNextInspectionDate] = useState(
+        singleAddress.nextInspectionDate
+    );
     const [googleResponse, setGoogleResponse] = useState(false);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const states = [
         "Alabama",
@@ -76,7 +84,11 @@ const UpdateAddressForm = () => {
     ];
 
     const stateOptions = states.map((stateOption) => {
-        return <option key={stateOption} value={stateOption}>{stateOption}</option>;
+        return (
+            <option key={stateOption} value={stateOption}>
+                {stateOption}
+            </option>
+        );
     });
 
     const api_key = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -91,7 +103,9 @@ const UpdateAddressForm = () => {
                         } else if (component.componentType === "postal_code") {
                             setOwnerZipCode(component.componentName.text);
                         } else if (component.componentType === "subpremise") {
-                            setOwnerSecondAddressLine(component.componentName.text);
+                            setOwnerSecondAddressLine(
+                                component.componentName.text
+                            );
                         }
                     }
                 }
@@ -161,8 +175,8 @@ const UpdateAddressForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors([])
-        setGoogleResponse(false)
+        setErrors([]);
+        setGoogleResponse(false);
 
         if (ownerFirstAddressLine) {
             const response = await fetch(
@@ -185,26 +199,32 @@ const UpdateAddressForm = () => {
             );
             const addressResponse = await response.json();
 
-            await handleOwnerGoogleResponse(addressResponse)
+            await handleOwnerGoogleResponse(addressResponse);
         } else {
             setGoogleResponse(true);
-        }
-        const data = await dispatch(updateAddress(singleAddress.id, {ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
-        if (data) {
-            setErrors(data);
-        } else {
-            await closeModal()
         }
     };
 
     useEffect(() => {
         const updateAddressFunc = async () => {
-            const data = await dispatch(updateAddress(singleAddress.id, {ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate}))
-        if (data) {
-            setErrors(data);
-        } else {
-            await closeModal()
-        }
+            const data = await dispatch(
+                updateAddress(singleAddress.id, {
+                    ownerName,
+                    ownerEmail,
+                    ownerFirstAddressLine,
+                    ownerSecondAddressLine,
+                    ownerCity,
+                    ownerState,
+                    ownerZipCode,
+                    notes,
+                    nextInspectionDate,
+                })
+            );
+            if (data) {
+                setErrors(data);
+            } else {
+                await closeModal();
+            }
         };
 
         if (googleResponse) {
@@ -212,11 +232,26 @@ const UpdateAddressForm = () => {
                 updateAddressFunc();
             }
         }
-    }, [googleResponse, errors, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate, closeModal, dispatch, singleAddress.id]);
+    }, [
+        googleResponse,
+        errors,
+        ownerName,
+        ownerEmail,
+        ownerFirstAddressLine,
+        ownerSecondAddressLine,
+        ownerCity,
+        ownerState,
+        ownerZipCode,
+        notes,
+        nextInspectionDate,
+        closeModal,
+        dispatch,
+        singleAddress.id,
+    ]);
 
     return (
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
-            <h1 className='marlrauto mar10b'>Update Address</h1>
+            <h1 className="marlrauto mar10b">Update Address</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
@@ -231,7 +266,7 @@ const UpdateAddressForm = () => {
                         placeholder="owner name"
                         onChange={(e) => setOwnerName(e.target.value)}
                         value={ownerName}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
 
@@ -243,7 +278,7 @@ const UpdateAddressForm = () => {
                         placeholder="owner email"
                         onChange={(e) => setOwnerEmail(e.target.value)}
                         value={ownerEmail}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -252,9 +287,11 @@ const UpdateAddressForm = () => {
                         type="text"
                         name="ownerFirstAddressLine"
                         placeholder="123 Streetname Ave"
-                        onChange={(e) => setOwnerFirstAddressLine(e.target.value)}
+                        onChange={(e) =>
+                            setOwnerFirstAddressLine(e.target.value)
+                        }
                         value={ownerFirstAddressLine}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -262,10 +299,12 @@ const UpdateAddressForm = () => {
                     <input
                         type="text"
                         name="ownerSecondAddressLine"
-                        placeholder='apt, suite, or unit'
-                        onChange={(e) => setOwnerSecondAddressLine(e.target.value)}
+                        placeholder="apt, suite, or unit"
+                        onChange={(e) =>
+                            setOwnerSecondAddressLine(e.target.value)
+                        }
                         value={ownerSecondAddressLine}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -276,7 +315,7 @@ const UpdateAddressForm = () => {
                         placeholder="city"
                         onChange={(e) => setOwnerCity(e.target.value)}
                         value={ownerCity}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -286,10 +325,10 @@ const UpdateAddressForm = () => {
                         name="ownerState"
                         placeholder="state"
                         onChange={(e) => setOwnerState(e.target.value)}
-                        defaultValue={ownerState ? ownerState : ''}
-                        className='iflight bnone h40px'
+                        defaultValue={ownerState ? ownerState : ""}
+                        className="iflight bnone h40px"
                     >
-                        <option value=''> -- select a State -- </option>
+                        <option value=""> -- select a State -- </option>
                         {stateOptions}
                     </select>
                 </div>
@@ -301,7 +340,7 @@ const UpdateAddressForm = () => {
                         placeholder="zip code"
                         onChange={(e) => setOwnerZipCode(e.target.value)}
                         value={ownerZipCode}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -312,7 +351,7 @@ const UpdateAddressForm = () => {
                         placeholder="notes"
                         onChange={(e) => setNotes(e.target.value)}
                         value={notes}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -323,11 +362,11 @@ const UpdateAddressForm = () => {
                         placeholder="mm/dd/yyyy"
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="jccen mar30t">
-                    <button type="submit" className='w100p h50px btndark pad0'>
+                    <button type="submit" className="w100p h50px btndark pad0">
                         Save
                     </button>
                 </div>
@@ -336,4 +375,4 @@ const UpdateAddressForm = () => {
     );
 };
 
-export default UpdateAddressForm
+export default UpdateAddressForm;

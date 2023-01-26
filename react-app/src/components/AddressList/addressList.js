@@ -33,10 +33,17 @@ const AddressList = () => {
             >
                 <div className="id-container">{address.id}</div>
                 <div className="address nhvr">
-                    {address.firstAddressLine} {address.city}, {address.state}{" "}
-                    {address.zipCode}
+                    {address.firstAddressLine}
+                    {address.secondAddressLine
+                        ? ` ${address.secondAddressLine}`
+                        : ""}{" "}
+                    {address.city}, {address.state} {address.zipCode}
                 </div>
-                <div className="next-inspection-date">{address.nextInspectionDate ? address.nextInspectionDate : 'Pending'}</div>
+                <div className="next-inspection-date">
+                    {address.nextInspectionDate
+                        ? address.nextInspectionDate
+                        : "Pending"}
+                </div>
             </NavLink>
         );
     });
@@ -46,7 +53,9 @@ const AddressList = () => {
             {loaded && (
                 <div className="mar20b w60vw">
                     <div className="address-list-header-container">
-                        <h1 className="address-list-header">Complete Address List</h1>
+                        <h1 className="address-list-header">
+                            Complete Address List
+                        </h1>
                     </div>
 
                     <div className="">

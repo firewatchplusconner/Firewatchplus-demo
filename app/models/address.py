@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA
 
 class Address(db.Model):
     __tablename__ = 'addresses'
@@ -23,11 +23,13 @@ class Address(db.Model):
     notes = db.Column(db.Text)
     nextInspectionDate = db.Column(db.String)
 
+    inspections = db.relationship('Inspection', back_populates='address', cascade='all, delete-orphan')
+
     def to_dict(self):
         return {
             'id': self.id,
             'firstAddressLine': self.firstAddressLine,
-            'secondAddresLine': self.secondAddressLine,
+            'secondAddressLine': self.secondAddressLine,
             'city': self.city,
             'state': self.state,
             'zipCode': self.zipCode,
@@ -40,14 +42,15 @@ class Address(db.Model):
             'ownerState': self.ownerState,
             'ownerZipCode': self.ownerZipCode,
             'notes': self.notes,
-            'nextInspectionDate': self.nextInspectionDate
+            'nextInspectionDate': self.nextInspectionDate,
+            'inspections': [inspection.to_dict() for inspection in self.inspections]
         }
 
     def to_dict_basic_info(self):
         return {
             'id': self.id,
             'firstAddressLine': self.firstAddressLine,
-            'secondAddresLine': self.secondAddressLine,
+            'secondAddressLine': self.secondAddressLine,
             'city': self.city,
             'state': self.state,
             'zipCode': self.zipCode,
