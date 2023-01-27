@@ -71,7 +71,7 @@ def seed_inspection_types():
     misc_category = QuestionCategory(category='Miscellaneous', questions=[misc_question_1, misc_question_2, misc_question_3, misc_question_4, misc_question_5, misc_question_6, misc_question_7])
 
     # commerial inspection type
-    commercial = InspectionType(type='commercial', question_categories=[egress_category, system_category, assemblies_category, hazmat_category, electrical_category, housekeeping_category, misc_category])
+    commercial = InspectionType(type='Commercial', question_categories=[egress_category, system_category, assemblies_category, hazmat_category, electrical_category, housekeeping_category, misc_category])
 
     # residential inspection questions
     general_question_1 = Question(question='Home has smoke alarms on every level.')
@@ -161,7 +161,7 @@ def seed_inspection_types():
     stair_category = QuestionCategory(category='Stair Safety', questions=[stair_question_1, stair_question_2, stair_question_3, stair_question_4])
 
     # residential inspection type
-    residential = InspectionType(type='residential', question_categories=[general_category, throughout_category, kitchen_category, living_category, bedroom_category, basement_category, garage_category, outside_category, residential_electrical_category, stair_category])
+    residential = InspectionType(type='Residential', question_categories=[general_category, throughout_category, kitchen_category, living_category, bedroom_category, basement_category, garage_category, outside_category, residential_electrical_category, stair_category])
 
     # brush inspection questions
     defensible_question_1 = Question(question='No branches within 10 feet of any stovepipe or chimney outlet.')
@@ -200,7 +200,7 @@ def seed_inspection_types():
 
 
     # brush inspection type
-    brush = InspectionType(type='brush', question_categories=[defensible_space_category, reduced_fuel_category, defensible_reduced_category, other_requirements_category])
+    brush = InspectionType(type='Brush', question_categories=[defensible_space_category, reduced_fuel_category, defensible_reduced_category, other_requirements_category])
 
     db.session.add(commercial)
     db.session.add(residential)

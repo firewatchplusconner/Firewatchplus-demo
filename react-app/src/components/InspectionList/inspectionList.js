@@ -11,7 +11,6 @@ const InspectionList = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log('in the use effect')
         dispatch(loadAllInspections()).then(() => setLoaded(true))
     }, [dispatch])
 

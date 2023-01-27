@@ -10,6 +10,7 @@ import User from "./components/User/User";
 import AddressList from "./components/AddressList/addressList";
 import InspectionList from "./components/InspectionList/inspectionList";
 import Inspection from "./components/SingleInspection/singleInspection";
+import AddInspectionForm from "./components/AddUpdateInspection/addInspectionForm";
 import { authenticate } from "./store/session";
 import Address from "./components/SingleAddress/Address";
 
@@ -39,6 +40,9 @@ function App() {
                     <Route path="/sign-up" exact={true}>
                         <SignUpForm />
                     </Route>
+                    <ProtectedRoute path='/address/:addressId/inspection/:inspectionId' exact={true}>
+                        <AddInspectionForm />
+                    </ProtectedRoute>
                     <ProtectedRoute path='/address/:addressId' exact={true}>
                         <Address />
                     </ProtectedRoute>
