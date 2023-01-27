@@ -73,7 +73,7 @@ export const addInspection = (inspection) => async (dispatch) => {
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
-            return data;
+            return data.errors;
         }
     } else {
         return ["An error occurred. Please try again."];

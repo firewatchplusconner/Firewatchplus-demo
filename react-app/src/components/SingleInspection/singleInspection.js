@@ -19,7 +19,7 @@ const Inspection = () => {
 
     const inspectionAnswerContent = inspectionAnswers?.map((inspectionAnswer) => {
         return (
-            <div>
+            <div key={inspectionAnswer.id}>
                 <div>{inspectionAnswer.question.question}</div>
                 <div>{inspectionAnswer.passing ? "PASSED" : "FAILED"}</div>
                 <div>Comments: {inspectionAnswer.comment}</div>

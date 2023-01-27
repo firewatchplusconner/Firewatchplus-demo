@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import UpdateAddressForm from "./updateAddressForm";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAddressModal from "./deleteAddressModal";
+import GenerateInspectionModal from "../GenerateInspectionModal/generateInspectionModal";
 
 const Address = () => {
     const { addressId } = useParams();
@@ -55,6 +56,12 @@ const Address = () => {
                             <OpenModalButton
                                 buttonText="Update Address"
                                 modalComponent={<UpdateAddressForm />}
+                            />
+                        </div>
+                        <div className="modal-button-container jccen w100p h40px mar10l mar10r">
+                            <OpenModalButton
+                                buttonText='Add Inspection'
+                                modalComponent={<GenerateInspectionModal />}
                             />
                         </div>
                         {deletable && (

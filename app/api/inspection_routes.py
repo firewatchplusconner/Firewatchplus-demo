@@ -39,12 +39,13 @@ def add_inspection():
     if form.validate_on_submit():
         inspection = Inspection()
         form.populate_obj(inspection)
+        inspection.passing = True
         inspection.inspectorId = current_user.id
         inspection.date = datetime.now()
 
         inspectionType = InspectionType.query.get(form.data['inspectionTypeId'])
         questionCategories = [category for category in inspectionType.question_categories]
-        questionListArray = [category.question_categories for category in questionCategories]
+        questionListArray = [category.questions for category in questionCategories]
         questions = [question for questionList in questionListArray for question in questionList]
 
         inspectionAnswers = [InspectionAnswer(inspection=inspection, question=question) for question in questions]

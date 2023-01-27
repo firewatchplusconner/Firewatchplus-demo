@@ -42,6 +42,9 @@ const InspectionList = () => {
                 <div className="inspection-date">
                     {moment(inspection.date).format('L')}
                 </div>
+                <div className="inspection-number">
+                    {inspection.inspectionNumber === 1 ? '1st' : ''}{inspection.inspectionNumber === 2 ? '2nd' : ''}{inspection.inspectionNumber === 3 ? '3rd' : ''}
+                </div>
                 <div className={inspection.passing ? 'status-passed' : 'status-failed'}>
                     {inspection.passing ? 'PASSED' : 'FAILED'}
                 </div>
@@ -62,6 +65,7 @@ const InspectionList = () => {
                         <div className="id-container">ID</div>
                         <div className="address">Inspection Address</div>
                         <div className="inspection-date">Date</div>
+                        <div className="inspection-number">Number</div>
                         <div className="status">Status</div>
                     </div>
                     {inspectionContent}
