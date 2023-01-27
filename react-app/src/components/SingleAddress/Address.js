@@ -6,6 +6,7 @@ import UpdateAddressForm from "./updateAddressForm";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAddressModal from "./deleteAddressModal";
 import GenerateInspectionModal from "../GenerateInspectionModal/generateInspectionModal";
+import "./singleAddress.css";
 
 const Address = () => {
     const { addressId } = useParams();
@@ -31,25 +32,60 @@ const Address = () => {
     return (
         <>
             {loaded && (
-                <div>
-                    <h2>
-                        {address.firstAddressLine}{address.secondAddressLine ? ` ${address.secondAddressLine}` : ''} {address.city},{" "}
-                        {address.state} {address.zipCode}
+                <div className="single-address-container">
+                    <h2 className="single-address-header-container">
+                        {address.firstAddressLine}
+                        {address.secondAddressLine
+                            ? ` ${address.secondAddressLine}`
+                            : ""}{" "}
+                        {address.city}, {address.state} {address.zipCode}
                     </h2>
-                    <div>Owner: {address.ownerName}</div>
-                    <div>Owner Phone Number: {address.ownerPhone}</div>
-                    <div>Owner Email Address: {address.ownerEmail}</div>
-                    <div>
-                        Owner Address: {address.ownerFirstAddressLine}{" "}
-                        {address.ownerCity}, {address.ownerState}{" "}
-                        {address.ownerZipCode}
+                    <div className="info-label-container">
+                        <div className="label-container">Owner:</div>
+                        <div className="info-container">
+                            {address.ownerName}
+                        </div>
                     </div>
-                    <div>
-                        Notes
-                        <div>{address.notes}</div>
+                    <div className="info-label-container">
+                        <div className="label-container">
+                            Owner Phone Number:
+                        </div>
+                        <div className="info-container">
+                            {address.ownerPhone}
+                        </div>
                     </div>
-                    <div>
-                        Next Inspection Date: {address.nextInspectionDate}
+                    <div className="info-label-container">
+                        <div className="label-container">
+                            Owner Email Address:
+                        </div>
+                        <div className="info-container">
+                            {address.ownerEmail}
+                        </div>
+                    </div>
+                    <div className="info-label-container">
+                        <div className="label-container">Owner Address:</div>
+                        <div className="info-container">
+                            {address.ownerFirstAddressLine} {address.ownerCity},{" "}
+                            {address.ownerState} {address.ownerZipCode}
+                        </div>
+                    </div>
+                    {address.notes && (
+                        <div className="info-label-container">
+                            <div className="label-container">Notes:</div>
+                            <div className="info-container">
+                                <div>{address.notes}</div>
+                            </div>
+                        </div>
+                    )}
+                    <div className="info-label-container">
+                        <div className="label-container">
+                            Next Inspection Date:
+                        </div>
+                        <div className="info-container">
+                            {address.nextInspectionDate
+                                ? address.nextInspectionDate
+                                : "Pending"}
+                        </div>
                     </div>
                     <div className="sb mar30">
                         <div className="modal-button-container jccen w100p h40px mar10l mar10r">
@@ -60,7 +96,7 @@ const Address = () => {
                         </div>
                         <div className="modal-button-container jccen w100p h40px mar10l mar10r">
                             <OpenModalButton
-                                buttonText='Add Inspection'
+                                buttonText="Add Inspection"
                                 modalComponent={<GenerateInspectionModal />}
                             />
                         </div>

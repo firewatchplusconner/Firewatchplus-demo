@@ -53,7 +53,7 @@ const InspectionList = () => {
 
     return (
         <>
-            <div className="mar20b w60vw">
+            <div className="mar20b w60vw w100p inspection-list-container">
                 <div className="inspection-list-header-container">
                     <h1 className="inspection-list-header">
                         All Inspections

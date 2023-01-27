@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadSingleInspection } from "../../store/inspections";
 import QuestionCategory from "./questionCategory";
 import { useParams } from "react-router-dom";
+import './addInspectionForm.css'
 
 const AddInspectionForm = () => {
     const { inspectionId } = useParams();
@@ -36,7 +37,7 @@ const AddInspectionForm = () => {
     return (
         <>
             {loaded && (
-                <div>
+                <div className="">
                     <h1>{inspectionType.type} Inspection</h1>
                     <div>{content}</div>
                 </div>
