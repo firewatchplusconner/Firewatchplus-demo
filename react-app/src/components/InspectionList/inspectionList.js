@@ -27,7 +27,7 @@ const InspectionList = () => {
         return (
             <NavLink
                 to={`/inspection/${inspection.id}`}
-                className='tdnone tclight nhvr inspection-container'
+                className='tdnone tclight nhvr inspection-container-nav'
                 key={`${inspection.id}`}
             >
                 <div className="id-container">{inspection.id}</div>

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadSingleInspection } from "../../store/inspections";
 import QuestionCategory from "./questionCategory";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { updateInspection } from "../../store/inspections";
 import './addInspectionForm.css'
 
 const AddInspectionForm = () => {
-    const { inspectionId } = useParams();
+    const { addressId, inspectionId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory()
     const inspection = useSelector(
         (state) => state.inspections.singleInspection
     );
@@ -24,6 +26,16 @@ const AddInspectionForm = () => {
         )
     });
 
+    const handleSubmitInspection = async () => {
+        let passing = true
+        const failedQuestions = inspection.inspectionAnswers.filter(answer => answer.passing === false)
+        if (failedQuestions.length){
+            passing = false
+        }
+        await dispatch(updateInspection(inspection.id, {addressId, inspectionTypeId: inspectionType.id, inspectionNumber: inspection.inspectionNumber, passing, notes: inspection.notes}))
+        history.push(`/inspection/${inspectionId}`)
+    }
+
     useEffect(() => {
         dispatch(loadSingleInspection(inspectionId)).then(() =>
             setLoaded(true)
@@ -37,9 +49,12 @@ const AddInspectionForm = () => {
     return (
         <>
             {loaded && (
-                <div className="">
-                    <h1>{inspectionType.type} Inspection</h1>
-                    <div>{content}</div>
+                <div className="inspection-container">
+                    <h1 className="inspection-header">{inspectionType.type} Inspection</h1>
+                    <div className="inspection-content-container">{content}</div>
+                    <div className="submit-inspection-button-container">
+                        <div className="submit-inspection-button" onClick={handleSubmitInspection}>Submit Inspection</div>
+                    </div>
                 </div>
             )}
         </>

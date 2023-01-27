@@ -31,7 +31,7 @@
     --light-gunmetal: rgb(49, 58, 70)
 }
 
-.inspection-container {
+.inspection-container-nav {
     border: 2px solid var(--light-gunmetal);
     display: flex;
     justify-content: space-around;
@@ -42,7 +42,7 @@
     border-radius: 5px;
 }
 
-.inspection-container:hover {
+.inspection-container-nav:hover {
     border: 2px solid rgb(85, 92, 102)
 }
 
