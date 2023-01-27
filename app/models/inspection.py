@@ -8,7 +8,7 @@ class Inspection(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     inspectionNumber = db.Column(db.Integer, nullable=False)
-    passing = db.Column(db.Boolean, default=True)
+    passing = db.Column(db.Boolean, server_default='true', default=True)
     notes = db.Column(db.Text)
     date = db.Column(db.String, nullable=False)
     addressId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('addresses.id')), nullable=False)
@@ -58,7 +58,7 @@ class InspectionAnswer(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    passing = db.Column(db.Boolean, default=True)
+    passing = db.Column(db.Boolean, server_default='true', default=True)
     comment = db.Column(db.Text)
     inspectionId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('inspections.id')), nullable=False)
     questionId = db.Column(db.Integer,  db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)

@@ -44,7 +44,8 @@ def add_inspection():
 
         inspectionType = InspectionType.query.get(form.data['inspectionTypeId'])
         questionCategories = [category for category in inspectionType.question_categories]
-        questions = [question for question in questionCategories.questions]
+        questionListArray = [category.question_categories for category in questionCategories]
+        questions = [question for questionList in questionListArray for question in questionList]
 
         inspectionAnswers = [InspectionAnswer(inspection=inspection, question=question) for question in questions]
 

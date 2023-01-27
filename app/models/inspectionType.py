@@ -52,7 +52,7 @@ class Question(db.Model):
             __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.Text, nullable=False, unique=True)
+    question = db.Column(db.Text, nullable=False)
     question_category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('question_categories.id')), nullable=False)
 
     question_category = db.relationship('QuestionCategory', back_populates='questions')

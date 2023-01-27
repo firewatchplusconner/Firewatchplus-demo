@@ -210,7 +210,11 @@ def seed_inspection_types():
 def undo_inspection_types():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.inspection_types RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.question_categories RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.questions RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM inspection_types")
+        db.session.execute("DELETE FROM question_categories")
+        db.session.execute("DELETE FROM questions")
 
     db.session.commit()
