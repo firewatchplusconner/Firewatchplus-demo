@@ -1,3 +1,13 @@
+.inspection-list-container {
+    border: 2px solid rgb(25, 29, 34);
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+
 .inspection-list-header-container {
     display: flex;
     justify-content: center;
@@ -5,7 +15,7 @@
 
 .inspection-list-header {
     /* border: 3px solid  yellow; */
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .inspection-container-header {
@@ -45,14 +55,14 @@
 }
 
 .address {
-    width: 50%;
+    width: 45%;
     display:flex;
     justify-content: center;
     text-align: center;
 }
 
 .inspection-date {
-    width: 25%;
+    width: 18%;
     display: flex;
     justify-content: center;
     box-sizing: border-box;
@@ -62,6 +72,17 @@
     text-align: center;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.inspection-number {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    border-right: 2px solid var(--light-gunmetal);
+    height: 100%;
+    text-align: center;
+    padding-right: 10px
 }
 
 .status {

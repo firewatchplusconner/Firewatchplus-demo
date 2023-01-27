@@ -3,6 +3,7 @@ import { loadSingleInspection } from "../../store/inspections";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import "./singleInspection.css";
 
 const Inspection = () => {
     const { inspectionId } = useParams();
@@ -12,20 +13,48 @@ const Inspection = () => {
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
 
-    let inspectionAnswers = null
+    let inspectionAnswers = null;
     if (inspection) {
-        inspectionAnswers = inspection.inspectionAnswers
+        inspectionAnswers = inspection.inspectionAnswers;
     }
 
-    const inspectionAnswerContent = inspectionAnswers?.map((inspectionAnswer) => {
-        return (
-            <div>
-                <div>{inspectionAnswer.question.question}</div>
-                <div>{inspectionAnswer.passing ? "PASSED" : "FAILED"}</div>
-                <div>Comments: {inspectionAnswer.comment}</div>
-            </div>
-        )
-    })
+    const inspectionAnswerContent = inspectionAnswers?.map(
+        (inspectionAnswer) => {
+            return (
+                <div
+                    key={inspectionAnswer.id}
+                    className="inspection-answer-container"
+                >
+                    <div className="question-container">
+                        <div className="question-label">Question: </div>
+                        <div className="question">
+                            {inspectionAnswer.question.question}
+                        </div>
+                    </div>
+                    <div className="question-passing-container">
+                        <div className="question-passing-label">Response:</div>
+                        <div
+                            className={
+                                inspectionAnswer.passing
+                                    ? "question-passing-passed"
+                                    : "question-passing-failed"
+                            }
+                        >
+                            {inspectionAnswer.passing ? "PASS" : "FAIL"}
+                        </div>
+                    </div>
+                    {!inspectionAnswer.passing && (
+                        <div className="comment-container">
+                            <div className="comment-label">Comment: </div>
+                            <div className="comment">
+                                {inspectionAnswer.comment}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+    );
 
     useEffect(() => {
         dispatch(loadSingleInspection(inspectionId)).then(() =>
@@ -40,8 +69,8 @@ const Inspection = () => {
     return (
         <>
             {loaded && (
-                <div>
-                    <h2>
+                <div className="single-inspection-container">
+                    <h2 className="single-inspection-header-container">
                         {inspection.address.firstAddressLine}
                         {inspection.address.secondAddressLine
                             ? ` ${inspection.address.secondAddressLine}`
@@ -49,13 +78,35 @@ const Inspection = () => {
                         {inspection.address.city}, {inspection.address.state}{" "}
                         {inspection.address.zipCode}
                     </h2>
-                    <div>Date: {moment(inspection.date).format("L")}</div>
-                    <div>Inspector: {inspection.inspector.firstName} {inspection.inspector.lastName}</div>
-                    <div>
-                        Status: {inspection.passing ? "PASSED" : "FAILED"}
+                    <div className="info-label-container">
+                        <div className="label-container">Date:</div>
+                        <div className="info-container">
+                            {moment(inspection.date).format("L")}
+                        </div>
+                    </div>
+                    <div className="info-label-container">
+                        <div className="label-container">Inspector:</div>
+                        <div className="info-container">
+                            {inspection.inspector.firstName}{" "}
+                            {inspection.inspector.lastName}
+                        </div>
+                    </div>
+                    <div className="info-label-container">
+                        <div className="label-container">Status:</div>
+                        <div
+                            className={
+                                inspection.passing
+                                    ? "info-container-passing"
+                                    : "info-container-failed"
+                            }
+                        >
+                            {inspection.passing ? "PASSED" : "FAILED"}
+                        </div>
                     </div>
                     <div>
-                        <h2>Inspection Details</h2>
+                        <h2 className="single-inspection-header-container">
+                            Inspection Details
+                        </h2>
                         {inspectionAnswerContent}
                     </div>
                 </div>

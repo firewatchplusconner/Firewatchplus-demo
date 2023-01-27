@@ -3,9 +3,10 @@ import thunk from 'redux-thunk';
 import session from './session'
 import addresses from './addresses'
 import inspections from './inspections'
+import inspectionTypes from './inspectionTypes'
 
 const rootReducer = combineReducers({
-  session, addresses, inspections
+  session, addresses, inspections, inspectionTypes
 });
 
 
