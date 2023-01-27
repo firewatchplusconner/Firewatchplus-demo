@@ -44,7 +44,8 @@ def add_inspection():
 
         inspectionType = InspectionType.query.get(form.data['inspectionTypeId'])
         questionCategories = [category for category in inspectionType.question_categories]
-        questions = [question for question in questionCategories.questions]
+        questionListArray = [category.question_categories for category in questionCategories]
+        questions = [question for questionList in questionListArray for question in questionList]
 
         inspectionAnswers = [InspectionAnswer(inspection=inspection, question=question) for question in questions]
 
@@ -133,7 +134,7 @@ def update_inspection_answer(id):
 
 
     if form.validate_on_submit():
-        inspectionAnswer = InspectionAnswer.query.filter(InspectionAnswer.inspectionId == id, InspectionAnswer.questionId == form.data['questionId'])
+        inspectionAnswer = InspectionAnswer.query.filter(InspectionAnswer.inspectionId == id, InspectionAnswer.questionId == form.data['questionId']).first()
 
         if not inspectionAnswer:
             return {'errors': ['Inspection error not found']}, 404
