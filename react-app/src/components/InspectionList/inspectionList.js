@@ -3,7 +3,6 @@ import { loadAllInspections } from "../../store/inspections";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import moment from 'moment'
-import OpenModalButton from "../OpenModalButton";
 import './inspectionList.css'
 
 const InspectionList = () => {
