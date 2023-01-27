@@ -26,7 +26,7 @@ const Address = () => {
     if (!loaded) {
         return null;
     }
-   // TODO - add second addres line
+
     return (
         <>
             {loaded && (
