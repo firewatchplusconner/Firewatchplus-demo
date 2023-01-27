@@ -9,6 +9,7 @@ import UsersList from "./components/User/UsersList";
 import User from "./components/User/User";
 import AddressList from "./components/AddressList/addressList";
 import InspectionList from "./components/InspectionList/inspectionList";
+import Inspection from "./components/SingleInspection/singleInspection";
 import { authenticate } from "./store/session";
 import Address from "./components/SingleAddress/Address";
 
@@ -43,6 +44,9 @@ function App() {
                     </ProtectedRoute>
                     <ProtectedRoute path="/address" exact={true}>
                         <AddressList />
+                    </ProtectedRoute>
+                    <ProtectedRoute path='/inspection/:inspectionId' exact={true}>
+                        <Inspection />
                     </ProtectedRoute>
                     <ProtectedRoute path='/inspection' exact={true}>
                         <InspectionList />
