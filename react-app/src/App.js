@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/User/UsersList";
 import User from "./components/User/User";
 import AddressList from "./components/AddressList/addressList";
+import InspectionList from "./components/InspectionList/inspectionList";
 import { authenticate } from "./store/session";
 import Address from "./components/SingleAddress/Address";
 
@@ -37,11 +38,14 @@ function App() {
                     <Route path="/sign-up" exact={true}>
                         <SignUpForm />
                     </Route>
-                    <ProtectedRoute path='/address/:addressId'>
+                    <ProtectedRoute path='/address/:addressId' exact={true}>
                         <Address />
                     </ProtectedRoute>
-                    <ProtectedRoute path="/address">
+                    <ProtectedRoute path="/address" exact={true}>
                         <AddressList />
+                    </ProtectedRoute>
+                    <ProtectedRoute path='/inspection' exact={true}>
+                        <InspectionList />
                     </ProtectedRoute>
                     <ProtectedRoute path="/users" exact={true}>
                         <UsersList />

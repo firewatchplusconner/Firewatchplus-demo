@@ -20,11 +20,24 @@ const NavBar = () => {
                     </NavLink>
                 </div>
                 {user && (
-                    <div>
-                        <NavLink to="/address" className="tdnone tclight nhvr">
-                            Addresses
-                        </NavLink>
-                    </div>
+                    <>
+                        <div>
+                            <NavLink
+                                to="/address"
+                                className="tdnone tclight nhvr"
+                            >
+                                Addresses
+                            </NavLink>
+                        </div>
+                        <div>
+                            <NavLink
+                                to="/inspection"
+                                className="tdnone tclight nhvr"
+                            >
+                                Inspections
+                            </NavLink>
+                        </div>
+                    </>
                 )}
                 {/* <div>
                     <NavLink to="/users" exact={true} activeClassName="active" className='tdnone tclight'>
@@ -55,10 +68,11 @@ const NavBar = () => {
                         </div>
                     </>
                 )}
-                {user &&
-                <div>
-                    <LogoutButton />
-                </div>}
+                {user && (
+                    <div>
+                        <LogoutButton />
+                    </div>
+                )}
             </nav>
         </div>
     );
