@@ -21,10 +21,36 @@ const Inspection = () => {
     const inspectionAnswerContent = inspectionAnswers?.map(
         (inspectionAnswer) => {
             return (
-                <div key={inspectionAnswer.id}>
-                    <div>{inspectionAnswer.question.question}</div>
-                    <div>{inspectionAnswer.passing ? "PASSED" : "FAILED"}</div>
-                    <div>Comments: {inspectionAnswer.comment}</div>
+                <div
+                    key={inspectionAnswer.id}
+                    className="inspection-answer-container"
+                >
+                    <div className="question-container">
+                        <div className="question-label">Question: </div>
+                        <div className="question">
+                            {inspectionAnswer.question.question}
+                        </div>
+                    </div>
+                    <div className="question-passing-container">
+                        <div className="question-passing-label">Response:</div>
+                        <div
+                            className={
+                                inspectionAnswer.passing
+                                    ? "question-passing-passed"
+                                    : "question-passing-failed"
+                            }
+                        >
+                            {inspectionAnswer.passing ? "PASS" : "FAIL"}
+                        </div>
+                    </div>
+                    {!inspectionAnswer.passing && (
+                        <div className="comment-container">
+                            <div className="comment-label">Comment: </div>
+                            <div className="comment">
+                                {inspectionAnswer.comment}
+                            </div>
+                        </div>
+                    )}
                 </div>
             );
         }
@@ -67,12 +93,20 @@ const Inspection = () => {
                     </div>
                     <div className="info-label-container">
                         <div className="label-container">Status:</div>
-                        <div className="info-container">
+                        <div
+                            className={
+                                inspection.passing
+                                    ? "info-container-passing"
+                                    : "info-container-failed"
+                            }
+                        >
                             {inspection.passing ? "PASSED" : "FAILED"}
                         </div>
                     </div>
                     <div>
-                        <h2>Inspection Details</h2>
+                        <h2 className="single-inspection-header-container">
+                            Inspection Details
+                        </h2>
                         {inspectionAnswerContent}
                     </div>
                 </div>

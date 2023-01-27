@@ -36,3 +36,72 @@
     color: rgb(255, 255, 255);
     font-weight: 500;
 }
+
+.info-container-passing {
+    font-size: larger;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    color: rgb(6, 182, 6);
+}
+
+.info-container-failed {
+    font-size: larger;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    color: rgb(255, 37, 37)
+}
+
+.inspection-answer-container {
+    /* border: 3px solid red; */
+    margin-bottom: 20px;
+    border: 2px solid var(--light-gunmetal);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.question-container {
+    /* border: 3px solid yellow; */
+    font-size: large;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.question-label {
+    font-size: large;
+    margin-right: 5px;
+}
+
+.question {
+    color: rgb(255, 255, 255);
+}
+
+.question-passing-container {
+    display: flex;
+    align-items: center;
+    margin-left: 80px;
+    margin-bottom: 5px;
+}
+
+.question-passing-label {
+    margin-right: 10px;
+}
+
+.question-passing-passed {
+    color: rgb(6, 182, 6);
+}
+
+.question-passing-failed {
+    color: rgb(255, 37, 37);
+}
+
+.comment-container {
+    margin-left: 80px;
+}
+
+.comment-label {
+    margin-right: 5px;
+}
+
+.comment {
+    color: rgb(255, 255, 255);
+}
