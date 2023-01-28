@@ -6,7 +6,8 @@
     border-radius: 15px;
     box-shadow: 0 0 10px 1px rgb(25, 29, 34);
     padding-left: 30px;
-    padding-right: 30px
+    padding-right: 30px;
+    padding-bottom: 30px;
 }
 
 .single-inspection-header-container {
@@ -95,13 +96,58 @@
 }
 
 .comment-container {
+    display: flex;
     margin-left: 80px;
 }
 
 .comment-label {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .comment {
     color: rgb(255, 255, 255);
+}
+
+.edit-inspection-button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.edit-inspection-button-container>button {
+    width: 40%;
+    height: 50px;
+    background-color: var(--light-gunmetal);
+    color: lightgray;
+    border-radius: 10px;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.edit-inspection-button-container>button:hover {
+    cursor: pointer;
+    background-color: var(--gunmetal);
+}
+
+.edit-inspection-button {
+    width: 40%;
+    height: 50px;
+    background-color: var(--light-gunmetal);
+    color: lightgray;
+    border-radius: 10px;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.edit-inspection-button:hover {
+    cursor: pointer;
+    background-color: var(--gunmetal);
 }

@@ -32,7 +32,8 @@ const AddInspectionForm = () => {
         if (failedQuestions.length){
             passing = false
         }
-        await dispatch(updateInspection(inspection.id, {addressId, inspectionTypeId: inspectionType.id, inspectionNumber: inspection.inspectionNumber, passing, notes: inspection.notes}))
+        const data = await dispatch(updateInspection(inspection.id, {addressId, inspectionTypeId: inspectionType.id, inspectionNumber: inspection.inspectionNumber, passing: passing, notes: inspection.notes}))
+        console.log(data)
         history.push(`/inspection/${inspectionId}`)
     }
 

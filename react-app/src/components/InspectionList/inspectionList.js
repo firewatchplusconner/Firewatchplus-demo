@@ -10,14 +10,15 @@ const InspectionList = () => {
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(loadAllInspections()).then(() => setLoaded(true))
-    }, [dispatch])
-
     let inspectionList = null
     if (inspections) {
         inspectionList = Object.values(inspections)
     }
+
+    useEffect(() => {
+        dispatch(loadAllInspections()).then(() => setLoaded(true))
+    }, [dispatch, inspectionList?.length])
+
 
     if (!loaded) {
         return null
