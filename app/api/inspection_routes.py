@@ -39,12 +39,13 @@ def add_inspection():
     if form.validate_on_submit():
         inspection = Inspection()
         form.populate_obj(inspection)
+        inspection.passing = True
         inspection.inspectorId = current_user.id
         inspection.date = datetime.now()
 
         inspectionType = InspectionType.query.get(form.data['inspectionTypeId'])
         questionCategories = [category for category in inspectionType.question_categories]
-        questionListArray = [category.question_categories for category in questionCategories]
+        questionListArray = [category.questions for category in questionCategories]
         questions = [question for questionList in questionListArray for question in questionList]
 
         inspectionAnswers = [InspectionAnswer(inspection=inspection, question=question) for question in questions]
@@ -130,16 +131,17 @@ def update_inspection_answer(id):
     '''
     form = InspectionAnswerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # questionId, passing, comment
+    # id(inspectionAnswerId), passing, comment
 
 
     if form.validate_on_submit():
-        inspectionAnswer = InspectionAnswer.query.filter(InspectionAnswer.inspectionId == id, InspectionAnswer.questionId == form.data['questionId']).first()
+        inspectionAnswer = InspectionAnswer.query.get(form.data['id'])
 
         if not inspectionAnswer:
             return {'errors': ['Inspection error not found']}, 404
 
-        form.populate_obj(inspectionAnswer)
+        inspectionAnswer.passing = form.data['passing']
+        inspectionAnswer.comment = form.data['comment']
 
         db.session.add(inspectionAnswer)
         db.session.commit()

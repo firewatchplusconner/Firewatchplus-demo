@@ -10,15 +10,15 @@ const InspectionList = () => {
     const [loaded, setLoaded] = useState(false)
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        console.log('in the use effect')
-        dispatch(loadAllInspections()).then(() => setLoaded(true))
-    }, [dispatch])
-
     let inspectionList = null
     if (inspections) {
         inspectionList = Object.values(inspections)
     }
+
+    useEffect(() => {
+        dispatch(loadAllInspections()).then(() => setLoaded(true))
+    }, [dispatch, inspectionList?.length])
+
 
     if (!loaded) {
         return null
@@ -28,7 +28,7 @@ const InspectionList = () => {
         return (
             <NavLink
                 to={`/inspection/${inspection.id}`}
-                className='tdnone tclight nhvr inspection-container'
+                className='tdnone tclight nhvr inspection-container-nav'
                 key={`${inspection.id}`}
             >
                 <div className="id-container">{inspection.id}</div>
@@ -42,6 +42,9 @@ const InspectionList = () => {
                 <div className="inspection-date">
                     {moment(inspection.date).format('L')}
                 </div>
+                <div className="inspection-number">
+                    {inspection.inspectionNumber === 1 ? '1st' : ''}{inspection.inspectionNumber === 2 ? '2nd' : ''}{inspection.inspectionNumber === 3 ? '3rd' : ''}
+                </div>
                 <div className={inspection.passing ? 'status-passed' : 'status-failed'}>
                     {inspection.passing ? 'PASSED' : 'FAILED'}
                 </div>
@@ -51,7 +54,7 @@ const InspectionList = () => {
 
     return (
         <>
-            <div className="mar20b w60vw">
+            <div className="mar20b w60vw w100p inspection-list-container">
                 <div className="inspection-list-header-container">
                     <h1 className="inspection-list-header">
                         All Inspections
@@ -62,6 +65,7 @@ const InspectionList = () => {
                         <div className="id-container">ID</div>
                         <div className="address">Inspection Address</div>
                         <div className="inspection-date">Date</div>
+                        <div className="inspection-number">Number</div>
                         <div className="status">Status</div>
                     </div>
                     {inspectionContent}

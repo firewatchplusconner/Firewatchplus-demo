@@ -298,42 +298,41 @@ const AddAddressForm = () => {
         }
     };
 
-
-
     useEffect(() => {
-        const submitNewAddress = async () => {
-            const data = await dispatch(
-                addAddress({
-                    firstAddressLine,
-                    secondAddressLine,
-                    city,
-                    state,
-                    zipCode,
-                    ownerName,
-                    ownerEmail,
-                    ownerFirstAddressLine,
-                    ownerSecondAddressLine,
-                    ownerCity,
-                    ownerState,
-                    ownerZipCode,
-                    notes,
-                    nextInspectionDate,
-                })
-            );
-            if (data.errors) {
-                setErrors(data.errors);
-            } else {
-                await closeModal();
-                history.push(`/address/${data.id}`);
-            }
-        };
-
         if (googleResponse) {
             if (!errors[0]) {
                 submitNewAddress();
             }
         }
-    }, [googleResponse, errors, firstAddressLine, secondAddressLine, city, state, zipCode, ownerName, ownerEmail, ownerFirstAddressLine, ownerSecondAddressLine, ownerCity, ownerState, ownerZipCode, notes, nextInspectionDate, closeModal, dispatch, history]);
+        // eslint-disable-next-line
+    }, [googleResponse, errors]);
+
+    const submitNewAddress = async () => {
+        const data = await dispatch(
+            addAddress({
+                firstAddressLine,
+                secondAddressLine,
+                city,
+                state,
+                zipCode,
+                ownerName,
+                ownerEmail,
+                ownerFirstAddressLine,
+                ownerSecondAddressLine,
+                ownerCity,
+                ownerState,
+                ownerZipCode,
+                notes,
+                nextInspectionDate,
+            })
+        );
+        if (data.errors) {
+            setErrors(data.errors);
+        } else {
+            await closeModal();
+            history.push(`/address/${data.id}`);
+        }
+    };
 
     return (
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">

@@ -201,6 +201,10 @@
     height: auto
 }
 
+.mw1000px {
+    max-width: 1000px;
+}
+
 .w100vw {
     width: 100vw
 }

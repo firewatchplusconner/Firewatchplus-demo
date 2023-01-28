@@ -10,6 +10,6 @@ def notPassingComment(form, field):
 
 
 class InspectionAnswerForm(FlaskForm):
-    questionId = IntegerField('Question ID', validators=[DataRequired()])
+    id = IntegerField('Question Answer ID', validators=[DataRequired()])
     passing = BooleanField('Passing')
     comment = TextAreaField('Notes', validators=[notPassingComment])

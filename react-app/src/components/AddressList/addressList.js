@@ -51,10 +51,10 @@ const AddressList = () => {
     return (
         <>
             {loaded && (
-                <div className="mar20b w60vw">
+                <div className="mar20b w100p address-list-container">
                     <div className="address-list-header-container">
                         <h1 className="address-list-header">
-                            Complete Address List
+                            All Addresses
                         </h1>
                     </div>
 

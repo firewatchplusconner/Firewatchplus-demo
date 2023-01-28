@@ -1,3 +1,5 @@
+import { loadSingleInspectionType } from "./inspectionTypes";
+
 const ALL_INSPECTIONS = 'inspections/ALL_INSPECTIONS'
 const SINGLE_INSPECTION = 'inspections/SINGLE_INSPECTION';
 const DELETE_INSPECTION = 'inspections/DELETE_INSPECTION'
@@ -25,7 +27,7 @@ export const loadAllInspections = () => async (dispatch) => {
         if (data.errors) {
             return
         }
-        dispatch(allInspections(data))
+        await dispatch(allInspections(data))
         return
     }
 }
@@ -39,6 +41,7 @@ export const loadSingleInspection = (id) => async (dispatch) => {
             return
         }
         dispatch(singleInspection(data))
+        await dispatch(loadSingleInspectionType(data.inspectionTypeId))
         return;
     }
 }
@@ -73,7 +76,7 @@ export const addInspection = (inspection) => async (dispatch) => {
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
-            return data;
+            return data.errors;
         }
     } else {
         return ["An error occurred. Please try again."];
@@ -96,6 +99,7 @@ export const updateInspection = (id, inspection) => async (dispatch) => {
     } else if (response.status < 500) {
         const data = await response.json();
         if (data.errors) {
+            console.log('errors---------------------',data.errors)
             return data.errors;
         }
     } else {
