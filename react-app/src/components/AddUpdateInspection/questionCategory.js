@@ -1,9 +1,9 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import QuestionAnswer from "./questionAnswer";
 
 const QuestionCategory = ({ category, inspection }) => {
-    const { addressId, inspectionId } = useParams();
+    // const { addressId, inspectionId } = useParams();
     const inspectionAnswers = inspection.inspectionAnswers
 
     const questionContent = category.questions.map((question) => {
@@ -14,8 +14,8 @@ const QuestionCategory = ({ category, inspection }) => {
     });
 
     return (
-        <div key={category.id}>
-            <h2 key={category.id}>{category.category}</h2>
+        <div key={category.id} className='inspection-category-container'>
+            <h2 key={category.id} className='inspection-category-header'>{category.category}</h2>
             <div>{questionContent}</div>
         </div>
     );

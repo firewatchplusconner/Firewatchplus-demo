@@ -4,73 +4,110 @@ import { updateInspectionAnswer } from "../../store/inspections";
 import { useParams } from "react-router-dom";
 
 const QuestionAnswer = ({ question, questionAnswer }) => {
-    const { addressId, inspectionId } = useParams();
+    const { inspectionId } = useParams();
     const [passing, setPassing] = useState(questionAnswer.passing);
-    const [comment, setComment] = useState(questionAnswer.comment);
+    const [comment, setComment] = useState(questionAnswer.comment ? questionAnswer.comment : '');
     const [newFail, setNewFail] = useState(false);
-    const [newPassing, setNewPassing] = useState(false)
+    const [newPassing, setNewPassing] = useState(false);
     const dispatch = useDispatch();
 
     const handleSave = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         dispatch(
             updateInspectionAnswer(inspectionId, {
                 id: questionAnswer.id,
                 passing,
                 comment,
             })
-        ).then(() => setNewFail(false));
+        ).then(() => setNewFail(false)).then(() => setNewPassing(true));
     };
 
     useEffect(() => {
         if (newPassing) {
-            dispatch(updateInspectionAnswer(inspectionId, {
-                id: questionAnswer.id,
-                passing,
-                comment
-            }))
+            if (passing) {
+                dispatch(
+                    updateInspectionAnswer(inspectionId, {
+                        id: questionAnswer.id,
+                        passing,
+                        comment,
+                    })
+                );
+            }
         }
-    }, [newPassing])
+        // eslint-disable-next-line
+    }, [
+        newPassing,
+        dispatch,
+        inspectionId,
+        passing,
+        questionAnswer.id,
+        questionAnswer.passing
+    ]);
 
     return (
-        <div key={question.id}>
-            <h4>{question.question}</h4>
-            <div>
+        <div key={question.id} className="inspection-question-container">
+            <div className="inspection-question">{question.question}</div>
+            <div className="inspection-question-answer-container">
                 <div
                     onClick={() => {
                         setPassing(true);
-                        setComment("");
                         setNewFail(false);
-                        setNewPassing(true)
+                        setComment("");
+                        if (!passing) setNewPassing(true);
                     }}
+                    className={
+                        passing
+                            ? "inspection-question-passing"
+                            : "inspection-question-not-passing"
+                    }
                 >
                     PASS
                 </div>
                 <div
                     onClick={() => {
-                        setPassing(false);
                         setNewFail(true);
+                        setPassing(false)
                     }}
+                    className={
+                        passing
+                            ? "inspection-question-not-failed"
+                            : "inspection-question-failed"
+                    }
                 >
                     FAIL
                 </div>
             </div>
             {newFail && (
-                <form onSubmit={handleSave}>
-                    <div>
-                        <label>Comment *</label>
+                <form onSubmit={(e) => {
+                    handleSave(e)
+                    }}>
+                    <div className="inspection-question-comment-input-container">
+                        <label className="inspection-question-comment-input-label">
+                            Comment *:
+                        </label>
                         <textarea
                             type="textarea"
                             name="comment"
                             onChange={(e) => setComment(e.target.value)}
                             value={comment}
                             required={true}
+                            className="inspection-question-comment-input"
                         ></textarea>
                     </div>
-                    <button type="submit">Save</button>
+                    <div className="inspection-question-comment-input-button-container">
+
+                    <button type="submit" className="inspection-question-comment-input-button">Save</button>
+                    </div>
                 </form>
             )}
-            {comment && !newFail && <div>Comment: {comment}</div>}
+            {comment && !newFail && (
+                <div className="inspection-question-comment-container">
+                    <div className="inspection-question-comment-label">
+                        Comments:
+                    </div>
+                    <div className="inspection-question-comment">{comment}</div>
+                </div>
+            )}
         </div>
     );
 };

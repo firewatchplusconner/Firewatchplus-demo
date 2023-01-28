@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { loadSingleInspection } from "../../store/inspections";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import moment from "moment";
 import "./singleInspection.css";
+import OpenModalButton from "../OpenModalButton";
+import DeleteInspectionModal from "./deleteInspectionModal";
 
 const Inspection = () => {
     const { inspectionId } = useParams();
@@ -12,10 +14,15 @@ const Inspection = () => {
     );
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory()
 
     let inspectionAnswers = null;
     if (inspection) {
         inspectionAnswers = inspection.inspectionAnswers;
+    }
+
+    const editInspection = () => {
+        history.push(`/address/${inspection.address.id}/inspection/${inspection.id}`)
     }
 
     const inspectionAnswerContent = inspectionAnswers?.map(
@@ -55,6 +62,8 @@ const Inspection = () => {
             );
         }
     );
+
+
 
     useEffect(() => {
         dispatch(loadSingleInspection(inspectionId)).then(() =>
@@ -108,6 +117,13 @@ const Inspection = () => {
                             Inspection Details
                         </h2>
                         {inspectionAnswerContent}
+                    </div>
+                    <div className="edit-inspection-button-container">
+                        <div className="edit-inspection-button" onClick={editInspection}>Edit Inspection</div>
+                        <OpenModalButton
+                            buttonText='Delete Inspection'
+                            modalComponent={<DeleteInspectionModal />}
+                        />
                     </div>
                 </div>
             )}
