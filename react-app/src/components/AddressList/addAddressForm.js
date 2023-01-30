@@ -8,6 +8,7 @@ const AddAddressForm = () => {
     const { closeModal } = useModal();
     const history = useHistory();
     const [errors, setErrors] = useState([]);
+    const [ownerErrors, setOwnerErrors] = useState([])
     const [firstAddressLine, setFirstAddressLine] = useState("");
     const [secondAddressLine, setSecondAddressLine] = useState("");
     const [city, setCity] = useState("");
@@ -132,9 +133,6 @@ const AddAddressForm = () => {
                     }
                 }
             );
-            if (unconfirmedErrors) {
-                setErrors(unconfirmedErrors);
-            }
 
             const missingComponents =
                 addressResponse.result.address.missingComponentTypes;
@@ -153,15 +151,17 @@ const AddAddressForm = () => {
                     return null;
                 }
             });
-            if (missingErrors) {
-                setErrors([...errors, ...missingErrors]);
-            }
 
             if (addressResponse.result.address.unresolvedTokens) {
                 setErrors([
-                    ...errors,
-                    "Invalid Input: Please provide a valid address.",
+                    "Invalid Input: Please provide a valid address."
                 ]);
+            } else if (unconfirmedErrors && missingErrors) {
+                setErrors([...unconfirmedErrors, ...missingErrors])
+            } else if (unconfirmedErrors) {
+                setErrors([...unconfirmedErrors])
+            } else if (missingErrors) {
+                setErrors([...missingErrors])
             }
         }
     };
@@ -208,9 +208,6 @@ const AddAddressForm = () => {
                     }
                 }
             );
-            if (unconfirmedErrors) {
-                setErrors(unconfirmedErrors);
-            }
 
             const missingComponents =
                 addressResponse.result.address.missingComponentTypes;
@@ -229,15 +226,17 @@ const AddAddressForm = () => {
                     return null;
                 }
             });
-            if (missingErrors) {
-                setErrors([...errors, ...missingErrors]);
-            }
 
             if (addressResponse.result.address.unresolvedTokens) {
                 setErrors([
-                    ...errors,
-                    "Invalid Input: Please provide a valid Owner address.",
+                    "Invalid Input: Please provide a valid address."
                 ]);
+            } else if (unconfirmedErrors && missingErrors) {
+                setOwnerErrors([...unconfirmedErrors, ...missingErrors])
+            } else if (unconfirmedErrors) {
+                setOwnerErrors([...unconfirmedErrors])
+            } else if (missingErrors) {
+                setOwnerErrors([...missingErrors])
             }
         }
 
@@ -247,7 +246,8 @@ const AddAddressForm = () => {
 
     const HandleSubmit = async (e) => {
         e.preventDefault();
-        setErrors([]);
+        setErrors([])
+        setOwnerErrors([]);
         setGoogleResponse(false);
         const response = await fetch(
             `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
@@ -300,12 +300,12 @@ const AddAddressForm = () => {
 
     useEffect(() => {
         if (googleResponse) {
-            if (!errors[0]) {
+            if (!errors[0] && !ownerErrors[0]) {
                 submitNewAddress();
             }
         }
         // eslint-disable-next-line
-    }, [googleResponse, errors]);
+    }, [googleResponse, errors, ownerErrors]);
 
     const submitNewAddress = async () => {
         const data = await dispatch(
@@ -340,6 +340,9 @@ const AddAddressForm = () => {
             <form onSubmit={HandleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
+                        <div key={ind}>{error}</div>
+                    ))}
+                    {ownerErrors.map((error, ind) => (
                         <div key={ind}>{error}</div>
                     ))}
                 </div>

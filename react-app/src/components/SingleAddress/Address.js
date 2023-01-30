@@ -40,35 +40,35 @@ const Address = () => {
                             : ""}{" "}
                         {address.city}, {address.state} {address.zipCode}
                     </h2>
-                    <div className="info-label-container">
+                    {address.ownerName && <div className="info-label-container">
                         <div className="label-container">Owner:</div>
                         <div className="info-container">
                             {address.ownerName}
                         </div>
-                    </div>
-                    <div className="info-label-container">
+                    </div>}
+                    {address.ownerPhone && <div className="info-label-container">
                         <div className="label-container">
                             Owner Phone Number:
                         </div>
                         <div className="info-container">
                             {address.ownerPhone}
                         </div>
-                    </div>
-                    <div className="info-label-container">
+                    </div>}
+                    {address.ownerEmail && <div className="info-label-container">
                         <div className="label-container">
                             Owner Email Address:
                         </div>
                         <div className="info-container">
                             {address.ownerEmail}
                         </div>
-                    </div>
-                    <div className="info-label-container">
+                    </div>}
+                    {address.ownerFirstAddressLine && <div className="info-label-container">
                         <div className="label-container">Owner Address:</div>
                         <div className="info-container">
-                            {address.ownerFirstAddressLine} {address.ownerCity},{" "}
+                            {address.ownerFirstAddressLine}{address.ownerSecondAddressLine ? ` ${address.ownerSecondAddressLine}` : ''} {address.ownerCity},{" "}
                             {address.ownerState} {address.ownerZipCode}
                         </div>
-                    </div>
+                    </div>}
                     {address.notes && (
                         <div className="info-label-container">
                             <div className="label-container">Notes:</div>
