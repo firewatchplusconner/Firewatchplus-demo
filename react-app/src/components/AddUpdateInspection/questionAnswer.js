@@ -50,10 +50,10 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
             <div className="inspection-question-answer-container">
                 <div
                     onClick={() => {
+                        if (!passing) setNewPassing(true);
                         setPassing(true);
                         setNewFail(false);
                         setComment("");
-                        if (!passing) setNewPassing(true);
                     }}
                     className={
                         passing
