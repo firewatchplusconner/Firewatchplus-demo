@@ -61,7 +61,7 @@ const Inspection = () => {
                 </div>
             );
         }
-    );
+    )?.reverse();
 
 
 

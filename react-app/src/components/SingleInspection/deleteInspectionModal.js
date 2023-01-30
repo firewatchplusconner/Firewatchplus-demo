@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { deleteInspection } from "../../store/inspections";
 
-export default function DeleteInspectionModal() {
+export default function DeleteInspectionModal({setLoaded}) {
     const inspection = useSelector(state => state.inspections.singleInspection)
     const dispatch = useDispatch();
     const { closeModal } = useModal()
