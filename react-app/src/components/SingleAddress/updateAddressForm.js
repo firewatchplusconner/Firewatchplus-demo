@@ -137,10 +137,6 @@ const UpdateAddressForm = () => {
                     }
                 }
             );
-            if (unconfirmedErrors) {
-                setErrors(unconfirmedErrors);
-            }
-
             const missingComponents =
                 addressResponse.result.address.missingComponentTypes;
             const missingErrors = missingComponents?.map((component) => {
@@ -158,15 +154,17 @@ const UpdateAddressForm = () => {
                     return null;
                 }
             });
-            if (missingErrors) {
-                setErrors([...errors, ...missingErrors]);
-            }
 
             if (addressResponse.result.address.unresolvedTokens) {
                 setErrors([
-                    ...errors,
-                    "Invalid Input: Please provide a valid Owner address.",
+                    "Invalid Input: Please provide a valid address."
                 ]);
+            } else if (unconfirmedErrors && missingErrors) {
+                setErrors([...unconfirmedErrors, ...missingErrors])
+            } else if (unconfirmedErrors) {
+                setErrors([...unconfirmedErrors])
+            } else if (missingErrors) {
+                setErrors([...missingErrors])
             }
         }
 
