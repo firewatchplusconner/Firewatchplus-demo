@@ -79,7 +79,7 @@ const SignUpForm = () => {
                     <label>First Name</label>
                     <input
                         type="text"
-                        name="email"
+                        name="firstName"
                         placeholder="first name"
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
@@ -90,7 +90,7 @@ const SignUpForm = () => {
                     <label>Last Name</label>
                     <input
                         type="text"
-                        name="email"
+                        name="lastName"
                         placeholder="last name"
                         onChange={(e) => setLastName(e.target.value)}
                         value={lastName}
