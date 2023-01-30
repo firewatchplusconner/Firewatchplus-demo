@@ -1,0 +1,98 @@
+
+.address-inspection-container-nav {
+    border: 2px solid var(--light-gunmetal);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+}
+
+.address-inspection-container-nav:hover {
+    border: 2px solid rgb(85, 92, 102)
+}
+
+.address-inspection-container {
+    /* border: 2px solid var(--light-gunmetal); */
+    display: flex;
+    justify-content: space-around;
+    /* margin-bottom: 10px; */
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.address-id-container {
+    box-sizing: border-box;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    border-right: 2px solid var(--light-gunmetal);
+}
+
+.address-inspection-date {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    border-right: 2px solid var(--light-gunmetal);
+    height: 100%;
+    text-align: center;
+    padding-right: 10px;
+}
+
+.address-inspection-number {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    border-right: 2px solid var(--light-gunmetal);
+    height: 100%;
+    text-align: center;
+}
+
+.address-inspection-inspector {
+    width: 30%;
+    border-right: 2px solid var(--light-gunmetal);
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.address-inspection-status {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+    text-align: center;
+}
+
+.address-inspection-status-passed {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+    text-align: center;
+    color: rgb(6, 182, 6);
+}
+
+.address-inspection-status-failed {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100%;
+    text-align: center;
+    color: rgb(255, 37, 37)
+}
+
+.address-inspection-answers-container {
+    width: 80%;
+    margin-top: 15px;
+}
