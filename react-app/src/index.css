@@ -300,8 +300,12 @@
     padding-right: 30px;
 }
 
-.pad10l {
-    padding-left: 10px;
+.pad20r {
+    padding-right: 20px
+}
+
+.pad20l {
+    padding-left: 20px
 }
 
 .pad10r {

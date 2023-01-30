@@ -27,12 +27,13 @@ const AddInspectionForm = () => {
     });
 
     const handleSubmitInspection = async () => {
+        await dispatch(loadSingleInspection(inspectionId))
         let passing = true
         const failedQuestions = inspection.inspectionAnswers.filter(answer => answer.passing === false)
         if (failedQuestions.length){
             passing = false
         }
-        const data = await dispatch(updateInspection(inspection.id, {addressId, inspectionTypeId: inspectionType.id, inspectionNumber: inspection.inspectionNumber, passing: passing, notes: inspection.notes}))
+        await dispatch(updateInspection(inspection.id, {addressId, inspectionTypeId: inspectionType.id, inspectionNumber: inspection.inspectionNumber, passing: passing, notes: inspection.notes}))
         history.push(`/inspection/${inspectionId}`)
     }
 
