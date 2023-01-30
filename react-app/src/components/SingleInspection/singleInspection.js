@@ -18,7 +18,7 @@ const Inspection = () => {
 
     let inspectionAnswers = null;
     if (inspection) {
-        inspectionAnswers = inspection.inspectionAnswers?.reverse();
+        inspectionAnswers = inspection.inspectionAnswers;
     }
 
     const editInspection = () => {
