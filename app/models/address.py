@@ -22,6 +22,8 @@ class Address(db.Model):
     ownerZipCode = db.Column(db.String)
     notes = db.Column(db.Text)
     nextInspectionDate = db.Column(db.String)
+    lat = db.Column(db.Float, nullable=False)
+    lng = db.Column(db.Float, nullable=False)
 
     inspections = db.relationship('Inspection', back_populates='address', cascade='all, delete-orphan')
 
@@ -43,6 +45,8 @@ class Address(db.Model):
             'ownerZipCode': self.ownerZipCode,
             'notes': self.notes,
             'nextInspectionDate': self.nextInspectionDate,
+            'lat': self.lat,
+            'lng': self.lng,
             'inspections': [inspection.to_dict() for inspection in self.inspections]
         }
 

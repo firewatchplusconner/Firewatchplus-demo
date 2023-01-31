@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5f563674c94d
+Revision ID: a5bdcd7f86fa
 Revises: 
-Create Date: 2023-01-26 16:19:06.805887
+Create Date: 2023-01-30 18:47:28.155518
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5f563674c94d'
+revision = 'a5bdcd7f86fa'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,6 +35,8 @@ def upgrade():
     sa.Column('ownerZipCode', sa.String(), nullable=True),
     sa.Column('notes', sa.Text(), nullable=True),
     sa.Column('nextInspectionDate', sa.String(), nullable=True),
+    sa.Column('lat', sa.Float(), nullable=False),
+    sa.Column('lng', sa.Float(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('inspection_types',
@@ -57,7 +59,7 @@ def upgrade():
     op.create_table('inspections',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('inspectionNumber', sa.Integer(), nullable=False),
-    sa.Column('passing', sa.Boolean(), nullable=True),
+    sa.Column('passing', sa.Boolean(), server_default='true', nullable=True),
     sa.Column('notes', sa.Text(), nullable=True),
     sa.Column('date', sa.String(), nullable=False),
     sa.Column('addressId', sa.Integer(), nullable=False),
@@ -84,7 +86,7 @@ def upgrade():
     )
     op.create_table('inspection_answers',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('passing', sa.Boolean(), nullable=True),
+    sa.Column('passing', sa.Boolean(), server_default='true', nullable=True),
     sa.Column('comment', sa.Text(), nullable=True),
     sa.Column('inspectionId', sa.Integer(), nullable=False),
     sa.Column('questionId', sa.Integer(), nullable=False),

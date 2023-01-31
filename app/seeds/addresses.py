@@ -16,7 +16,9 @@ def seed_addresses():
         ownerState = 'CA',
         ownerZipCode = '94108',
         notes = 'App Academy San Fracisco Location',
-        nextInspectionDate = ''
+        nextInspectionDate = '',
+        lat=37.787650,
+        lng=-122.406310
     )
     address2 = Address(
         firstAddressLine = '90 5th Ave',
@@ -31,6 +33,8 @@ def seed_addresses():
         ownerState = 'NY',
         ownerZipCode = '10011',
         notes = 'App Academy New York Location',
+        lat=40.736370,
+        lng=-73.993752
     )
     address3 = Address(
         firstAddressLine = '1600 Pennsylvania Ave NW',
@@ -45,6 +49,8 @@ def seed_addresses():
         ownerState = 'DC',
         ownerZipCode = '20500',
         notes = 'The White House',
+        lat=38.897700,
+        lng=-77.036540
     )
 
     db.session.add(address1)
