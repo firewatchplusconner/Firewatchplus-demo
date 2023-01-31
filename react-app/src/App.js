@@ -11,6 +11,8 @@ import AddressList from "./components/AddressList/addressList";
 import InspectionList from "./components/InspectionList/inspectionList";
 import Inspection from "./components/SingleInspection/singleInspection";
 import AddInspectionForm from "./components/AddUpdateInspection/addInspectionForm";
+import Footer from "./components/Footer/Footer";
+import SplashPage from "./components/SplashPage/splashPage";
 import { authenticate } from "./store/session";
 import Address from "./components/SingleAddress/Address";
 
@@ -32,7 +34,7 @@ function App() {
     return (
         <>
             <NavBar />
-            <div className="jccen w80p marlrauto mar20t mw1000px">
+            <div className="jccen w80p marlrauto mar20t mw1000px mh75vh">
                 <Switch>
                     <Route path="/login" exact={true}>
                         <LoginForm />
@@ -62,10 +64,11 @@ function App() {
                         <User />
                     </ProtectedRoute>
                     <Route path="/" exact={true}>
-                        <h1>My Home Page</h1>
+                        <SplashPage />
                     </Route>
                 </Switch>
             </div>
+            <Footer />
         </>
     );
 }

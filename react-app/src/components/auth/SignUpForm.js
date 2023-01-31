@@ -22,7 +22,7 @@ const SignUpForm = () => {
                 setErrors(data);
             }
         } else {
-            setErrors(['Password and Repeat Password must match.'])
+            setErrors(['Passwords must match.'])
         }
     };
 
