@@ -8,7 +8,7 @@ const AddAddressForm = () => {
     const { closeModal } = useModal();
     const history = useHistory();
     const [errors, setErrors] = useState([]);
-    const [ownerErrors, setOwnerErrors] = useState([])
+    const [ownerErrors, setOwnerErrors] = useState([]);
     const [firstAddressLine, setFirstAddressLine] = useState("");
     const [secondAddressLine, setSecondAddressLine] = useState("");
     const [city, setCity] = useState("");
@@ -24,11 +24,11 @@ const AddAddressForm = () => {
     const [notes, setNotes] = useState("");
     const [nextInspectionDate, setNextInspectionDate] = useState("");
     const [googleResponse, setGoogleResponse] = useState(false);
-    const [lat, setLat] = useState('')
-    const [lng, setLng] = useState('')
+    const [lat, setLat] = useState("");
+    const [lng, setLng] = useState("");
     const dispatch = useDispatch();
 
-    const date = new Date().toJSON().split('T')[0]
+    const date = new Date().toJSON().split("T")[0];
 
     const states = [
         "Alabama",
@@ -87,7 +87,7 @@ const AddAddressForm = () => {
     ];
     const stateOptions = states.map((state) => {
         return (
-            <option key={state} value={state} className='opt h40px'>
+            <option key={state} value={state} className="opt h40px">
                 {state}
             </option>
         );
@@ -120,8 +120,9 @@ const AddAddressForm = () => {
         ) {
             const unconfirmedComponents =
                 addressResponse.result.address.unconfirmedComponentTypes;
-            const unconfirmedErrors = unconfirmedComponents?.map(
-                (component) => {
+            let unconfirmedErrors = [];
+            if (unconfirmedComponents) {
+                unconfirmedErrors = unconfirmedComponents?.map((component) => {
                     if (component === "route") {
                         return "Street: Please provide a valid street name.";
                     } else if (component === "locality") {
@@ -132,45 +133,45 @@ const AddAddressForm = () => {
                         return "Street Number: Please provide a valid Street Number.";
                     } else if (component === "subpremise") {
                         return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
-                    } else if (component === 'point_of_interest') {
-                        return 'Invalid Input: Please provide a valid address.'
+                    } else if (component === "point_of_interest") {
+                        return "Invalid Input: Please provide a valid address.";
                     } else {
                         return null;
                     }
-                }
-            );
+                });
+            }
 
             const missingComponents =
                 addressResponse.result.address.missingComponentTypes;
-            console.log('missing components', missingComponents)
-            const missingErrors = missingComponents?.map((component) => {
-                if (component === "route") {
-                    return "Street: Please provide a valid street name.";
-                } else if (component === "locality") {
-                    return "City: Please provide a valid city.";
-                } else if (component === "postal_code") {
-                    return "Zip Code: Please provide a valid Zip Code.";
-                } else if (component === "street_number") {
-                    return "Street Number: Please provide a valid Street Number.";
-                } else if (component === "subpremise") {
-                    return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
-                } else if (component === 'point_of_interest') {
-                    return 'Invalid Input: Please provide a valid address.'
-                } else {
-                    return null;
-                }
-            });
+            let missingErrors = [];
+            if (missingComponents) {
+                missingErrors = missingComponents?.map((component) => {
+                    if (component === "route") {
+                        return "Street: Please provide a valid street name.";
+                    } else if (component === "locality") {
+                        return "City: Please provide a valid city.";
+                    } else if (component === "postal_code") {
+                        return "Zip Code: Please provide a valid Zip Code.";
+                    } else if (component === "street_number") {
+                        return "Street Number: Please provide a valid Street Number.";
+                    } else if (component === "subpremise") {
+                        return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
+                    } else if (component === "point_of_interest") {
+                        return "Invalid Input: Please provide a valid address.";
+                    } else {
+                        return null;
+                    }
+                });
+            }
 
             if (addressResponse.result.address.unresolvedTokens) {
-                setErrors([
-                    "Invalid Input: Please provide a valid address."
-                ]);
+                setErrors(["Invalid Input: Please provide a valid address."]);
             } else if (unconfirmedErrors[0] && missingErrors[0]) {
-                setErrors([...unconfirmedErrors, ...missingErrors])
+                setErrors([...unconfirmedErrors, ...missingErrors]);
             } else if (unconfirmedErrors[0]) {
-                setErrors([...unconfirmedErrors])
+                setErrors([...unconfirmedErrors]);
             } else if (missingErrors[0]) {
-                setErrors([...missingErrors])
+                setErrors([...missingErrors]);
             }
         }
     };
@@ -185,7 +186,9 @@ const AddAddressForm = () => {
                         } else if (component.componentType === "postal_code") {
                             setOwnerZipCode(component.componentName.text);
                         } else if (component.componentType === "subpremise") {
-                            setOwnerSecondAddressLine(component.componentName.text);
+                            setOwnerSecondAddressLine(
+                                component.componentName.text
+                            );
                         }
                     }
                 }
@@ -200,8 +203,9 @@ const AddAddressForm = () => {
         ) {
             const unconfirmedComponents =
                 addressResponse.result.address.unconfirmedComponentTypes;
-            const unconfirmedErrors = unconfirmedComponents?.map(
-                (component) => {
+            let unconfirmedErrors = [];
+            if (unconfirmedComponents) {
+                unconfirmedErrors = unconfirmedComponents?.map((component) => {
                     if (component === "route") {
                         return "Owner Street: Please provide a valid Owner street name.";
                     } else if (component === "locality") {
@@ -212,54 +216,56 @@ const AddAddressForm = () => {
                         return "Owner Street Number: Please provide a valid Owner Street Number.";
                     } else if (component === "subpremise") {
                         return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
-                    }  else if (component === 'point_of_interest') {
-                        return 'Invalid Input: Please provide a valid Owner address.'
+                    } else if (component === "point_of_interest") {
+                        return "Invalid Input: Please provide a valid Owner address.";
                     } else {
                         return null;
                     }
-                }
-            );
+                });
+            }
 
             const missingComponents =
                 addressResponse.result.address.missingComponentTypes;
-            const missingErrors = missingComponents?.map((component) => {
-                if (component === "route") {
-                    return "Owner Street: Please provide a valid Owner street name.";
-                } else if (component === "locality") {
-                    return "Owner City: Please provide a valid Owner city.";
-                } else if (component === "postal_code") {
-                    return "Owner Zip Code: Please provide a valid Owner Zip Code.";
-                } else if (component === "street_number") {
-                    return "Owner Street Number: Please provide a valid Owner Street Number.";
-                } else if (component === "subpremise") {
-                    return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
-                } else if (component === 'point_of_interest') {
-                    return 'Invalid Input: Please provide a valid Owner address.'
-                } else {
-                    return null;
-                }
-            });
+            let missingErrors = [];
+            if (missingComponents) {
+                missingErrors = missingComponents?.map((component) => {
+                    if (component === "route") {
+                        return "Owner Street: Please provide a valid Owner street name.";
+                    } else if (component === "locality") {
+                        return "Owner City: Please provide a valid Owner city.";
+                    } else if (component === "postal_code") {
+                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                    } else if (component === "street_number") {
+                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                    } else if (component === "subpremise") {
+                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                    } else if (component === "point_of_interest") {
+                        return "Invalid Input: Please provide a valid Owner address.";
+                    } else {
+                        return null;
+                    }
+                });
+            }
 
             if (addressResponse.result.address.unresolvedTokens) {
                 setOwnerErrors([
-                    "Invalid Input: Please provide a valid Owner Address."
+                    "Invalid Input: Please provide a valid Owner Address.",
                 ]);
             } else if (unconfirmedErrors[0] && missingErrors[0]) {
-                setOwnerErrors([...unconfirmedErrors, ...missingErrors])
+                setOwnerErrors([...unconfirmedErrors, ...missingErrors]);
             } else if (unconfirmedErrors[0]) {
-                setOwnerErrors([...unconfirmedErrors])
+                setOwnerErrors([...unconfirmedErrors]);
             } else if (missingErrors[0]) {
-                setOwnerErrors([...missingErrors])
+                setOwnerErrors([...missingErrors]);
             }
         }
 
         setGoogleResponse(true);
     };
 
-
     const HandleSubmit = async (e) => {
         e.preventDefault();
-        setErrors([])
+        setErrors([]);
         setOwnerErrors([]);
         setGoogleResponse(false);
         const response = await fetch(
@@ -282,8 +288,8 @@ const AddAddressForm = () => {
         );
         const addressResponse = await response.json();
 
-        setLat(addressResponse?.result?.geocode?.location?.latitude)
-        setLng(addressResponse?.result?.geocode?.location?.longitude)
+        setLat(addressResponse?.result?.geocode?.location?.latitude);
+        setLng(addressResponse?.result?.geocode?.location?.longitude);
         await handleGoogleResponse(addressResponse);
 
         if (ownerFirstAddressLine) {
@@ -307,7 +313,7 @@ const AddAddressForm = () => {
             );
             const addressResponse = await response.json();
 
-            await handleOwnerGoogleResponse(addressResponse)
+            await handleOwnerGoogleResponse(addressResponse);
         } else {
             setGoogleResponse(true);
         }
@@ -340,7 +346,7 @@ const AddAddressForm = () => {
                 notes,
                 nextInspectionDate,
                 lat,
-                lng
+                lng,
             })
         );
         if (data.errors) {
@@ -353,7 +359,7 @@ const AddAddressForm = () => {
 
     return (
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
-            <h1 className='marlrauto mar10b'>Add Address</h1>
+            <h1 className="marlrauto mar10b">Add Address</h1>
             <form onSubmit={HandleSubmit}>
                 <div>
                     {errors.map((error, ind) => (
@@ -372,7 +378,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setFirstAddressLine(e.target.value)}
                         value={firstAddressLine}
                         required={true}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -380,10 +386,10 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="secondAddressLine"
-                        placeholder='apt, suite, or unit'
+                        placeholder="apt, suite, or unit"
                         onChange={(e) => setSecondAddressLine(e.target.value)}
                         value={secondAddressLine}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -392,10 +398,10 @@ const AddAddressForm = () => {
                         type="text"
                         name="City"
                         onChange={(e) => setCity(e.target.value)}
-                        placeholder='city'
+                        placeholder="city"
                         value={city}
                         required={true}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -406,7 +412,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setState(e.target.value)}
                         required={true}
                         defaultValue=""
-                        className='iflight bnone h40px state'
+                        className="iflight bnone h40px state"
                     >
                         <option disabled value="">
                             {" "}
@@ -424,7 +430,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setZipCode(e.target.value)}
                         value={zipCode}
                         required={true}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -435,7 +441,7 @@ const AddAddressForm = () => {
                         placeholder="owner name"
                         onChange={(e) => setOwnerName(e.target.value)}
                         value={ownerName}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
 
@@ -447,7 +453,7 @@ const AddAddressForm = () => {
                         placeholder="owner email"
                         onChange={(e) => setOwnerEmail(e.target.value)}
                         value={ownerEmail}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -460,7 +466,7 @@ const AddAddressForm = () => {
                             setOwnerFirstAddressLine(e.target.value)
                         }
                         value={ownerFirstAddressLine}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -468,12 +474,12 @@ const AddAddressForm = () => {
                     <input
                         type="text"
                         name="ownerSecondAddressLine"
-                        placeholder='apt, suite, or unit'
+                        placeholder="apt, suite, or unit"
                         onChange={(e) =>
                             setOwnerSecondAddressLine(e.target.value)
                         }
                         value={ownerSecondAddressLine}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -484,7 +490,7 @@ const AddAddressForm = () => {
                         placeholder="city"
                         onChange={(e) => setOwnerCity(e.target.value)}
                         value={ownerCity}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -495,7 +501,7 @@ const AddAddressForm = () => {
                         placeholder="state"
                         onChange={(e) => setOwnerState(e.target.value)}
                         defaultValue=""
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     >
                         <option value=""> -- select a State -- </option>
                         {stateOptions}
@@ -509,7 +515,7 @@ const AddAddressForm = () => {
                         placeholder="zip code"
                         onChange={(e) => setOwnerZipCode(e.target.value)}
                         value={ownerZipCode}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -520,7 +526,7 @@ const AddAddressForm = () => {
                         placeholder="notes"
                         onChange={(e) => setNotes(e.target.value)}
                         value={notes}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
@@ -531,11 +537,11 @@ const AddAddressForm = () => {
                         min={date}
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
-                        className='iflight bnone h40px'
+                        className="iflight bnone h40px"
                     ></input>
                 </div>
                 <div className="jccen mar30t">
-                    <button type="submit" className='w100p h50px btndark pad0'>
+                    <button type="submit" className="w100p h50px btndark pad0">
                         Add Address
                     </button>
                 </div>
