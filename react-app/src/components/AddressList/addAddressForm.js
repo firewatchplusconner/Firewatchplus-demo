@@ -24,6 +24,8 @@ const AddAddressForm = () => {
     const [notes, setNotes] = useState("");
     const [nextInspectionDate, setNextInspectionDate] = useState("");
     const [googleResponse, setGoogleResponse] = useState(false);
+    const [lat, setLat] = useState('')
+    const [lng, setLng] = useState('')
     const dispatch = useDispatch();
 
     const date = new Date().toJSON().split('T')[0]
@@ -280,6 +282,8 @@ const AddAddressForm = () => {
         );
         const addressResponse = await response.json();
 
+        setLat(addressResponse?.result?.geocode?.location?.latitude)
+        setLng(addressResponse?.result?.geocode?.location?.longitude)
         await handleGoogleResponse(addressResponse);
 
         if (ownerFirstAddressLine) {
@@ -335,6 +339,8 @@ const AddAddressForm = () => {
                 ownerZipCode,
                 notes,
                 nextInspectionDate,
+                lat,
+                lng
             })
         );
         if (data.errors) {

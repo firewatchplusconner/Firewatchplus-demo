@@ -40,6 +40,19 @@
     font-weight: 500;
 }
 
+.address-map-container-outer {
+    border: 2px solid var(--light-gunmetal);
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.address-map-container {
+    width: 100%;
+    border-radius: 10px;
+    height: 50vh
+}
+
 .address-inspections-container {
     border: 2px solid var(--light-gunmetal);
     padding: 30px;

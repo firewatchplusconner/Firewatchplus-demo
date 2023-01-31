@@ -8,6 +8,7 @@ import DeleteAddressModal from "./deleteAddressModal";
 import GenerateInspectionModal from "../GenerateInspectionModal/generateInspectionModal";
 import AddressInspection from "./AddressInspections/AddressInspection";
 import moment from "moment";
+import Map from "./GoogleMaps/Map";
 import "./singleAddress.css";
 
 const Address = () => {
@@ -110,6 +111,9 @@ const Address = () => {
                                   )}`
                                 : "Pending"}
                         </div>
+                    </div>
+                    <div className="address-map-container-outer">
+                        <Map address={address} />
                     </div>
                     {address.inspections[0] && (
                         <div className="address-inspections-container">

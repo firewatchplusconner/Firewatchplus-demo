@@ -35,3 +35,5 @@ class AddressForm(FlaskForm):
     ownerZipCode = StringField('Owner Zip Code')
     notes = TextAreaField('Notes')
     nextInspectionDate = StringField('Next Inspection Date')
+    lat = StringField('Latitude')
+    lng = StringField('Longitude')
