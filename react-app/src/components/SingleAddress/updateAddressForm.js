@@ -8,22 +8,22 @@ const UpdateAddressForm = () => {
     const singleAddress = useSelector((state) => state.addresses.singleAddress);
     const [errors, setErrors] = useState([]);
     const [ownerErrors, setOwnerErrors] = useState([]);
-    const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
-    const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
+    const [ownerName, setOwnerName] = useState(singleAddress.ownerName ? singleAddress.ownerName : '');
+    const [ownerEmail, setOwnerEmail] = useState(singleAddress.ownerEmail ? singleAddress.ownerEmail : '');
     const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(
-        singleAddress.ownerFirstAddressLine
+        singleAddress.ownerFirstAddressLine ? singleAddress.ownerFirstAddressLine : ''
     );
     const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState(
-        singleAddress.ownerSecondAddressLine
+        singleAddress.ownerSecondAddressLine ? singleAddress.ownerSecondAddressLine : ''
     );
-    const [ownerCity, setOwnerCity] = useState(singleAddress.ownerCity);
-    const [ownerState, setOwnerState] = useState(singleAddress.ownerState);
+    const [ownerCity, setOwnerCity] = useState(singleAddress.ownerCity ? singleAddress.ownerCity : '');
+    const [ownerState, setOwnerState] = useState(singleAddress.ownerState ? singleAddress.ownerState : "");
     const [ownerZipCode, setOwnerZipCode] = useState(
-        singleAddress.ownerZipCode
+        singleAddress.ownerZipCode ? singleAddress.ownerZipCode : ''
     );
-    const [notes, setNotes] = useState(singleAddress.notes);
+    const [notes, setNotes] = useState(singleAddress.notes ? singleAddress.notes : '');
     const [nextInspectionDate, setNextInspectionDate] = useState(
-        singleAddress.nextInspectionDate
+        singleAddress.nextInspectionDate ? singleAddress.nextInspectionDate : ''
     );
     const [googleResponse, setGoogleResponse] = useState(false);
     const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const UpdateAddressForm = () => {
         "Colorado",
         "Connecticut",
         "Delaware",
-        "District of Columbia",
+        "DC",
         "Florida",
         "Georgia",
         "Guam",
