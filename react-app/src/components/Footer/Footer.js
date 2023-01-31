@@ -32,10 +32,10 @@ const Footer = () => {
                     <div className="footer-info-header">Developer Links:</div>
                     <div className="developer-links-container">
                         <a href='https://github.com/owencshoop' className="developer-link" target='_blank' rel="noreferrer" alt='github'>
-                            <img src='/assets/github.png' className="link-image"></img>
+                            <img src='/assets/github.png' className="link-image" alt='github'></img>
                         </a>
                         <a href='https://www.linkedin.com/in/owen-shoop-62ba36231/' className="developer-link" target='_blank' rel="noreferrer" alt='linkedin'>
-                            <img src='/assets/linkedin.png' className="link-image"></img>
+                            <img src='/assets/linkedin.png' className="link-image" alt='linkedin'></img>
                         </a>
                     </div>
                 </div>
