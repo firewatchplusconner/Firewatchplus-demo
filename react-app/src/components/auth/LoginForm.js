@@ -56,6 +56,7 @@ const LoginForm = () => {
                         value={email}
                         onChange={updateEmail}
                         className="iflight bnone h40px"
+                        required
                     />
                 </div>
                 <div className="fdcol mar20b">
@@ -67,6 +68,7 @@ const LoginForm = () => {
                         value={password}
                         onChange={updatePassword}
                         className="iflight bnone h40px"
+                        required
                     />
                     <div className="jccen mar30t">
                         <button

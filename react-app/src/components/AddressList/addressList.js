@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import AddAddressForm from "./addAddressForm";
+import moment from "moment";
 import "./addressList.css";
 
 const AddressList = () => {
@@ -41,7 +42,9 @@ const AddressList = () => {
                 </div>
                 <div className="next-inspection-date">
                     {address.nextInspectionDate
-                        ? address.nextInspectionDate
+                        ? `${moment(address.nextInspectionDate).format(
+                            "L"
+                        )}`
                         : "Pending"}
                 </div>
             </NavLink>
