@@ -21,6 +21,8 @@ const SignUpForm = () => {
             if (data) {
                 setErrors(data);
             }
+        } else {
+            setErrors(['Password and Repeat Password must match.'])
         }
     };
 
@@ -54,7 +56,7 @@ const SignUpForm = () => {
                     ))}
                 </div>
                 <div className="fdcol mar20b">
-                    <label>User Name</label>
+                    <label>User Name *</label>
                     <input
                         type="text"
                         name="username"
@@ -62,10 +64,11 @@ const SignUpForm = () => {
                         onChange={updateUsername}
                         value={username}
                         className="iflight bnone h40px"
+                        required
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Email</label>
+                    <label>Email *</label>
                     <input
                         type="text"
                         name="email"
@@ -73,10 +76,11 @@ const SignUpForm = () => {
                         onChange={updateEmail}
                         value={email}
                         className="iflight bnone h40px"
+                        required
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>First Name</label>
+                    <label>First Name *</label>
                     <input
                         type="text"
                         name="firstName"
@@ -84,10 +88,11 @@ const SignUpForm = () => {
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
                         className="iflight bnone h40px"
+                        required
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Last Name</label>
+                    <label>Last Name *</label>
                     <input
                         type="text"
                         name="lastName"
@@ -95,10 +100,11 @@ const SignUpForm = () => {
                         onChange={(e) => setLastName(e.target.value)}
                         value={lastName}
                         className="iflight bnone h40px"
+                        required
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Password</label>
+                    <label>Password *</label>
                     <input
                         type="password"
                         name="password"
@@ -106,10 +112,11 @@ const SignUpForm = () => {
                         onChange={updatePassword}
                         value={password}
                         className="iflight bnone h40px"
+                        required
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Repeat Password</label>
+                    <label>Repeat Password *</label>
                     <input
                         type="password"
                         name="repeat_password"
