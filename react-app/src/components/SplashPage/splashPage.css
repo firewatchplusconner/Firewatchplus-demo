@@ -1,0 +1,60 @@
+.splash-page-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.splash-page-header {
+    background-image: url('../../assets/flashing-lights-gif.gif');
+    background-size: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    padding: 20px;
+    height: 15%;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.description-container {
+    width: 80%;
+    border: 2px solid rgb(25, 29, 34);
+    border-radius: 15px;
+    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
+    padding: 30px;
+    font-size: larger;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+    /* border: 3px solid red */
+}
+
+.signup-login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 15px;
+    background-color: var(--light-gunmetal);
+    border: 2px solid rgb(25, 29, 34);
+    color: lightgray;
+    border-radius: 10px;
+    width: 30%;
+}
+
+.signup-login-button:hover {
+    background-color: var(--gunmetal);
+    border: 2px solid black;
+    cursor: pointer;
+}

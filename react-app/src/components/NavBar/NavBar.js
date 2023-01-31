@@ -7,14 +7,14 @@ const NavBar = () => {
     const user = useSelector((state) => state.session.user);
 
     return (
-        <div className="jccen lighterbg pad30">
+        <div className="jccen lighterbg pad30 mh70px">
             <nav className="flex sb tdnone w70p sticky aicen">
                 <div>
                     <NavLink
                         to="/"
                         exact={true}
                         activeClassName="active"
-                        className="tdnone tclight nhvr"
+                        className="tdnone tclight nhvr flarr"
                     >
                         Home
                     </NavLink>
@@ -24,7 +24,7 @@ const NavBar = () => {
                         <div>
                             <NavLink
                                 to="/address"
-                                className="tdnone tclight nhvr"
+                                className="tdnone tclight nhvr flarr"
                             >
                                 Addresses
                             </NavLink>
@@ -32,7 +32,7 @@ const NavBar = () => {
                         <div>
                             <NavLink
                                 to="/inspection"
-                                className="tdnone tclight nhvr"
+                                className="tdnone tclight nhvr flarr"
                             >
                                 Inspections
                             </NavLink>
@@ -51,7 +51,7 @@ const NavBar = () => {
                                 to="/sign-up"
                                 exact={true}
                                 activeClassName="active"
-                                className="tdnone tclight nhvr"
+                                className="tdnone tclight nhvr flarr"
                             >
                                 Sign Up
                             </NavLink>
@@ -61,7 +61,7 @@ const NavBar = () => {
                                 to="/login"
                                 exact={true}
                                 activeClassName="active"
-                                className="tdnone tclight nhvr"
+                                className="tdnone tclight nhvr flarr pad10"
                             >
                                 Login
                             </NavLink>

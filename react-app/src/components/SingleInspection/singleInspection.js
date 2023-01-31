@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { loadSingleInspection } from "../../store/inspections";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, NavLink } from "react-router-dom";
 import moment from "moment";
 import "./singleInspection.css";
 import OpenModalButton from "../OpenModalButton";
@@ -79,14 +79,14 @@ const Inspection = () => {
         <>
             {loaded && (
                 <div className="single-inspection-container">
-                    <h2 className="single-inspection-header-container">
+                    <NavLink to={`/address/${inspection.address.id}`} className="nhvr single-inspection-header-container">
                         {inspection.address.firstAddressLine}
                         {inspection.address.secondAddressLine
                             ? ` ${inspection.address.secondAddressLine}`
                             : ""}{" "}
                         {inspection.address.city}, {inspection.address.state}{" "}
                         {inspection.address.zipCode}
-                    </h2>
+                    </NavLink>
                     <div className="info-label-container">
                         <div className="label-container">Date:</div>
                         <div className="info-container">
