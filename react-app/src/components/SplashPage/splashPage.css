@@ -45,12 +45,13 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    padding: 15px;
+    padding: 10px;
     background-color: var(--light-gunmetal);
     border: 2px solid rgb(25, 29, 34);
     color: lightgray;
     border-radius: 10px;
     width: 30%;
+    font-size: larger;
 }
 
 .signup-login-button:hover {
