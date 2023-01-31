@@ -39,7 +39,7 @@ const AddAddressForm = () => {
         "Colorado",
         "Connecticut",
         "Delaware",
-        "District of Columbia",
+        "DC",
         "Florida",
         "Georgia",
         "Guam",
