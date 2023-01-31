@@ -26,6 +26,8 @@ const AddAddressForm = () => {
     const [googleResponse, setGoogleResponse] = useState(false);
     const dispatch = useDispatch();
 
+    const date = new Date().toJSON().split('T')[0]
+
     const states = [
         "Alabama",
         "Alaska",
@@ -128,6 +130,8 @@ const AddAddressForm = () => {
                         return "Street Number: Please provide a valid Street Number.";
                     } else if (component === "subpremise") {
                         return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
+                    } else if (component === 'point_of_interest') {
+                        return 'Invalid Input: Please provide a valid address.'
                     } else {
                         return null;
                     }
@@ -136,6 +140,7 @@ const AddAddressForm = () => {
 
             const missingComponents =
                 addressResponse.result.address.missingComponentTypes;
+            console.log('missing components', missingComponents)
             const missingErrors = missingComponents?.map((component) => {
                 if (component === "route") {
                     return "Street: Please provide a valid street name.";
@@ -147,6 +152,8 @@ const AddAddressForm = () => {
                     return "Street Number: Please provide a valid Street Number.";
                 } else if (component === "subpremise") {
                     return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
+                } else if (component === 'point_of_interest') {
+                    return 'Invalid Input: Please provide a valid address.'
                 } else {
                     return null;
                 }
@@ -156,11 +163,11 @@ const AddAddressForm = () => {
                 setErrors([
                     "Invalid Input: Please provide a valid address."
                 ]);
-            } else if (unconfirmedErrors && missingErrors) {
+            } else if (unconfirmedErrors[0] && missingErrors[0]) {
                 setErrors([...unconfirmedErrors, ...missingErrors])
-            } else if (unconfirmedErrors) {
+            } else if (unconfirmedErrors[0]) {
                 setErrors([...unconfirmedErrors])
-            } else if (missingErrors) {
+            } else if (missingErrors[0]) {
                 setErrors([...missingErrors])
             }
         }
@@ -203,6 +210,8 @@ const AddAddressForm = () => {
                         return "Owner Street Number: Please provide a valid Owner Street Number.";
                     } else if (component === "subpremise") {
                         return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                    }  else if (component === 'point_of_interest') {
+                        return 'Invalid Input: Please provide a valid Owner address.'
                     } else {
                         return null;
                     }
@@ -222,20 +231,22 @@ const AddAddressForm = () => {
                     return "Owner Street Number: Please provide a valid Owner Street Number.";
                 } else if (component === "subpremise") {
                     return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                } else if (component === 'point_of_interest') {
+                    return 'Invalid Input: Please provide a valid Owner address.'
                 } else {
                     return null;
                 }
             });
 
             if (addressResponse.result.address.unresolvedTokens) {
-                setErrors([
-                    "Invalid Input: Please provide a valid address."
+                setOwnerErrors([
+                    "Invalid Input: Please provide a valid Owner Address."
                 ]);
-            } else if (unconfirmedErrors && missingErrors) {
+            } else if (unconfirmedErrors[0] && missingErrors[0]) {
                 setOwnerErrors([...unconfirmedErrors, ...missingErrors])
-            } else if (unconfirmedErrors) {
+            } else if (unconfirmedErrors[0]) {
                 setOwnerErrors([...unconfirmedErrors])
-            } else if (missingErrors) {
+            } else if (missingErrors[0]) {
                 setOwnerErrors([...missingErrors])
             }
         }
@@ -507,11 +518,11 @@ const AddAddressForm = () => {
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Next Inspection Date: (mm/dd/yyyy)</label>
+                    <label>Next Inspection Date:</label>
                     <input
-                        type="text"
+                        type="date"
                         name="nextInspectionDate"
-                        placeholder="mm/dd/yyyy"
+                        min={date}
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
                         className='iflight bnone h40px'

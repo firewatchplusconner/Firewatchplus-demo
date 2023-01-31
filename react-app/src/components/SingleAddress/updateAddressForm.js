@@ -7,6 +7,7 @@ const UpdateAddressForm = () => {
     const { closeModal } = useModal();
     const singleAddress = useSelector((state) => state.addresses.singleAddress);
     const [errors, setErrors] = useState([]);
+    const [ownerErrors, setOwnerErrors] = useState([])
     const [ownerName, setOwnerName] = useState(singleAddress.ownerName);
     const [ownerEmail, setOwnerEmail] = useState(singleAddress.Email);
     const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(
@@ -132,6 +133,8 @@ const UpdateAddressForm = () => {
                         return "Owner Street Number: Please provide a valid Owner Street Number.";
                     } else if (component === "subpremise") {
                         return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                    } else if (component === 'point_of_interest') {
+                        return 'Invalid Input: Please provide a valid Owner address.'
                     } else {
                         return null;
                     }
@@ -150,21 +153,23 @@ const UpdateAddressForm = () => {
                     return "Owner Street Number: Please provide a valid Owner Street Number.";
                 } else if (component === "subpremise") {
                     return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                } else if (component === 'point_of_interest') {
+                    return 'Invalid Input: Please provide a valid Owner address.'
                 } else {
                     return null;
                 }
             });
 
             if (addressResponse.result.address.unresolvedTokens) {
-                setErrors([
+                setOwnerErrors([
                     "Invalid Input: Please provide a valid address."
                 ]);
-            } else if (unconfirmedErrors && missingErrors) {
-                setErrors([...unconfirmedErrors, ...missingErrors])
-            } else if (unconfirmedErrors) {
-                setErrors([...unconfirmedErrors])
-            } else if (missingErrors) {
-                setErrors([...missingErrors])
+            } else if (unconfirmedErrors[0] && missingErrors[0]) {
+                setOwnerErrors([...unconfirmedErrors, ...missingErrors])
+            } else if (unconfirmedErrors[0]) {
+                setOwnerErrors([...unconfirmedErrors])
+            } else if (missingErrors[0]) {
+                setOwnerErrors([...missingErrors])
             }
         }
 
@@ -174,6 +179,7 @@ const UpdateAddressForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
+        setOwnerErrors([])
         setGoogleResponse(false);
 
         if (ownerFirstAddressLine) {
@@ -226,13 +232,14 @@ const UpdateAddressForm = () => {
         };
 
         if (googleResponse) {
-            if (!errors[0]) {
+            if (!errors[0] && !ownerErrors[0]) {
                 updateAddressFunc();
             }
         }
     }, [
         googleResponse,
         errors,
+        ownerErrors,
         ownerName,
         ownerEmail,
         ownerFirstAddressLine,

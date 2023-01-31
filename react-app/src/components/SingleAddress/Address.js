@@ -7,6 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteAddressModal from "./deleteAddressModal";
 import GenerateInspectionModal from "../GenerateInspectionModal/generateInspectionModal";
 import AddressInspection from "./AddressInspections/AddressInspection";
+import moment from "moment";
 import "./singleAddress.css";
 
 const Address = () => {
@@ -104,33 +105,39 @@ const Address = () => {
                         </div>
                         <div className="info-container">
                             {address.nextInspectionDate
-                                ? address.nextInspectionDate
+                                ? `${moment(address.nextInspectionDate).format(
+                                      "L"
+                                  )}`
                                 : "Pending"}
                         </div>
                     </div>
-                    <div className="address-inspections-container">
-                        <h2 className="address-inspections-header">
-                            Inspections
-                        </h2>
-                        <div>
-                            <div className="address-inspection-container-header">
-                                <div className="address-id-container">ID</div>
-                                <div className="address-inspection-date">
-                                    Date
+                    {address.inspections[0] && (
+                        <div className="address-inspections-container">
+                            <h2 className="address-inspections-header">
+                                Inspections
+                            </h2>
+                            <div>
+                                <div className="address-inspection-container-header">
+                                    <div className="address-id-container">
+                                        ID
+                                    </div>
+                                    <div className="address-inspection-date">
+                                        Date
+                                    </div>
+                                    <div className="address-inspection-number">
+                                        Number
+                                    </div>
+                                    <div className="address-inspection-inspector">
+                                        Inspector
+                                    </div>
+                                    <div className="address-inspection-status">
+                                        Status
+                                    </div>
                                 </div>
-                                <div className="address-inspection-number">
-                                    Number
-                                </div>
-                                <div className="address-inspection-inspector">
-                                    Inspector
-                                </div>
-                                <div className="address-inspection-status">
-                                    Status
-                                </div>
+                                {inspectionContent}
                             </div>
-                            {inspectionContent}
                         </div>
-                    </div>
+                    )}
                     <div className="sb mar30">
                         <div className="modal-button-container jccen w100p h40px mar10l mar10r">
                             <OpenModalButton
