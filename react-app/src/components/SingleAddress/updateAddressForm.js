@@ -28,6 +28,8 @@ const UpdateAddressForm = () => {
     const [googleResponse, setGoogleResponse] = useState(false);
     const dispatch = useDispatch();
 
+    const date = new Date().toJSON().split("T")[0];
+
     const states = [
         "Alabama",
         "Alaska",
@@ -365,11 +367,11 @@ const UpdateAddressForm = () => {
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Next Inspection Date: (mm/dd/yyyy)</label>
+                    <label>Next Inspection Date: </label>
                     <input
-                        type="text"
+                        type="date"
                         name="nextInspectionDate"
-                        placeholder="mm/dd/yyyy"
+                        min={date}
                         onChange={(e) => setNextInspectionDate(e.target.value)}
                         value={nextInspectionDate}
                         className="iflight bnone h40px"

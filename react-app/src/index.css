@@ -15,8 +15,25 @@
     scrollbar-color: var(--gunmetal) var(--light-gunmetal);
 }
 
+.placeholder {
+    height: 80vh;
+}
+
+.mh75vh {
+    min-height: 75vh;
+    height: fit-content;
+}
+
+.mh70px {
+    min-height: 70px;
+}
+
 .fxlar {
     font-size: x-large
+}
+
+.flarr {
+    font-size: larger;
 }
 
 .flar {
@@ -249,6 +266,13 @@
     width: 100px;
 }
 
+.h80vh {
+    height: 80vh;
+}
+
+.h70vh {
+    height: 70vh;
+}
 
 .h100vh {
     height: 100vh

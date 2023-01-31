@@ -13,6 +13,12 @@
 .single-inspection-header-container {
     display: flex;
     justify-content: center;
+    text-decoration: none;
+    color: var(--morning-blue);
+    font-size: xx-large;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .info-label-container {

@@ -6,6 +6,7 @@
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 30px;
+    height: fit-content;
 }
 
 .inspection-list-header-container {

@@ -22,7 +22,7 @@ const AddressList = () => {
     }
 
     if (!loaded) {
-        return null;
+        return <div className="placeholder"></div>;
     }
 
     const addressContent = addressList.map((address) => {
