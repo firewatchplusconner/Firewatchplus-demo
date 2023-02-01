@@ -8,22 +8,36 @@ const UpdateAddressForm = () => {
     const singleAddress = useSelector((state) => state.addresses.singleAddress);
     const [errors, setErrors] = useState([]);
     const [ownerErrors, setOwnerErrors] = useState([]);
-    const [ownerName, setOwnerName] = useState(singleAddress.ownerName ? singleAddress.ownerName : '');
-    const [ownerEmail, setOwnerEmail] = useState(singleAddress.ownerEmail ? singleAddress.ownerEmail : '');
+    const [ownerName, setOwnerName] = useState(
+        singleAddress.ownerName ? singleAddress.ownerName : ""
+    );
+    const [ownerEmail, setOwnerEmail] = useState(
+        singleAddress.ownerEmail ? singleAddress.ownerEmail : ""
+    );
     const [ownerFirstAddressLine, setOwnerFirstAddressLine] = useState(
-        singleAddress.ownerFirstAddressLine ? singleAddress.ownerFirstAddressLine : ''
+        singleAddress.ownerFirstAddressLine
+            ? singleAddress.ownerFirstAddressLine
+            : ""
     );
     const [ownerSecondAddressLine, setOwnerSecondAddressLine] = useState(
-        singleAddress.ownerSecondAddressLine ? singleAddress.ownerSecondAddressLine : ''
+        singleAddress.ownerSecondAddressLine
+            ? singleAddress.ownerSecondAddressLine
+            : ""
     );
-    const [ownerCity, setOwnerCity] = useState(singleAddress.ownerCity ? singleAddress.ownerCity : '');
-    const [ownerState, setOwnerState] = useState(singleAddress.ownerState ? singleAddress.ownerState : "");
+    const [ownerCity, setOwnerCity] = useState(
+        singleAddress.ownerCity ? singleAddress.ownerCity : ""
+    );
+    const [ownerState, setOwnerState] = useState(
+        singleAddress.ownerState ? singleAddress.ownerState : ""
+    );
     const [ownerZipCode, setOwnerZipCode] = useState(
-        singleAddress.ownerZipCode ? singleAddress.ownerZipCode : ''
+        singleAddress.ownerZipCode ? singleAddress.ownerZipCode : ""
     );
-    const [notes, setNotes] = useState(singleAddress.notes ? singleAddress.notes : '');
+    const [notes, setNotes] = useState(
+        singleAddress.notes ? singleAddress.notes : ""
+    );
     const [nextInspectionDate, setNextInspectionDate] = useState(
-        singleAddress.nextInspectionDate ? singleAddress.nextInspectionDate : ''
+        singleAddress.nextInspectionDate ? singleAddress.nextInspectionDate : ""
     );
     const [googleResponse, setGoogleResponse] = useState(false);
     const dispatch = useDispatch();
@@ -115,6 +129,22 @@ const UpdateAddressForm = () => {
             );
         }
 
+        if (addressResponse.result.verdict.hasInferredComponents) {
+            addressResponse.result.address.addressComponents.forEach(
+                (component) => {
+                    if (component.inferred === true) {
+                        if (component.componentType === "locality") {
+                            setOwnerCity(component.componentName.text);
+                        } else if (component.componentType === "postal_code") {
+                            setOwnerZipCode(component.componentName.text);
+                        } else if (component.componentType === "subpremise") {
+                            setOwnerSecondAddressLine(component.componentName.text);
+                        }
+                    }
+                }
+            );
+        }
+
         if (
             addressResponse.result.verdict.hasUnconfirmedComponents ||
             addressResponse.result.address.missingComponentTypes ||
@@ -138,6 +168,8 @@ const UpdateAddressForm = () => {
                         return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
                     } else if (component === "point_of_interest") {
                         return "Invalid Input: Please provide a valid Owner address.";
+                    } else if (component === 'administrative_area_level_3' || component === "administrative_area_level_1" || component === 'administratrive_area_level_2') {
+                        return 'State: Please provide a valid Owner State.'
                     } else {
                         return null;
                     }
@@ -231,8 +263,8 @@ const UpdateAddressForm = () => {
                     nextInspectionDate,
                 })
             );
-            if (data) {
-                setErrors(data);
+            if (data.errors) {
+                setErrors(data.errors);
             } else {
                 await closeModal();
             }
@@ -265,11 +297,12 @@ const UpdateAddressForm = () => {
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
             <h1 className="marlrauto mar10b">Update Address</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                {errors.length > 0 && <div className="errors-div">
                     {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
+                        <div key={ind}>{error.split(":")[1]}</div>
                     ))}
-                </div>
+                </div>}
+
                 <div className="fdcol mar20b">
                     <label>Owner Name</label>
                     <input
@@ -283,7 +316,7 @@ const UpdateAddressForm = () => {
                 </div>
 
                 <div className="fdcol mar20b">
-                    <label>Owner Email</label>
+                    <label>Owner Email *</label>
                     <input
                         type="text"
                         name="ownerEmail"

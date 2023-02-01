@@ -9,20 +9,22 @@ const SignUpForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const user = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
 
     const onSignUp = async (e) => {
         e.preventDefault();
         if (password === repeatPassword) {
-            const data = await dispatch(signUp(username, email, password, firstName, lastName));
+            const data = await dispatch(
+                signUp(username, email, password, firstName, lastName)
+            );
             if (data) {
                 setErrors(data);
             }
         } else {
-            setErrors(['Passwords must match.'])
+            setErrors(["Password: Passwords must match."]);
         }
     };
 
@@ -50,11 +52,13 @@ const SignUpForm = () => {
         <div className="pad30lr fdcol w30vw ofhidden h100p aicen">
             <div className="marlrauto mar20b">Sign Up</div>
             <form onSubmit={onSignUp} className="w70p">
-                <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div>
+                {errors.length > 0 && (
+                    <div className="errors-div">
+                        {errors.map((error, ind) => (
+                            <div key={ind}>{error.split(":")[1]}</div>
+                        ))}
+                    </div>
+                )}
                 <div className="fdcol mar20b">
                     <label>User Name *</label>
                     <input

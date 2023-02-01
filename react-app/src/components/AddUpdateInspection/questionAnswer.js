@@ -6,20 +6,29 @@ import { useParams } from "react-router-dom";
 const QuestionAnswer = ({ question, questionAnswer }) => {
     const { inspectionId } = useParams();
     const [passing, setPassing] = useState(questionAnswer.passing);
-    const [comment, setComment] = useState(questionAnswer.comment ? questionAnswer.comment : '');
+    const [comment, setComment] = useState(
+        questionAnswer.comment ? questionAnswer.comment : ""
+    );
     const [newFail, setNewFail] = useState(false);
     const [newPassing, setNewPassing] = useState(false);
+    const [errors, setErrors] = useState([]);
     const dispatch = useDispatch();
 
-    const handleSave = (e) => {
+    const handleSave = async (e) => {
         e.preventDefault();
-        dispatch(
+        const data = await dispatch(
             updateInspectionAnswer(inspectionId, {
                 id: questionAnswer.id,
                 passing,
                 comment,
             })
-        ).then(() => setNewFail(false)).then(() => setNewPassing(true));
+        );
+        if (data.errors) {
+            setErrors(data.errors);
+        } else {
+            setNewFail(false);
+            setNewPassing(true);
+        }
     };
 
     useEffect(() => {
@@ -41,7 +50,7 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
         inspectionId,
         passing,
         questionAnswer.id,
-        questionAnswer.passing
+        questionAnswer.passing,
     ]);
 
     return (
@@ -66,7 +75,7 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
                 <div
                     onClick={() => {
                         setNewFail(true);
-                        setPassing(false)
+                        setPassing(false);
                     }}
                     className={
                         passing
@@ -78,13 +87,22 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
                 </div>
             </div>
             {newFail && (
-                <form onSubmit={(e) => {
-                    handleSave(e)
-                    }}>
+                <form
+                    onSubmit={(e) => {
+                        handleSave(e);
+                    }}
+                >
                     <div className="inspection-question-comment-input-container">
                         <label className="inspection-question-comment-input-label">
                             Comment *:
                         </label>
+                        {errors.length > 0 && (
+                            <div className="errors-div">
+                                {errors.map((error, ind) => (
+                                    <div key={ind}>{error.split(":")[1]}</div>
+                                ))}
+                            </div>
+                        )}
                         <textarea
                             type="textarea"
                             name="comment"
@@ -95,8 +113,12 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
                         ></textarea>
                     </div>
                     <div className="inspection-question-comment-input-button-container">
-
-                    <button type="submit" className="inspection-question-comment-input-button">Save</button>
+                        <button
+                            type="submit"
+                            className="inspection-question-comment-input-button"
+                        >
+                            Save
+                        </button>
                     </div>
                 </form>
             )}
