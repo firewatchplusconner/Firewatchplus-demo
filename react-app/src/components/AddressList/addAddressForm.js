@@ -112,6 +112,22 @@ const AddAddressForm = () => {
             );
         }
 
+        if (addressResponse.result.verdict.hasInferredComponents) {
+            addressResponse.result.address.addressComponents.forEach(
+                (component) => {
+                    if (component.inferred === true) {
+                        if (component.componentType === "locality") {
+                            setCity(component.componentName.text);
+                        } else if (component.componentType === "postal_code") {
+                            setZipCode(component.componentName.text);
+                        } else if (component.componentType === "subpremise") {
+                            setSecondAddressLine(component.componentName.text);
+                        }
+                    }
+                }
+            );
+        }
+
         if (
             addressResponse.result.verdict.hasUnconfirmedComponents ||
             addressResponse.result.address.missingComponentTypes ||
@@ -135,6 +151,8 @@ const AddAddressForm = () => {
                         return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
                     } else if (component === "point_of_interest") {
                         return "Invalid Input: Please provide a valid address.";
+                    } else if (component === 'administrative_area_level_3' || component === "administrative_area_level_1" || component === 'administratrive_area_level_2') {
+                        return 'State: Please provide a valid state.'
                     } else {
                         return null;
                     }
@@ -195,6 +213,22 @@ const AddAddressForm = () => {
             );
         }
 
+        if (addressResponse.result.verdict.hasInferredComponents) {
+            addressResponse.result.address.addressComponents.forEach(
+                (component) => {
+                    if (component.inferred === true) {
+                        if (component.componentType === "locality") {
+                            setOwnerCity(component.componentName.text);
+                        } else if (component.componentType === "postal_code") {
+                            setOwnerZipCode(component.componentName.text);
+                        } else if (component.componentType === "subpremise") {
+                            setOwnerSecondAddressLine(component.componentName.text);
+                        }
+                    }
+                }
+            );
+        }
+
         if (
             addressResponse.result.verdict.hasUnconfirmedComponents ||
             addressResponse.result.address.missingComponentTypes ||
@@ -218,6 +252,8 @@ const AddAddressForm = () => {
                         return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
                     } else if (component === "point_of_interest") {
                         return "Invalid Input: Please provide a valid Owner address.";
+                    } else if (component === 'administrative_area_level_3' || component === "administrative_area_level_1" || component === 'administratrive_area_level_2') {
+                        return 'State: Please provide a valid Owner State.'
                     } else {
                         return null;
                     }
@@ -287,6 +323,7 @@ const AddAddressForm = () => {
             }
         );
         const addressResponse = await response.json();
+
 
         setLat(addressResponse?.result?.geocode?.location?.latitude);
         setLng(addressResponse?.result?.geocode?.location?.longitude);
@@ -361,14 +398,14 @@ const AddAddressForm = () => {
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
             <h1 className="marlrauto mar10b">Add Address</h1>
             <form onSubmit={HandleSubmit}>
-                <div>
+                {(errors.length > 0 || ownerErrors.length > 0) && <div className="errors-div">
                     {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
+                        <div key={ind}>{error.split(':')[1]}</div>
                     ))}
                     {ownerErrors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
+                        <div key={ind}>{error.split(':')[1]}</div>
                     ))}
-                </div>
+                </div>}
                 <div className="fdcol mar20b">
                     <label>Street Address *</label>
                     <input
@@ -446,7 +483,7 @@ const AddAddressForm = () => {
                 </div>
 
                 <div className="fdcol mar20b">
-                    <label>Owner Email</label>
+                    <label>Owner Email *</label>
                     <input
                         type="text"
                         name="ownerEmail"
@@ -454,6 +491,7 @@ const AddAddressForm = () => {
                         onChange={(e) => setOwnerEmail(e.target.value)}
                         value={ownerEmail}
                         className="iflight bnone h40px"
+                        required
                     ></input>
                 </div>
                 <div className="fdcol mar20b">

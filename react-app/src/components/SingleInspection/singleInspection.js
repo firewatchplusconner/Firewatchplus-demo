@@ -74,7 +74,7 @@ const Inspection = () => {
             }
         }
         );
-    }, [dispatch, inspectionId]);
+    }, [dispatch, inspectionId, history]);
 
     if (!loaded) {
         return null;
