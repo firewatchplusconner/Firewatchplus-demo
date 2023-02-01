@@ -37,12 +37,16 @@ export const loadSingleInspection = (id) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        if (data.errors) {
-            return
-        }
         dispatch(singleInspection(data))
         await dispatch(loadSingleInspectionType(data.inspectionTypeId))
         return;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return {'errors': ["An error occurred. Please try again."]};
     }
 }
 
@@ -57,6 +61,13 @@ export const deleteInspection = (id) => async (dispatch) => {
         }
         dispatch(deleteSingleInspection(id))
         return
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return {'errors': ["An error occurred. Please try again."]};
     }
 }
 
@@ -79,7 +90,7 @@ export const addInspection = (inspection) => async (dispatch) => {
             return data.errors;
         }
     } else {
-        return ["An error occurred. Please try again."];
+        return {'errors': ["An error occurred. Please try again."]};
     }
 }
 
@@ -102,7 +113,7 @@ export const updateInspection = (id, inspection) => async (dispatch) => {
             return data.errors;
         }
     } else {
-        return ["An error occurred. Please try again."];
+        return {'errors': ["An error occurred. Please try again."]};
     }
 };
 
@@ -125,7 +136,7 @@ export const updateInspectionAnswer = (id, inspectionAnswer) => async (dispatch)
             return data.errors;
         }
     } else {
-        return ["An error occurred. Please try again."];
+        return {'errors': ["An error occurred. Please try again."]};
     }
 }
 

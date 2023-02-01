@@ -14,7 +14,7 @@ const NavBar = () => {
                         to="/"
                         exact={true}
                         activeClassName="active"
-                        className="tdnone tclight nhvr flarr"
+                        className="tdnone tclight lighthover flarr"
                     >
                         Home
                     </NavLink>
@@ -24,7 +24,7 @@ const NavBar = () => {
                         <div>
                             <NavLink
                                 to="/address"
-                                className="tdnone tclight nhvr flarr"
+                                className="tdnone tclight lighthover flarr"
                             >
                                 Addresses
                             </NavLink>
@@ -32,7 +32,7 @@ const NavBar = () => {
                         <div>
                             <NavLink
                                 to="/inspection"
-                                className="tdnone tclight nhvr flarr"
+                                className="tdnone tclight lighthover flarr"
                             >
                                 Inspections
                             </NavLink>
@@ -51,7 +51,7 @@ const NavBar = () => {
                                 to="/sign-up"
                                 exact={true}
                                 activeClassName="active"
-                                className="tdnone tclight nhvr flarr"
+                                className="tdnone tclight lighthover flarr"
                             >
                                 Sign Up
                             </NavLink>
@@ -61,7 +61,7 @@ const NavBar = () => {
                                 to="/login"
                                 exact={true}
                                 activeClassName="active"
-                                className="tdnone tclight nhvr flarr pad10"
+                                className="tdnone tclight lighthover flarr"
                             >
                                 Login
                             </NavLink>

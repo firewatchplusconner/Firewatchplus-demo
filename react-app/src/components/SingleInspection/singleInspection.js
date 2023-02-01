@@ -66,8 +66,13 @@ const Inspection = () => {
 
 
     useEffect(() => {
-        dispatch(loadSingleInspection(inspectionId)).then(() =>
-            setLoaded(true)
+        dispatch(loadSingleInspection(inspectionId)).then((data) => {
+            if (data.errors) {
+                history.push("/error");
+            } else {
+                setLoaded(true);
+            }
+        }
         );
     }, [dispatch, inspectionId]);
 

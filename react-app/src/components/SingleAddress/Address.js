@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { loadSingleAddress } from "../../store/addresses";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import UpdateAddressForm from "./updateAddressForm";
 import OpenModalButton from "../OpenModalButton";
 import DeleteAddressModal from "./deleteAddressModal";
@@ -16,6 +16,7 @@ const Address = () => {
     const address = useSelector((state) => state.addresses.singleAddress);
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     let deletable = false;
     if (address) {
@@ -25,14 +26,20 @@ const Address = () => {
     }
 
     useEffect(() => {
-        dispatch(loadSingleAddress(addressId)).then(() => setLoaded(true));
-    }, [dispatch, addressId]);
+        dispatch(loadSingleAddress(addressId)).then((data) => {
+            if (data.errors) {
+                history.push("/error");
+            } else {
+                setLoaded(true);
+            }
+        });
+    }, [dispatch, addressId, history]);
 
     if (!loaded) {
         return null;
     }
 
-    const inspectionContent = address.inspections?.map((inspection) => {
+    const inspectionContent = address?.inspections?.map((inspection) => {
         return (
             <AddressInspection key={inspection.id} inspection={inspection} />
         );

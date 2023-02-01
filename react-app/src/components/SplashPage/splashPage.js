@@ -41,6 +41,26 @@ const SplashPage = () => {
                         </NavLink>
                     </div>
                 )}
+                {user && (
+                    <div className="button-container">
+                        <NavLink
+                            to="/address"
+                            exact={true}
+                            activeClassName="active"
+                            className="signup-login-button"
+                        >
+                            Addresses
+                        </NavLink>
+                        <NavLink
+                            to="/inspection"
+                            exact={true}
+                            activeClassName="active"
+                            className="signup-login-button"
+                        >
+                            Inspections
+                        </NavLink>
+                    </div>
+                )}
             </div>
         </div>
     );

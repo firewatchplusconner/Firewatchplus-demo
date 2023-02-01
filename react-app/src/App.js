@@ -13,6 +13,7 @@ import Inspection from "./components/SingleInspection/singleInspection";
 import AddInspectionForm from "./components/AddUpdateInspection/addInspectionForm";
 import Footer from "./components/Footer/Footer";
 import SplashPage from "./components/SplashPage/splashPage";
+import ErrorPage from "./components/404Page/404page";
 import { authenticate } from "./store/session";
 import Address from "./components/SingleAddress/Address";
 
@@ -65,6 +66,12 @@ function App() {
                     </ProtectedRoute>
                     <Route path="/" exact={true}>
                         <SplashPage />
+                    </Route>
+                    <Route path='/error' exact={true}>
+                        <ErrorPage />
+                    </Route>
+                    <Route path=''>
+                        <ErrorPage />
                     </Route>
                 </Switch>
             </div>
