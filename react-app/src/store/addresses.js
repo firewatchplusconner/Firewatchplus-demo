@@ -35,11 +35,18 @@ export const loadSingleAddress = (id) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        if (data.errors) {
-            return;
-        }
+        // if (data.errors) {
+        //     return data;
+        // }
         dispatch(singleAddress(data));
         return;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return {'errors': ["An error occurred. Please try again."]};
     }
 };
 
@@ -76,7 +83,7 @@ export const addAddress = (address) => async (dispatch) => {
             return data;
         }
     } else {
-        return ["An error occurred. Please try again."];
+        return {'errors': ["An error occurred. Please try again."]};
     }
 };
 
@@ -99,7 +106,7 @@ export const updateAddress = (id, address) => async (dispatch) => {
             return data.errors;
         }
     } else {
-        return ["An error occurred. Please try again."];
+        return {'errors': ["An error occurred. Please try again."]};
     }
 };
 

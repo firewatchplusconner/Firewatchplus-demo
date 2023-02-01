@@ -13,7 +13,8 @@
     margin-bottom: 20px;
     padding: 20px;
     height: 15%;
-    width: 45%;
+    width: 46%;
+    min-width: 460px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,13 +24,14 @@
     font-weight: 600;
 }
 
-.description-container {
+.error-description-container {
     width: 80%;
     border: 2px solid rgb(25, 29, 34);
     border-radius: 15px;
     box-shadow: 0 0 10px 1px rgb(25, 29, 34);
     padding: 30px;
     font-size: larger;
+    text-align: center;
 }
 
 .button-container {
