@@ -107,10 +107,64 @@
     cursor: pointer;
 }
 
+.btnlights:hover {
+    cursor: pointer;
+    animation: borderLights .6s infinite;
+    animation-direction: alternate;
+}
+
+@keyframes borderLights {
+    0% {
+        border: 2px solid red;
+    }
+    20% {
+        border: 2px solid blue
+    }
+    40% {
+        border: 2px solid white;
+    }
+    60% {
+        border: 2px solid red;
+    }
+    80% {
+        border: 2px solid blue;
+    }
+    100% {
+        border: 2px solid white;
+    }
+}
+
 .nhvr:hover {
     color: rgb(170, 168, 168);
     text-decoration: underline;
     text-decoration-color: rgb(170, 168, 168);
+}
+
+.lighthover:hover {
+    color: rgb(170, 168, 168);
+    animation: underlineLights .6s infinite;
+    animation-direction: alternate;
+}
+
+@keyframes underlineLights {
+    0% {
+        border-bottom: 3px solid red;
+    }
+    20% {
+        border-bottom: 3px solid blue
+    }
+    40% {
+        border-bottom: 3px solid white;
+    }
+    60% {
+        border-bottom: 3px solid red;
+    }
+    80% {
+        border-bottom: 3px solid blue;
+    }
+    100% {
+        border-bottom: 3px solid white;
+    }
 }
 
 .modal-button-container>button {
