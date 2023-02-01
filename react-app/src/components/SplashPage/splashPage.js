@@ -15,11 +15,11 @@ const SplashPage = () => {
                     arrive to an emergency. When dispatched to an address,
                     responders are able to access owner information, google maps
                     data, and details/photos from past inspections. Sign up for
-                    Ready Response to be able to add, update, and delete
-                    addresses and inspections. Currently, all users are given
-                    add, update, and delete permissions. In a scalable version,
-                    these permissions would be limited to organization's admin
-                    or inspectors. Join our Ready Response community and be ready to respond!
+                    Ready Response to be able manage addresses and inspections.
+                    Currently, all users are given add, update, and delete
+                    permissions. In a scalable version, these permissions would
+                    be limited to organization's admin or inspectors. Join our
+                    Ready Response community and be ready to respond!
                 </div>
                 {!user && (
                     <div className="button-container">
