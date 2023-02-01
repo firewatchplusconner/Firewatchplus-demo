@@ -7,6 +7,9 @@ def notPassingComment(form, field):
     comment = form.data['comment']
     if not passing and not comment:
         raise ValidationError('Comment is required if field is not passing.')
+    commentList = [x for x in comment]
+    if not passing and all(x == ' ' for x in commentList):
+        raise ValidationError('Please provide an actual comment.')
 
 
 class InspectionAnswerForm(FlaskForm):

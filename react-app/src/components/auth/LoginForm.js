@@ -42,11 +42,11 @@ const LoginForm = () => {
         <div className="pad30lr fdcol w30vw ofhidden h100p aicen">
             <h1 className="marlrauto mar20b">Login</h1>
             <form onSubmit={onLogin} className='w70p'>
-                <div>
+                {errors.length > 0 && <div className="errors-div">
                     {errors.map((error, ind) => (
                         <div key={ind}>{error}</div>
                     ))}
-                </div>
+                </div>}
                 <div className="fdcol mar20b">
                     <label htmlFor="email">Email</label>
                     <input

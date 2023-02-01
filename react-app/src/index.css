@@ -15,6 +15,19 @@
     scrollbar-color: var(--gunmetal) var(--light-gunmetal);
 }
 
+.errors-div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    color: rgb(255, 0, 0);
+    font-size: large;
+    margin-bottom: 10px;
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 20px;
+}
+
 .placeholder {
     height: 80vh;
 }
