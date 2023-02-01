@@ -138,7 +138,9 @@ const UpdateAddressForm = () => {
                         } else if (component.componentType === "postal_code") {
                             setOwnerZipCode(component.componentName.text);
                         } else if (component.componentType === "subpremise") {
-                            setOwnerSecondAddressLine(component.componentName.text);
+                            setOwnerSecondAddressLine(
+                                component.componentName.text
+                            );
                         }
                     }
                 }
@@ -155,23 +157,35 @@ const UpdateAddressForm = () => {
                 addressResponse.result.address.unconfirmedComponentTypes;
             let unconfirmedErrors = [];
             if (unconfirmedComponents) {
-                unconfirmedErrors = unconfirmedComponents?.map((component) => {
-                    if (component === "route") {
-                        return "Owner Street: Please provide a valid Owner street name.";
-                    } else if (component === "locality") {
-                        return "Owner City: Please provide a valid Owner city.";
-                    } else if (component === "postal_code") {
-                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
-                    } else if (component === "street_number") {
-                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                unconfirmedComponents?.forEach((component) => {
+                    if (component === "street_number") {
+                        unconfirmedErrors.push(
+                            "Owner Street Number: Please provide a valid Owner Street Number."
+                        );
+                    } else if (component === "route") {
+                        unconfirmedErrors.push(
+                            "Owner Street: Please provide a valid Owner street name."
+                        );
                     } else if (component === "subpremise") {
-                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
-                    } else if (component === "point_of_interest") {
-                        return "Invalid Input: Please provide a valid Owner address.";
-                    } else if (component === 'administrative_area_level_3' || component === "administrative_area_level_1" || component === 'administratrive_area_level_2') {
-                        return 'State: Please provide a valid Owner State.'
-                    } else {
-                        return null;
+                        unconfirmedErrors.push(
+                            "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number."
+                        );
+                    } else if (component === "locality") {
+                        unconfirmedErrors.push(
+                            "Owner City: Please provide a valid Owner city."
+                        );
+                    } else if (
+                        component === "administrative_area_level_3" ||
+                        component === "administrative_area_level_1" ||
+                        component === "administratrive_area_level_2"
+                    ) {
+                        unconfirmedErrors.push(
+                            "State: Please provide a valid Owner State."
+                        );
+                    } else if (component === "postal_code") {
+                        unconfirmedErrors.push(
+                            "Owner Zip Code: Please provide a valid Owner Zip Code."
+                        );
                     }
                 });
             }
@@ -180,21 +194,35 @@ const UpdateAddressForm = () => {
                 addressResponse.result.address.missingComponentTypes;
             let missingErrors = [];
             if (missingComponents) {
-                missingErrors = missingComponents?.map((component) => {
-                    if (component === "route") {
-                        return "Owner Street: Please provide a valid Owner street name.";
-                    } else if (component === "locality") {
-                        return "Owner City: Please provide a valid Owner city.";
-                    } else if (component === "postal_code") {
-                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
-                    } else if (component === "street_number") {
-                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                missingComponents?.forEach((component) => {
+                    if (component === "street_number") {
+                        missingErrors.push(
+                            "Owner Street Number: Please provide a valid Owner Street Number."
+                        );
+                    } else if (component === "route") {
+                        missingErrors.push(
+                            "Owner Street: Please provide a valid Owner street name."
+                        );
                     } else if (component === "subpremise") {
-                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
-                    } else if (component === "point_of_interest") {
-                        return "Invalid Input: Please provide a valid Owner address.";
-                    } else {
-                        return null;
+                        missingErrors.push(
+                            "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number."
+                        );
+                    } else if (component === "locality") {
+                        missingErrors.push(
+                            "Owner City: Please provide a valid Owner city."
+                        );
+                    } else if (
+                        component === "administrative_area_level_3" ||
+                        component === "administrative_area_level_1" ||
+                        component === "administratrive_area_level_2"
+                    ) {
+                        missingErrors.push(
+                            "State: Please provide a valid Owner State."
+                        );
+                    } else if (component === "postal_code") {
+                        missingErrors.push(
+                            "Owner Zip Code: Please provide a valid Owner Zip Code."
+                        );
                     }
                 });
             }
@@ -221,7 +249,13 @@ const UpdateAddressForm = () => {
         setOwnerErrors([]);
         setGoogleResponse(false);
 
-        if (ownerFirstAddressLine) {
+        if (
+            ownerFirstAddressLine ||
+            ownerState ||
+            ownerZipCode ||
+            ownerSecondAddressLine ||
+            ownerCity
+        ) {
             const response = await fetch(
                 `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
                 {
@@ -240,9 +274,15 @@ const UpdateAddressForm = () => {
                     }),
                 }
             );
-            const addressResponse = await response.json();
+            if (response.ok) {
+                const addressResponse = await response.json();
 
-            await handleOwnerGoogleResponse(addressResponse);
+                await handleOwnerGoogleResponse(addressResponse);
+            } else {
+                setOwnerErrors([
+                    "Invalid Input: Please provide a valid Owner Address.",
+                ]);
+            }
         } else {
             setGoogleResponse(true);
         }
@@ -297,11 +337,18 @@ const UpdateAddressForm = () => {
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
             <h1 className="marlrauto mar10b">Update Address</h1>
             <form onSubmit={handleSubmit}>
-                {errors.length > 0 && <div className="errors-div">
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error.split(":")[1]}</div>
-                    ))}
-                </div>}
+                {(errors.length > 0 || ownerErrors.length > 0) && (
+                    <div className="errors-div">
+                        {errors.length > 0 &&
+                            errors.map((error, ind) => (
+                                <div key={ind}>- {error.split(":")[1]}</div>
+                            ))}
+                        {ownerErrors.length > 0 &&
+                            ownerErrors.map((error, ind) => (
+                                <div key={ind}>- {error.split(":")[1]}</div>
+                            ))}
+                    </div>
+                )}
 
                 <div className="fdcol mar20b">
                     <label>Owner Name</label>
