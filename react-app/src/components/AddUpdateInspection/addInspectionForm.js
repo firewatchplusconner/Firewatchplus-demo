@@ -26,7 +26,8 @@ const AddInspectionForm = () => {
         )
     });
 
-    const handleSubmitInspection = async () => {
+    const handleSubmitInspection = async (e) => {
+        e.preventDefault()
         await dispatch(loadSingleInspection(inspectionId))
         let passing = true
         const failedQuestions = inspection.inspectionAnswers.filter(answer => answer.passing === false)
@@ -54,7 +55,7 @@ const AddInspectionForm = () => {
                     <h1 className="inspection-header">{inspectionType.type} Inspection</h1>
                     <div className="inspection-content-container">{content}</div>
                     <div className="submit-inspection-button-container">
-                        <div className="submit-inspection-button" onClick={handleSubmitInspection}>Submit Inspection</div>
+                        <button className="submit-inspection-button" onClick={handleSubmitInspection}>Submit Inspection</button>
                     </div>
                 </div>
             )}
