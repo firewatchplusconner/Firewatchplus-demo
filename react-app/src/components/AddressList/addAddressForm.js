@@ -138,23 +138,23 @@ const AddAddressForm = () => {
                 addressResponse.result.address.unconfirmedComponentTypes;
             let unconfirmedErrors = [];
             if (unconfirmedComponents) {
-                unconfirmedErrors = unconfirmedComponents?.map((component) => {
+                unconfirmedComponents?.forEach((component) => {
                     if (component === "route") {
-                        return "Street: Please provide a valid street name.";
+                    unconfirmedErrors.push("Street: Please provide a valid street name.");
                     } else if (component === "locality") {
-                        return "City: Please provide a valid city.";
+                        unconfirmedErrors.push("City: Please provide a valid city.");
                     } else if (component === "postal_code") {
-                        return "Zip Code: Please provide a valid Zip Code.";
+                        unconfirmedErrors.push("Zip Code: Please provide a valid Zip Code.");
                     } else if (component === "street_number") {
-                        return "Street Number: Please provide a valid Street Number.";
+                        unconfirmedErrors.push("Street Number: Please provide a valid Street Number.");
                     } else if (component === "subpremise") {
-                        return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
-                    } else if (component === "point_of_interest") {
-                        return "Invalid Input: Please provide a valid address.";
-                    } else if (component === 'administrative_area_level_3' || component === "administrative_area_level_1" || component === 'administratrive_area_level_2') {
-                        return 'State: Please provide a valid state.'
-                    } else {
-                        return null;
+                        unconfirmedErrors.push("Apt/Suite/Unit: Please provide a valid apt/suite/unit number.");
+                    } else if (
+                        component === "administrative_area_level_3" ||
+                        component === "administrative_area_level_1" ||
+                        component === "administratrive_area_level_2"
+                    ) {
+                        unconfirmedErrors.push("State: Please provide a valid state.");
                     }
                 });
             }
@@ -163,21 +163,35 @@ const AddAddressForm = () => {
                 addressResponse.result.address.missingComponentTypes;
             let missingErrors = [];
             if (missingComponents) {
-                missingErrors = missingComponents?.map((component) => {
+                missingComponents?.forEach((component) => {
                     if (component === "route") {
-                        return "Street: Please provide a valid street name.";
+                        missingErrors.push(
+                            "Street: Please provide a valid street name."
+                        );
                     } else if (component === "locality") {
-                        return "City: Please provide a valid city.";
+                        missingErrors.push(
+                            "City: Please provide a valid city."
+                        );
                     } else if (component === "postal_code") {
-                        return "Zip Code: Please provide a valid Zip Code.";
+                        missingErrors.push(
+                            "Zip Code: Please provide a valid Zip Code."
+                        );
                     } else if (component === "street_number") {
-                        return "Street Number: Please provide a valid Street Number.";
+                        missingErrors.push(
+                            "Street Number: Please provide a valid Street Number."
+                        );
                     } else if (component === "subpremise") {
-                        return "Apt/Suite/Unit: Please provide a valid apt/suite/unit number.";
-                    } else if (component === "point_of_interest") {
-                        return "Invalid Input: Please provide a valid address.";
-                    } else {
-                        return null;
+                        missingErrors.push(
+                            "Apt/Suite/Unit: Please provide a valid apt/suite/unit number."
+                        );
+                    } else if (
+                        component === "administrative_area_level_3" ||
+                        component === "administrative_area_level_1" ||
+                        component === "administratrive_area_level_2"
+                    ) {
+                        missingErrors.push(
+                            "State: Please provide a valid Owner State."
+                        );
                     }
                 });
             }
@@ -222,7 +236,9 @@ const AddAddressForm = () => {
                         } else if (component.componentType === "postal_code") {
                             setOwnerZipCode(component.componentName.text);
                         } else if (component.componentType === "subpremise") {
-                            setOwnerSecondAddressLine(component.componentName.text);
+                            setOwnerSecondAddressLine(
+                                component.componentName.text
+                            );
                         }
                     }
                 }
@@ -239,23 +255,35 @@ const AddAddressForm = () => {
                 addressResponse.result.address.unconfirmedComponentTypes;
             let unconfirmedErrors = [];
             if (unconfirmedComponents) {
-                unconfirmedErrors = unconfirmedComponents?.map((component) => {
+                unconfirmedComponents.forEach((component) => {
                     if (component === "route") {
-                        return "Owner Street: Please provide a valid Owner street name.";
+                        unconfirmedErrors.push(
+                            "Owner Street: Please provide a valid Owner street name."
+                        );
                     } else if (component === "locality") {
-                        return "Owner City: Please provide a valid Owner city.";
+                        unconfirmedErrors.push(
+                            "Owner City: Please provide a valid Owner city."
+                        );
                     } else if (component === "postal_code") {
-                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                        unconfirmedErrors.push(
+                            "Owner Zip Code: Please provide a valid Owner Zip Code."
+                        );
                     } else if (component === "street_number") {
-                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                        unconfirmedErrors.push(
+                            "Owner Street Number: Please provide a valid Owner Street Number."
+                        );
                     } else if (component === "subpremise") {
-                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
-                    } else if (component === "point_of_interest") {
-                        return "Invalid Input: Please provide a valid Owner address.";
-                    } else if (component === 'administrative_area_level_3' || component === "administrative_area_level_1" || component === 'administratrive_area_level_2') {
-                        return 'State: Please provide a valid Owner State.'
-                    } else {
-                        return null;
+                        unconfirmedErrors.push(
+                            "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number."
+                        );
+                    } else if (
+                        component === "administrative_area_level_3" ||
+                        component === "administrative_area_level_1" ||
+                        component === "administratrive_area_level_2"
+                    ) {
+                        unconfirmedErrors.push(
+                            "State: Please provide a valid Owner State."
+                        );
                     }
                 });
             }
@@ -264,21 +292,31 @@ const AddAddressForm = () => {
                 addressResponse.result.address.missingComponentTypes;
             let missingErrors = [];
             if (missingComponents) {
-                missingErrors = missingComponents?.map((component) => {
+                missingComponents?.forEach((component) => {
                     if (component === "route") {
-                        return "Owner Street: Please provide a valid Owner street name.";
+                        missingErrors.push(
+                            "Owner Street: Please provide a valid Owner street name."
+                        );
                     } else if (component === "locality") {
-                        return "Owner City: Please provide a valid Owner city.";
+                        missingErrors.push(
+                            "Owner City: Please provide a valid Owner city."
+                        );
                     } else if (component === "postal_code") {
-                        return "Owner Zip Code: Please provide a valid Owner Zip Code.";
+                        missingErrors.push(
+                            "Owner Zip Code: Please provide a valid Owner Zip Code."
+                        );
                     } else if (component === "street_number") {
-                        return "Owner Street Number: Please provide a valid Owner Street Number.";
+                        missingErrors.push(
+                            "Owner Street Number: Please provide a valid Owner Street Number."
+                        );
                     } else if (component === "subpremise") {
-                        return "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number.";
+                        missingErrors.push(
+                            "Owner Apt/Suite/Unit: Please provide a valid Owner apt/suite/unit number."
+                        );
                     } else if (component === "point_of_interest") {
-                        return "Invalid Input: Please provide a valid Owner address.";
-                    } else {
-                        return null;
+                        missingErrors.push(
+                            "Invalid Input: Please provide a valid Owner address."
+                        );
                     }
                 });
             }
@@ -322,14 +360,24 @@ const AddAddressForm = () => {
                 }),
             }
         );
-        const addressResponse = await response.json();
+        if (response.ok) {
+            const addressResponse = await response.json();
 
+            setLat(addressResponse?.result?.geocode?.location?.latitude);
+            setLng(addressResponse?.result?.geocode?.location?.longitude);
 
-        setLat(addressResponse?.result?.geocode?.location?.latitude);
-        setLng(addressResponse?.result?.geocode?.location?.longitude);
-        await handleGoogleResponse(addressResponse);
+            await handleGoogleResponse(addressResponse);
+        } else {
+            setErrors(["Invalid Address: Please provide a valid address."]);
+        }
 
-        if (ownerFirstAddressLine) {
+        if (
+            ownerFirstAddressLine ||
+            ownerState ||
+            ownerZipCode ||
+            ownerSecondAddressLine ||
+            ownerCity
+        ) {
             const response = await fetch(
                 `https://addressvalidation.googleapis.com/v1:validateAddress?key=${api_key}`,
                 {
@@ -348,9 +396,15 @@ const AddAddressForm = () => {
                     }),
                 }
             );
-            const addressResponse = await response.json();
+            if (response.ok) {
+                const addressResponse = await response.json();
 
-            await handleOwnerGoogleResponse(addressResponse);
+                await handleOwnerGoogleResponse(addressResponse);
+            } else {
+                setOwnerErrors([
+                    "Invalid Owner Address: Please provide a valid Owner Address.",
+                ]);
+            }
         } else {
             setGoogleResponse(true);
         }
@@ -398,14 +452,18 @@ const AddAddressForm = () => {
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
             <h1 className="marlrauto mar10b">Add Address</h1>
             <form onSubmit={HandleSubmit}>
-                {(errors.length > 0 || ownerErrors.length > 0) && <div className="errors-div">
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error.split(':')[1]}</div>
-                    ))}
-                    {ownerErrors.map((error, ind) => (
-                        <div key={ind}>{error.split(':')[1]}</div>
-                    ))}
-                </div>}
+                {(errors.length > 0 || ownerErrors.length > 0) && (
+                    <div className="errors-div">
+                        {errors.length > 0 &&
+                            errors.map((error, ind) => (
+                                <div key={ind}>- {error.split(":")[1]}</div>
+                            ))}
+                        {ownerErrors.length > 0 &&
+                            ownerErrors.map((error, ind) => (
+                                <div key={ind}>- {error.split(":")[1]}</div>
+                            ))}
+                    </div>
+                )}
                 <div className="fdcol mar20b">
                     <label>Street Address *</label>
                     <input

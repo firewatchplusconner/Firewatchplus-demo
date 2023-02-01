@@ -97,7 +97,7 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
                             Comment *:
                         </label>
                         {errors.length > 0 && (
-                            <div className="errors-div">
+                            <div className="answer-errors-div">
                                 {errors.map((error, ind) => (
                                     <div key={ind}>{error.split(":")[1]}</div>
                                 ))}
