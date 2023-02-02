@@ -59,11 +59,43 @@
 }
 
 .inspection-answer-container {
-    /* border: 3px solid red; */
+    /* border: 2px solid red; */
     margin-bottom: 20px;
     border: 2px solid var(--light-gunmetal);
     padding: 10px;
     border-radius: 5px;
+}
+
+.inspection-answer-failed-container {
+    /* border: 2px solid red; */
+    margin-bottom: 20px;
+    border: 2px solid var(--light-gunmetal);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inspection-answer-left-container {
+    /* border: 2px solid green; */
+    width: 69%;
+}
+
+.inspection-answer-right-container {
+    /* border: 2px solid yellow; */
+    width: 25%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inspection-photo-container {
+    /* border: 2px solid purple; */
+    height: 150px;
+    width: 140px;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .question-container {
