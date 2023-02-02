@@ -10,7 +10,7 @@ export function PhotoModalProvider({ children }) {
     // callback function that will be called when modal is closing
     const [onModalClose, setOnModalClose] = useState(null);
 
-    const closeModal = () => {
+    const closePhotoModal = () => {
         setModalContent(null); // clear the modal contents
         // If callback function is truthy, call the callback function and reset it
         // to null:
@@ -25,7 +25,7 @@ export function PhotoModalProvider({ children }) {
         modalContent, // React component to render inside modal
         setModalContent, // function to set the React component to render inside modal
         setOnModalClose, // function to set the callback function called when modal is closing
-        closeModal, // function to close the modal
+        closePhotoModal, // function to close the modal
     };
 
     return (
