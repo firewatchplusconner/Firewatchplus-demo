@@ -4,9 +4,9 @@ from datetime import datetime
 def seed_inspections():
     demo = User.query.get(1)
 
-    sanFran = Address.query.get(1)
-    newYork = Address.query.get(2)
-    whiteHouse = Address.query.get(3)
+    whiteHouse = Address.query.get(1)
+    sanFran = Address.query.get(2)
+    newYork = Address.query.get(3)
 
     commercial = InspectionType.query.get(1)
     commercialQuestionCategories = [category for category in commercial.question_categories]
@@ -17,6 +17,17 @@ def seed_inspections():
     residentialQuestionCategories = [category for category in residential.question_categories]
     residentialQuestionsList = [residentialQuestionCategory.questions for residentialQuestionCategory in residentialQuestionCategories]
     residentialQuestions = [question for questionList in residentialQuestionsList for question in questionList]
+
+
+    whiteHouseInspection = Inspection(
+        address=whiteHouse,
+        inspectionType=residential,
+        inspector=demo,
+        inspectionNumber=1,
+        date=f'{datetime.now()}'
+    )
+    whiteHouseAnswers = [InspectionAnswer(inspection=whiteHouseInspection, question=question) for question in residentialQuestions]
+    db.session.add(whiteHouseInspection)
 
     sanFranInspection1 = Inspection(
         address=sanFran,
@@ -54,15 +65,6 @@ def seed_inspections():
     newYorkAnswers = [InspectionAnswer(inspection=newYorkInspection, question=question) for question in commercialQuestions]
     db.session.add(newYorkInspection)
 
-    whiteHouseInspection = Inspection(
-        address=whiteHouse,
-        inspectionType=residential,
-        inspector=demo,
-        inspectionNumber=1,
-        date=f'{datetime.now()}'
-    )
-    whiteHouseAnswers = [InspectionAnswer(inspection=whiteHouseInspection, question=question) for question in residentialQuestions]
-    db.session.add(whiteHouseInspection)
 
     db.session.commit()
 

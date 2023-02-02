@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateInspectionAnswer } from "../../store/inspections";
+import UploadInspectionAnswerImage from "./addInspectionAnswerImage";
+import OpenModalButton from "../OpenModalButton";
 import { useParams } from "react-router-dom";
 
 const QuestionAnswer = ({ question, questionAnswer }) => {
@@ -87,48 +89,74 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
                 </div>
             </div>
             {newFail && (
-                <form
-                    onSubmit={(e) => {
-                        handleSave(e);
-                    }}
-                >
-                    <div className="inspection-question-comment-input-container">
-                        <label className="inspection-question-comment-input-label">
-                            Comment *:
-                        </label>
-                        {errors.length > 0 && (
-                            <div className="answer-errors-div">
-                                {errors.map((error, ind) => (
-                                    <div key={ind}>{error.split(":")[1]}</div>
-                                ))}
-                            </div>
-                        )}
-                        <textarea
-                            type="textarea"
-                            name="comment"
-                            onChange={(e) => setComment(e.target.value)}
-                            value={comment}
-                            required={true}
-                            className="inspection-question-comment-input"
-                        ></textarea>
-                    </div>
-                    <div className="inspection-question-comment-input-button-container">
-                        <button
-                            type="submit"
-                            className="inspection-question-comment-input-button"
-                        >
-                            Save
-                        </button>
-                    </div>
-                </form>
+                <>
+                    {!questionAnswer.imgUrl && (
+                        <div>
+                            <OpenModalButton
+                                buttonText={"Upload Image"}
+                                modalComponent={
+                                    <UploadInspectionAnswerImage
+                                        inspectionId={inspectionId}
+                                        inspectionAnswerId={questionAnswer.id}
+                                    />
+                                }
+                            />
+                        </div>
+                    )}
+                    <form
+                        onSubmit={(e) => {
+                            handleSave(e);
+                        }}
+                    >
+                        <div className="inspection-question-comment-input-container">
+                            <label className="inspection-question-comment-input-label">
+                                Comment *:
+                            </label>
+                            {errors.length > 0 && (
+                                <div className="answer-errors-div">
+                                    {errors.map((error, ind) => (
+                                        <div key={ind}>
+                                            {error.split(":")[1]}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                            <textarea
+                                type="textarea"
+                                name="comment"
+                                onChange={(e) => setComment(e.target.value)}
+                                value={comment}
+                                required={true}
+                                className="inspection-question-comment-input"
+                            ></textarea>
+                        </div>
+                        {questionAnswer.imgUrl &&
+                        <div>
+                            <img src={questionAnswer.imgUrl} />
+                        </div>}
+                        <div className="inspection-question-comment-input-button-container">
+                            <button
+                                type="submit"
+                                className="inspection-question-comment-input-button"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </>
             )}
             {comment && !newFail && (
+                <>
                 <div className="inspection-question-comment-container">
                     <div className="inspection-question-comment-label">
                         Comments:
                     </div>
                     <div className="inspection-question-comment">{comment}</div>
                 </div>
+                <div>
+                    <img src={questionAnswer.imgUrl} />
+                </div>
+                </>
             )}
         </div>
     );

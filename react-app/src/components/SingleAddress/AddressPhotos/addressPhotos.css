@@ -30,21 +30,24 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 .address-photo-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* text-align: center; */
     font-size: large;
     margin-top: 5px;
     margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 95%;
+    text-align: center;
 }
 
 .address-photo {
     /* border: 2px solid purple; */
     height: 100%;
+    width: 100%;
     border-radius: 10px;
     object-fit: fill;
     overflow: hidden;

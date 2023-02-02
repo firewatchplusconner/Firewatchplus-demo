@@ -140,6 +140,26 @@ export const updateInspectionAnswer = (id, inspectionAnswer) => async (dispatch)
     }
 }
 
+export const addInspectionAnswerImage = (inspectionId, inspectionAnswerId, image) => async (dispatch) => {
+    const response = await fetch(`/api/inspection/${inspectionId}/answer/${inspectionAnswerId}`, {
+        method: 'POST',
+        body: image
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(singleInspection(data))
+        return data
+    }  else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data;
+        }
+    } else {
+        return {'errors': ["An error occurred. Please try again."]};
+    }
+}
+
 const initialState = {allInspections: null, singleInspection: null}
 
 export default function reducer(state = initialState, action) {
