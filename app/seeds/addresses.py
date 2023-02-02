@@ -1,6 +1,7 @@
-from app.models import db, environment, SCHEMA, Address
+from app.models import db, environment, SCHEMA, Address, User
 
 def seed_addresses():
+    demo = User.query.get(1)
     address1 = Address(
         firstAddressLine = '180 Geary St',
         secondAddressLine = 'Fl 6',
@@ -18,7 +19,8 @@ def seed_addresses():
         notes = 'App Academy San Fracisco Location',
         nextInspectionDate = '',
         lat=37.787650,
-        lng=-122.406310
+        lng=-122.406310,
+        user=demo
     )
     address2 = Address(
         firstAddressLine = '90 5th Ave',
@@ -34,7 +36,8 @@ def seed_addresses():
         ownerZipCode = '10011',
         notes = 'App Academy New York Location',
         lat=40.736370,
-        lng=-73.993752
+        lng=-73.993752,
+        user=demo
     )
     address3 = Address(
         firstAddressLine = '1600 Pennsylvania Ave NW',
@@ -50,7 +53,8 @@ def seed_addresses():
         ownerZipCode = '20500',
         notes = 'The White House',
         lat=38.897700,
-        lng=-77.036540
+        lng=-77.036540,
+        user=demo
     )
 
     db.session.add(address1)

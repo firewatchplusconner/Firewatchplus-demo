@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Address(db.Model):
     __tablename__ = 'addresses'
@@ -24,8 +24,11 @@ class Address(db.Model):
     nextInspectionDate = db.Column(db.String)
     lat = db.Column(db.Float, nullable=False)
     lng = db.Column(db.Float, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     inspections = db.relationship('Inspection', back_populates='address', cascade='all, delete-orphan')
+    images = db.relationship('AddressImage', back_populates='address', cascade='all, delete-orphan')
+    user = db.relationship('User', back_populates='addresses')
 
     def to_dict(self):
         return {
@@ -47,7 +50,10 @@ class Address(db.Model):
             'nextInspectionDate': self.nextInspectionDate,
             'lat': self.lat,
             'lng': self.lng,
-            'inspections': [inspection.to_dict() for inspection in self.inspections]
+            'userId': self.userId,
+            'user': self.user.to_dict(),
+            'inspections': [inspection.to_dict() for inspection in self.inspections],
+            'images': [image.to_dict() for image in self.images]
         }
 
     def to_dict_basic_info(self):
@@ -67,5 +73,8 @@ class Address(db.Model):
             'ownerState': self.ownerState,
             'ownerZipCode': self.ownerZipCode,
             'notes': self.notes,
-            'nextInspectionDate': self.nextInspectionDate
+            'nextInspectionDate': self.nextInspectionDate,
+            'lat': self.lat,
+            'lng': self.lng,
+            'userId': self.userId,
         }

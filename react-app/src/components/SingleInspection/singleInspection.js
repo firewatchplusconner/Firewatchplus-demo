@@ -23,6 +23,7 @@ const Inspection = () => {
 
     const editInspection = () => {
         history.push(`/address/${inspection.address.id}/inspection/${inspection.id}`)
+        window.scrollTo(0, 0);
     }
 
     const inspectionAnswerContent = inspectionAnswers?.map(

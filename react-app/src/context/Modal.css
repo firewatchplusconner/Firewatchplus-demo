@@ -40,3 +40,27 @@
     scrollbar-track-color: var(--gunmetal);
     scrollbar-base-color: gray;
 }
+
+#photo-modal-content-container {
+    position: absolute;
+    background-color: rgb(66, 76, 90);
+    border-radius: 10px;
+    width: 95%;
+    height: 95%;
+    padding: 10px;
+    justify-content: center;
+    box-sizing: border-box;
+
+}
+
+#photo-modal-content {
+    background-color: rgb(66, 76, 90);
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    scrollbar-track-color: var(--gunmetal);
+    scrollbar-base-color: gray;
+    box-sizing: border-box;
+    overflow: hidden;
+}

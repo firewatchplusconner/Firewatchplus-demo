@@ -1,7 +1,8 @@
 from flask import Blueprint, request
-from flask_login import login_required
-from app.models import Address, db
+from flask_login import login_required, current_user
+from app.models import Address, db, AddressImage
 from app.forms import AddressForm, UpdateAddressForm
+from app.s3_helpers import upload_file_to_s3, allowed_file, get_unique_filename
 
 address_routes = Blueprint('addresses', __name__)
 
@@ -51,6 +52,7 @@ def add_address():
     if form.validate_on_submit():
         address = Address()
         form.populate_obj(address)
+        address.userId = current_user.id
         db.session.add(address)
         db.session.commit()
 
@@ -103,3 +105,45 @@ def delete_address(id):
         return {'message': 'Address successfully deleted'}, 200
 
     return {'message': 'Unable to delete address. Try again'}, 400
+
+@address_routes.route('/<int:id>/image', methods=["POST"])
+@login_required
+def add_image(id):
+    '''
+    Upload an image by address ID. Image is uploaded to AWS S3 Bucket and URL is added to database. Return the address in a dictionary with all associated data
+    '''
+    address = Address.query.get(id)
+
+    if not address:
+        return {'errors': ['No address found']}, 404
+
+    if "image" not in request.files:
+        return {"errors": ["Image required"]}, 400
+
+    image = request.files["image"]
+    title = request.form['title']
+    print('request data---------------', list(request.data))
+    # title = request.files['title']
+
+    if not allowed_file(image.filename):
+        return {"errors": ["File type not permitted. Permitted file types: pdf, png, jpg, jpeg, gif."]}, 400
+
+    # Create a unique filename so it does not override previous images on AWS S3
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return {'errors': [upload]}, 400
+
+    url = upload["url"]
+
+    # flask_login allows us to get the current user from the request
+    new_image = AddressImage(user=current_user, url=url, address=address, title=title)
+    db.session.add(new_image)
+    db.session.commit()
+
+    return address.to_dict(), 201
