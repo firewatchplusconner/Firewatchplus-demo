@@ -9,9 +9,9 @@ const ModalPhotoComponent = ({ image }) => {
 
     return (
         <div className="modal-photo-outer-container">
-            <div className="modal-photo-title">
+            <div className="modal-photo-title-container">
                 <div className="close-modal-button" onClick={() => closePhotoModal()}>CLOSE</div>
-                <div>{image.title}</div>
+                <div className="modal-photo-title">{image.title}</div>
                 <div className="delete-image-button">
                     <OpenModalButton modalComponent={<DeleteAddressPhotoModal addressId={image.addressId} imageId={image.id} />}  buttonText='Delete'/>
                 </div>

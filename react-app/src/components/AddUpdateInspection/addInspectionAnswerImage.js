@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addAddressImage } from "../../store/addresses";
+import { addInspectionAnswerImage } from "../../store/inspections";
 import { useModal } from "../../context/Modal";
 
-const UploadImage = () => {
-    const address = useSelector((state) => state.addresses.singleAddress);
+const UploadInspectionAnswerImage = ({inspectionId, inspectionAnswerId}) => {
     const [errors, setErrors] = useState([]);
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
-    const [title, setTitle] = useState("");
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -16,9 +14,8 @@ const UploadImage = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("image", image);
-        formData.append("title", title);
 
-        const data = await dispatch(addAddressImage(address.id, formData));
+        const data = await dispatch(addInspectionAnswerImage(inspectionId, inspectionAnswerId, formData));
         if (data.errors) {
             setErrors(data.errors);
         } else {
@@ -53,19 +50,6 @@ const UploadImage = () => {
                         ))}
                     </div>
                 )}
-                <div className="fdcol mar20b">
-                    <label>Title</label>
-                    <input
-                        type="text"
-                        name="title"
-                        placeholder="Title"
-                        maxLength={255}
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                        className="iflight bnone h40px"
-                        required
-                    ></input>
-                </div>
                 <div className="mar20b">
                     <input
                         type="file"
@@ -87,4 +71,4 @@ const UploadImage = () => {
     );
 };
 
-export default UploadImage;
+export default UploadInspectionAnswerImage;

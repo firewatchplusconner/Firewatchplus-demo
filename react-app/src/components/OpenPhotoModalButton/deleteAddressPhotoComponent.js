@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { usePhotoModal } from "../../context/PhotoModal";
 import { deleteAddressImage } from "../../store/addresses";
