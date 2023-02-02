@@ -147,3 +147,25 @@ def add_image(id):
     db.session.commit()
 
     return address.to_dict(), 201
+
+@address_routes.route('/<int:id>/image/<int:imageId>', methods=['DELETE'])
+@login_required
+def delete_address_image(id, imageId):
+    '''
+    Delete an Image by it's ID and return the address in a dictionary with all associated data.
+    '''
+    deleteImage = AddressImage.query.get(imageId)
+    if not deleteImage:
+        return {'errors': ['No image found']}, 404
+
+    db.session.delete(deleteImage)
+    db.session.commit()
+
+    image = AddressImage.query.get(imageId)
+
+    address = Address.query.get(id)
+
+    if not image:
+        return address.to_dict(), 200
+
+    return {'message': 'Unable to delete image. Try again'}, 400

@@ -130,6 +130,23 @@ export const addAddressImage = (id, image) => async (dispatch) => {
     }
 }
 
+export const deleteAddressImage = (id, imageId) => async (dispatch) => {
+    const response = await fetch(`/api/address/${id}/image/${imageId}`, {
+    method: 'DELETE'})
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(singleAddress(data))
+    } else if (response.status < 500) {
+        const data = await response.json()
+        if (data.errors) {
+            return data
+        }
+    } else {
+        return {'errors': ['An error occured. Please try again.']}
+    }
+}
+
 const initialState = { allAddresses: null, singleAddress: null };
 
 export default function reducer(state = initialState, action) {
