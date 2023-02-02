@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .inspectionTypes import seed_inspection_types, undo_inspection_types
 from .addresses import seed_addresses, undo_addresses
 from .inspections import seed_inspections, undo_inspections
+from .addressImages import seed_address_images, undo_address_images
 
 from app.models.db import db, environment, SCHEMA
 
@@ -22,10 +23,12 @@ def seed():
         undo_users()
         undo_inspection_types()
         undo_addresses()
+        undo_address_images()
         undo_inspections()
     seed_users()
     seed_inspection_types()
     seed_addresses()
+    seed_address_images()
     seed_inspections()
     # Add other seed functions here
 
@@ -36,5 +39,6 @@ def undo():
     undo_users()
     undo_inspection_types()
     undo_addresses()
+    undo_address_images()
     undo_inspections()
     # Add other undo functions here

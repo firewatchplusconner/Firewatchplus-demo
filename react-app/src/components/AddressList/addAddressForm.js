@@ -408,6 +408,7 @@ const AddAddressForm = () => {
         } else {
             setGoogleResponse(true);
         }
+        document.getElementById('modal-content').scrollTop = 0
     };
 
     useEffect(() => {
@@ -445,6 +446,7 @@ const AddAddressForm = () => {
         } else {
             await closeModal();
             history.push(`/address/${data.id}`);
+            window.scrollTo(0, 0);
         }
     };
 
@@ -453,7 +455,7 @@ const AddAddressForm = () => {
             <h1 className="marlrauto mar10b">Add Address</h1>
             <form onSubmit={HandleSubmit}>
                 {(errors.length > 0 || ownerErrors.length > 0) && (
-                    <div className="errors-div">
+                    <div className="errors-div" id='errors-div'>
                         {errors.length > 0 &&
                             errors.map((error, ind) => (
                                 <div key={ind}>- {error.split(":")[1]}</div>

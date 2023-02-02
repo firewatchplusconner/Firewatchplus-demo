@@ -16,7 +16,9 @@ class User(db.Model, UserMixin):
     firstName = db.Column(db.String(255), nullable=False)
     lastName = db.Column(db.String(255), nullable=False)
 
-    inspections = db.relationship('Inspection', back_populates='inspector')
+    addresses = db.relationship('Address', back_populates='user', cascade='all, delete-orphan')
+    inspections = db.relationship('Inspection', back_populates='inspector', cascade='all, delete-orphan')
+    addressImages = db.relationship('AddressImage', back_populates='user', cascade='all, delete-orphan')
 
     @property
     def password(self):
