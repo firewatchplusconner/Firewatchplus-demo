@@ -3,8 +3,10 @@ import { loadSingleInspection } from "../../store/inspections";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory, NavLink } from "react-router-dom";
 import moment from "moment";
+import OpenPhotoModalButton from "../OpenPhotoModalButton";
 import "./singleInspection.css";
 import OpenModalButton from "../OpenModalButton";
+import InspectionModalPhotoComponent from "../OpenPhotoModalButton/InspectionPhotoModalComponent";
 import DeleteInspectionModal from "./deleteInspectionModal";
 
 const Inspection = () => {
@@ -14,7 +16,7 @@ const Inspection = () => {
     );
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
-    const history = useHistory()
+    const history = useHistory();
 
     let inspectionAnswers = null;
     if (inspection) {
@@ -22,49 +24,95 @@ const Inspection = () => {
     }
 
     const editInspection = () => {
-        history.push(`/address/${inspection.address.id}/inspection/${inspection.id}`)
+        history.push(
+            `/address/${inspection.address.id}/inspection/${inspection.id}`
+        );
         window.scrollTo(0, 0);
-    }
+    };
 
-    const inspectionAnswerContent = inspectionAnswers?.map(
-        (inspectionAnswer) => {
-            return (
-                <div
-                    key={inspectionAnswer.id}
-                    className="inspection-answer-container"
-                >
-                    <div className="question-container">
-                        <div className="question-label">Question: </div>
-                        <div className="question">
-                            {inspectionAnswer.question.question}
-                        </div>
-                    </div>
-                    <div className="question-passing-container">
-                        <div className="question-passing-label">Response:</div>
-                        <div
-                            className={
-                                inspectionAnswer.passing
-                                    ? "question-passing-passed"
-                                    : "question-passing-failed"
-                            }
-                        >
-                            {inspectionAnswer.passing ? "PASS" : "FAIL"}
-                        </div>
-                    </div>
-                    {!inspectionAnswer.passing && (
-                        <div className="comment-container">
-                            <div className="comment-label">Comment: </div>
-                            <div className="comment">
-                                {inspectionAnswer.comment}
+    const inspectionAnswerContent = inspectionAnswers
+        ?.map((inspectionAnswer) => {
+            if (inspectionAnswer.passing) {
+                return (
+                    <div
+                        key={inspectionAnswer.id}
+                        className="inspection-answer-container"
+                    >
+                        <div className="question-container">
+                            <div className="question-label">Question: </div>
+                            <div className="question">
+                                {inspectionAnswer.question.question}
                             </div>
                         </div>
-                    )}
-                </div>
-            );
-        }
-    )?.reverse();
-
-
+                        <div className="question-passing-container">
+                            <div className="question-passing-label">
+                                Response:
+                            </div>
+                            <div
+                                className={
+                                    inspectionAnswer.passing
+                                        ? "question-passing-passed"
+                                        : "question-passing-failed"
+                                }
+                            >
+                                {inspectionAnswer.passing ? "PASS" : "FAIL"}
+                            </div>
+                        </div>
+                    </div>
+                );
+            } else {
+                return (
+                    <div
+                        key={inspectionAnswer.id}
+                        className="inspection-answer-failed-container"
+                    >
+                        <div className="inspection-answer-left-container">
+                            <div className="question-container">
+                                <div className="question-label">Question: </div>
+                                <div className="question">
+                                    {inspectionAnswer.question.question}
+                                </div>
+                            </div>
+                            <div className="question-passing-container">
+                                <div className="question-passing-label">
+                                    Response:
+                                </div>
+                                <div
+                                    className={
+                                        inspectionAnswer.passing
+                                            ? "question-passing-passed"
+                                            : "question-passing-failed"
+                                    }
+                                >
+                                    {inspectionAnswer.passing ? "PASS" : "FAIL"}
+                                </div>
+                            </div>
+                            <div className="comment-container">
+                                <div className="comment-label">Comment: </div>
+                                <div className="comment">
+                                    {inspectionAnswer.comment}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="inspection-answer-right-container">
+                            <div className="inspection-photo-container">
+                                <OpenPhotoModalButton
+                                    modalComponent={
+                                        <InspectionModalPhotoComponent
+                                            image={{
+                                                url: inspectionAnswer.imgUrl,
+                                            }}
+                                        />
+                                    }
+                                    imageUrl={inspectionAnswer.imgUrl}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        })
+        ?.reverse();
 
     useEffect(() => {
         dispatch(loadSingleInspection(inspectionId)).then((data) => {
@@ -73,8 +121,7 @@ const Inspection = () => {
             } else {
                 setLoaded(true);
             }
-        }
-        );
+        });
     }, [dispatch, inspectionId, history]);
 
     if (!loaded) {
@@ -85,7 +132,10 @@ const Inspection = () => {
         <>
             {loaded && (
                 <div className="single-inspection-container">
-                    <NavLink to={`/address/${inspection.address.id}`} className="nhvr single-inspection-header-container">
+                    <NavLink
+                        to={`/address/${inspection.address.id}`}
+                        className="nhvr single-inspection-header-container"
+                    >
                         {inspection.address.firstAddressLine}
                         {inspection.address.secondAddressLine
                             ? ` ${inspection.address.secondAddressLine}`
@@ -125,9 +175,14 @@ const Inspection = () => {
                         {inspectionAnswerContent}
                     </div>
                     <div className="edit-inspection-button-container">
-                        <div className="edit-inspection-button" onClick={editInspection}>Edit Inspection</div>
+                        <div
+                            className="edit-inspection-button"
+                            onClick={editInspection}
+                        >
+                            Edit Inspection
+                        </div>
                         <OpenModalButton
-                            buttonText='Delete Inspection'
+                            buttonText="Delete Inspection"
                             modalComponent={<DeleteInspectionModal />}
                         />
                     </div>

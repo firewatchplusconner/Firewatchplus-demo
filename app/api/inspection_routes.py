@@ -147,10 +147,16 @@ def update_inspection_answer(id):
         if not inspectionAnswer.passing and not inspectionAnswer.imgUrl:
             return {'errors': ['Image: Failed questions require an image.']}, 400
 
+        inspection = Inspection.query.get(inspectionAnswer.inspectionId)
+
+        if not inspectionAnswer.passing:
+            inspection.passing = False
+
         if inspectionAnswer.passing:
             inspectionAnswer.imgUrl = ''
 
         db.session.add(inspectionAnswer)
+        db.session.add(inspection)
         db.session.commit()
 
         inspection = Inspection.query.get(id)
@@ -173,7 +179,7 @@ def add_inspection_photo(id, inspectionAnswerId):
     inspectionAnswer = InspectionAnswer.query.get(inspectionAnswerId)
 
     if not inspectionAnswer or not inspection:
-            return {'errors': ['Inspection: Inspection error not found']}, 404
+            return {'errors': ['Inspection not found']}, 404
 
     if "image" not in request.files:
         return {"errors": ["Image: Image required"]}, 400
@@ -181,7 +187,7 @@ def add_inspection_photo(id, inspectionAnswerId):
     image = request.files["image"]
 
     if not allowed_file(image.filename):
-        return {"errors": ["FileType: File type not permitted. Permitted file types: pdf, png, jpg, jpeg, gif."]}, 400
+        return {"errors": ["File type not permitted. Permitted file types: pdf, png, jpg, jpeg, gif."]}, 400
 
     # Create a unique filename so it does not override previous images on AWS S3
     image.filename = get_unique_filename(image.filename)

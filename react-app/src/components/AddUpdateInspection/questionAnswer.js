@@ -30,19 +30,23 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
         } else {
             setNewFail(false);
             setNewPassing(true);
+            setErrors([]);
         }
     };
 
     useEffect(() => {
         if (newPassing) {
             if (passing) {
-                dispatch(
-                    updateInspectionAnswer(inspectionId, {
-                        id: questionAnswer.id,
-                        passing,
-                        comment,
-                    })
-                );
+                const update = async () => {
+                    await dispatch(
+                        updateInspectionAnswer(inspectionId, {
+                            id: questionAnswer.id,
+                            passing,
+                            comment,
+                        })
+                    );
+                };
+                update();
             }
         }
         // eslint-disable-next-line
@@ -57,105 +61,211 @@ const QuestionAnswer = ({ question, questionAnswer }) => {
 
     return (
         <div key={question.id} className="inspection-question-container">
-            <div className="inspection-question">{question.question}</div>
-            <div className="inspection-question-answer-container">
-                <div
-                    onClick={() => {
-                        if (!passing) setNewPassing(true);
-                        setPassing(true);
-                        setNewFail(false);
-                        setComment("");
-                    }}
-                    className={
-                        passing
-                            ? "inspection-question-passing"
-                            : "inspection-question-not-passing"
-                    }
-                >
-                    PASS
-                </div>
-                <div
-                    onClick={() => {
-                        setNewFail(true);
-                        setPassing(false);
-                    }}
-                    className={
-                        passing
-                            ? "inspection-question-not-failed"
-                            : "inspection-question-failed"
-                    }
-                >
-                    FAIL
-                </div>
-            </div>
-            {newFail && (
+            {passing && !newFail && (
                 <>
-                    {!questionAnswer.imgUrl && (
-                        <div>
-                            <OpenModalButton
-                                buttonText={"Upload Image"}
-                                modalComponent={
-                                    <UploadInspectionAnswerImage
-                                        inspectionId={inspectionId}
-                                        inspectionAnswerId={questionAnswer.id}
-                                    />
-                                }
-                            />
-                        </div>
-                    )}
-                    <form
-                        onSubmit={(e) => {
-                            handleSave(e);
-                        }}
-                    >
-                        <div className="inspection-question-comment-input-container">
-                            <label className="inspection-question-comment-input-label">
-                                Comment *:
-                            </label>
-                            {errors.length > 0 && (
-                                <div className="answer-errors-div">
-                                    {errors.map((error, ind) => (
-                                        <div key={ind}>
-                                            {error.split(":")[1]}
-                                        </div>
-                                    ))}
+                    <div className="inspection-question-outer-container">
+                        <div className="inspection-question-left-container">
+                            <div className="inspection-question">
+                                {question.question}
+                            </div>
+                            <div className="inspection-question-answer-container">
+                                <div
+                                    onClick={() => {
+                                        if (!passing) setNewPassing(true);
+                                        setPassing(true);
+                                        setErrors([]);
+                                        setNewFail(false);
+                                        setComment("");
+                                    }}
+                                    className={
+                                        passing
+                                            ? "inspection-question-passing"
+                                            : "inspection-question-not-passing"
+                                    }
+                                >
+                                    PASS
                                 </div>
-                            )}
-                            <textarea
-                                type="textarea"
-                                name="comment"
-                                onChange={(e) => setComment(e.target.value)}
-                                value={comment}
-                                required={true}
-                                className="inspection-question-comment-input"
-                            ></textarea>
+                                <div
+                                    onClick={() => {
+                                        setNewFail(true);
+                                        setPassing(false);
+                                    }}
+                                    className={
+                                        passing
+                                            ? "inspection-question-not-failed"
+                                            : "inspection-question-failed"
+                                    }
+                                >
+                                    FAIL
+                                </div>
+                            </div>
                         </div>
-                        {questionAnswer.imgUrl &&
-                        <div>
-                            <img src={questionAnswer.imgUrl} />
-                        </div>}
-                        <div className="inspection-question-comment-input-button-container">
-                            <button
-                                type="submit"
-                                className="inspection-question-comment-input-button"
-                            >
-                                Save
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </>
             )}
-            {comment && !newFail && (
+            {newFail && (
                 <>
-                <div className="inspection-question-comment-container">
-                    <div className="inspection-question-comment-label">
-                        Comments:
+                    <div className="inspection-question-outer-container">
+                        <div className="inspection-question-left-container">
+                            <div className="inspection-question">
+                                {question.question}
+                            </div>
+                            <div className="inspection-question-answer-container">
+                                <div
+                                    onClick={() => {
+                                        if (!passing) setNewPassing(true);
+                                        setPassing(true);
+                                        setErrors([]);
+                                        setNewFail(false);
+                                        setComment("");
+                                    }}
+                                    className={
+                                        passing
+                                            ? "inspection-question-passing"
+                                            : "inspection-question-not-passing"
+                                    }
+                                >
+                                    PASS
+                                </div>
+                                <div
+                                    onClick={() => {
+                                        setNewFail(true);
+                                        setPassing(false);
+                                    }}
+                                    className={
+                                        passing
+                                            ? "inspection-question-not-failed"
+                                            : "inspection-question-failed"
+                                    }
+                                >
+                                    FAIL
+                                </div>
+                            </div>
+                            {!questionAnswer.imgUrl && (
+                                <div>
+                                    <OpenModalButton
+                                        buttonText={"Upload Image"}
+                                        modalComponent={
+                                            <UploadInspectionAnswerImage
+                                                inspectionId={inspectionId}
+                                                inspectionAnswerId={
+                                                    questionAnswer.id
+                                                }
+                                            />
+                                        }
+                                    />
+                                </div>
+                            )}
+                            <form
+                                onSubmit={(e) => {
+                                    handleSave(e);
+                                }}
+                            >
+                                <div className="inspection-question-comment-input-container">
+                                    <label className="inspection-question-comment-input-label">
+                                        Comment *:
+                                    </label>
+                                    {errors.length > 0 && (
+                                        <div className="answer-errors-div">
+                                            {errors.map((error, ind) => (
+                                                <div key={ind}>
+                                                    {error.split(":")[1]}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                    <textarea
+                                        type="textarea"
+                                        name="comment"
+                                        onChange={(e) =>
+                                            setComment(e.target.value)
+                                        }
+                                        value={comment}
+                                        required={true}
+                                        className="inspection-question-comment-input"
+                                    ></textarea>
+                                </div>
+                                <div className="inspection-question-comment-input-button-container">
+                                    <button
+                                        type="submit"
+                                        className="inspection-question-comment-input-button"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div className="inspection-question-right-container">
+                            {questionAnswer.imgUrl && (
+                                <div className="inspection-question-image-container">
+                                    <img
+                                        src={questionAnswer.imgUrl}
+                                        alt="inspection answer"
+                                        className="inspection-question-image"
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    <div className="inspection-question-comment">{comment}</div>
-                </div>
-                <div>
-                    <img src={questionAnswer.imgUrl} />
-                </div>
+                </>
+            )}
+            {!passing && !newFail && (
+                <>
+                    <div className="inspection-question-outer-container">
+                        <div className="inspection-question-left-container">
+                            <div className="inspection-question">
+                                {question.question}
+                            </div>
+                            <div className="inspection-question-answer-container">
+                                <div
+                                    onClick={() => {
+                                        if (!passing) setNewPassing(true);
+                                        setPassing(true);
+                                        setErrors([]);
+                                        setNewFail(false);
+                                        setComment("");
+                                    }}
+                                    className={
+                                        passing
+                                            ? "inspection-question-passing"
+                                            : "inspection-question-not-passing"
+                                    }
+                                >
+                                    PASS
+                                </div>
+                                <div
+                                    onClick={() => {
+                                        setNewFail(true);
+                                        setPassing(false);
+                                    }}
+                                    className={
+                                        passing
+                                            ? "inspection-question-not-failed"
+                                            : "inspection-question-failed"
+                                    }
+                                >
+                                    FAIL
+                                </div>
+                            </div>
+                            <div className="inspection-question-comment-container">
+                                <div className="inspection-question-comment-label">
+                                    Comments:
+                                </div>
+                                <div className="inspection-question-comment">
+                                    {comment}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="inspection-question-right-container">
+                            <div className="inspection-question-image-container">
+                                <img
+                                    src={questionAnswer.imgUrl}
+                                    alt="inspection answer"
+                                    className="inspection-question-image"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </>
             )}
         </div>
