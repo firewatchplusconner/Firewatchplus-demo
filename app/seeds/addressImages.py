@@ -5,8 +5,8 @@ def seed_address_images():
 
 def undo_address_images():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.address-images RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.address_images RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM address-images")
+        db.session.execute("DELETE FROM address_images")
 
     db.session.commit()
