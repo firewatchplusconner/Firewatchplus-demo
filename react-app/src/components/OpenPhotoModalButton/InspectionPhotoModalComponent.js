@@ -1,6 +1,5 @@
 import React from "react";
 import { usePhotoModal } from "../../context/PhotoModal";
-import OpenModalButton from "../OpenModalButton";
 import "./openPhotoModalButton.css";
 
 const InspectionModalPhotoComponent = ({ image }) => {

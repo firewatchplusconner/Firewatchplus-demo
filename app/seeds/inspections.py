@@ -38,11 +38,21 @@ def seed_inspections():
         passing=False
     )
     sanFran1Answers = [InspectionAnswer(inspection=sanFranInspection1, question=question) for question in commercialQuestions]
-    sanFranInspection1.inspectionAnswers[0].passing = False
-    sanFranInspection1.inspectionAnswers[4].passing = False
-    sanFranInspection1.inspectionAnswers[5].passing = False
-    sanFranInspection1.inspectionAnswers[8].passing = False
-    sanFranInspection1.inspectionAnswers[9].passing = False
+    sanFranInspection1.inspectionAnswers[0].passing = False # Exit doors unlocked
+    sanFranInspection1.inspectionAnswers[0].comment = 'Exit door is permanently latched shut.'
+    sanFranInspection1.inspectionAnswers[0].imgUrl = 'https://ready-response-bucket.s3.us-west-1.amazonaws.com/bolted-exit-door.webp'
+    sanFranInspection1.inspectionAnswers[4].passing = False # Exit lights are operable
+    sanFranInspection1.inspectionAnswers[4].comment = 'Exit light is broken and needs repair.' # Exit lights are operable
+    sanFranInspection1.inspectionAnswers[4].imgUrl = 'https://ready-response-bucket.s3.us-west-1.amazonaws.com/broken-exit-light.jpg' # Exit lights are operable
+    sanFranInspection1.inspectionAnswers[5].passing = False # No added surface bolts/latches/locks on exit doors
+    sanFranInspection1.inspectionAnswers[5].comment = 'Exit door is permanently latched shut.' # No added surface bolts/latches/locks on exit doors
+    sanFranInspection1.inspectionAnswers[5].imgUrl = 'https://ready-response-bucket.s3.us-west-1.amazonaws.com/bolted-exit-door.webp' # No added surface bolts/latches/locks on exit doors
+    sanFranInspection1.inspectionAnswers[8].passing = False # FDC is unobstructed and operable
+    sanFranInspection1.inspectionAnswers[8].comment = 'FDC is blocked by snow. Maintenance needs to remove snow drift around FDC connections.' # FDC is unobstructed and operable
+    sanFranInspection1.inspectionAnswers[8].imgUrl = 'https://ready-response-bucket.s3.us-west-1.amazonaws.com/blocked-FDC.jpg' # FDC is unobstructed and operable
+    sanFranInspection1.inspectionAnswers[9].passing = False # FDC caps in place and freely spin
+    sanFranInspection1.inspectionAnswers[9].comment = 'Standpipe cap is painted and rusted shut.' # FDC caps in place and freely spin
+    sanFranInspection1.inspectionAnswers[9].imgUrl = 'https://ready-response-bucket.s3.us-west-1.amazonaws.com/rusted-standpipe-connection.jpg' # FDC caps in place and freely spin
     db.session.add(sanFranInspection1)
 
     sanFranInspection2 = Inspection(
