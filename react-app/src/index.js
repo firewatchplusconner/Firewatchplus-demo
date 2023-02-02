@@ -6,18 +6,22 @@ import App from "./App";
 import configureStore from "./store";
 import { BrowserRouter } from "react-router-dom";
 import { ModalProvider, Modal } from "./context/Modal";
+import { PhotoModalProvider, PhotoModal } from "./context/PhotoModal";
 
 const store = configureStore();
 
 ReactDOM.render(
     <React.StrictMode>
         <ModalProvider>
-            <Provider store={store}>
-                <BrowserRouter>
-                    <App />
-                    <Modal />
-                </BrowserRouter>
-            </Provider>
+            <PhotoModalProvider>
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <App />
+                        <Modal />
+                        <PhotoModal />
+                    </BrowserRouter>
+                </Provider>
+            </PhotoModalProvider>
         </ModalProvider>
     </React.StrictMode>,
     document.getElementById("root")

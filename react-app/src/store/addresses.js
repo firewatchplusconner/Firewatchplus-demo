@@ -110,6 +110,26 @@ export const updateAddress = (id, address) => async (dispatch) => {
     }
 };
 
+export const addAddressImage = (id, image) => async (dispatch) => {
+    const response = await fetch(`/api/address/${id}/image`, {
+        method: 'POST',
+        body: image
+    })
+
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(singleAddress(data))
+        return data
+    } else if (response.status < 500) {
+        const data = await response.json()
+        if (data.errors) {
+            return data
+        }
+    } else {
+        return {'errors': ['An error occured. Please try again.']}
+    }
+}
+
 const initialState = { allAddresses: null, singleAddress: null };
 
 export default function reducer(state = initialState, action) {

@@ -118,13 +118,15 @@ def add_image(id):
         return {'errors': ['No address found']}, 404
 
     if "image" not in request.files:
-        return {"errors": ["image required"]}, 400
+        return {"errors": ["Image required"]}, 400
 
     image = request.files["image"]
-    title = request.files['title']
+    title = request.form['title']
+    print('request data---------------', list(request.data))
+    # title = request.files['title']
 
     if not allowed_file(image.filename):
-        return {"errors": ["file type not permitted"]}, 400
+        return {"errors": ["File type not permitted. Permitted file types: pdf, png, jpg, jpeg, gif."]}, 400
 
     # Create a unique filename so it does not override previous images on AWS S3
     image.filename = get_unique_filename(image.filename)
@@ -143,5 +145,5 @@ def add_image(id):
     new_image = AddressImage(user=current_user, url=url, address=address, title=title)
     db.session.add(new_image)
     db.session.commit()
-    
+
     return address.to_dict(), 201
