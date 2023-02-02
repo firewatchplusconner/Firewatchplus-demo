@@ -36,6 +36,7 @@ const AddInspectionForm = () => {
         }
         await dispatch(updateInspection(inspection.id, {addressId, inspectionTypeId: inspectionType.id, inspectionNumber: inspection.inspectionNumber, passing: passing, notes: inspection.notes}))
         history.push(`/inspection/${inspectionId}`)
+        window.scrollTo(0, 0);
     }
 
     useEffect(() => {

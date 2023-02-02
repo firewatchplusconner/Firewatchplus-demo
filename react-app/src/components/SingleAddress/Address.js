@@ -9,6 +9,8 @@ import GenerateInspectionModal from "../GenerateInspectionModal/generateInspecti
 import AddressInspection from "./AddressInspections/AddressInspection";
 import moment from "moment";
 import Map from "./GoogleMaps/Map";
+import UploadImage from "./addPhotosModal";
+import AddressPhotos from "./AddressPhotos/AddressPhotos";
 import "./singleAddress.css";
 
 const Address = () => {
@@ -33,7 +35,7 @@ const Address = () => {
                 setLoaded(true);
             }
         });
-    }, [dispatch, addressId, history]);
+    }, [dispatch, addressId, history, address?.images?.length]);
 
     if (!loaded) {
         return null;
@@ -149,6 +151,9 @@ const Address = () => {
                             </div>
                         </div>
                     )}
+                    {address.images[0] &&
+                    <AddressPhotos images={address.images}/>
+                    }
                     <div className="sb mar30">
                         <div className="modal-button-container jccen w100p h40px mar10l mar10r">
                             <OpenModalButton
@@ -160,6 +165,12 @@ const Address = () => {
                             <OpenModalButton
                                 buttonText="Add Inspection"
                                 modalComponent={<GenerateInspectionModal />}
+                            />
+                        </div>
+                        <div className="modal-button-container jccen w100p h40px mar10l mar10r">
+                            <OpenModalButton
+                                buttonText="Add Images/Plans"
+                                modalComponent={<UploadImage />}
                             />
                         </div>
                         {deletable && (

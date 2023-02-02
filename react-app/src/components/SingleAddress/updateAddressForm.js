@@ -286,6 +286,7 @@ const UpdateAddressForm = () => {
         } else {
             setGoogleResponse(true);
         }
+        document.getElementById('modal-content').scrollTop = 0
     };
 
     useEffect(() => {
