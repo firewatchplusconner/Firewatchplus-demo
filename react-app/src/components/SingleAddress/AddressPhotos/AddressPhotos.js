@@ -18,7 +18,7 @@ const AddressPhotos = ({images}) => {
 
     return (
         <div className="address-photos-outer-container">
-            <h2 className="address-photos-header">Images</h2>
+            <h2 className="address-photos-header">Images and Plans</h2>
             <div className="address-photos-container">
                 {imageContent}
             </div>

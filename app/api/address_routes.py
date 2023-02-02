@@ -122,8 +122,6 @@ def add_image(id):
 
     image = request.files["image"]
     title = request.form['title']
-    print('request data---------------', list(request.data))
-    # title = request.files['title']
 
     if not allowed_file(image.filename):
         return {"errors": ["File type not permitted. Permitted file types: pdf, png, jpg, jpeg, gif."]}, 400

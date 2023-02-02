@@ -60,6 +60,7 @@ class InspectionAnswer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     passing = db.Column(db.Boolean, server_default='true', default=True)
     comment = db.Column(db.Text)
+    imgUrl = db.Column(db.Text)
     inspectionId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('inspections.id')), nullable=False)
     questionId = db.Column(db.Integer,  db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)
 
@@ -71,6 +72,7 @@ class InspectionAnswer(db.Model):
             'id': self.id,
             'passing': self.passing,
             'comment': self.comment,
+            'imgUrl': self.imgUrl,
             'inspectionId': self.inspectionId,
             'questionId': self.questionId,
             'question': self.question.to_dict()

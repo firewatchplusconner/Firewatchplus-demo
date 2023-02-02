@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Address, db, Inspection, InspectionAnswer, InspectionType
 from app.forms import InspectionForm, InspectionAnswerForm
 from datetime import datetime
+from app.s3_helpers import upload_file_to_s3, allowed_file, get_unique_filename
 
 inpsection_routes = Blueprint('inspections', __name__)
 
@@ -138,10 +139,16 @@ def update_inspection_answer(id):
         inspectionAnswer = InspectionAnswer.query.get(form.data['id'])
 
         if not inspectionAnswer:
-            return {'errors': ['Inspection error not found']}, 404
+            return {'errors': ['Inspection: Inspection error not found']}, 404
 
         inspectionAnswer.passing = form.data['passing']
         inspectionAnswer.comment = form.data['comment']
+
+        if not inspectionAnswer.passing and not inspectionAnswer.imgUrl:
+            return {'errors': ['Image: Failed questions require an image.']}, 400
+
+        if inspectionAnswer.passing:
+            inspectionAnswer.imgUrl = ''
 
         db.session.add(inspectionAnswer)
         db.session.commit()
@@ -149,8 +156,48 @@ def update_inspection_answer(id):
         inspection = Inspection.query.get(id)
 
         if not inspection:
-            return {'errors': ['No inspection found']}, 404
+            return {'errors': ['Inspection: No inspection found']}, 404
 
         return inspection.to_dict(), 200
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
+
+@inpsection_routes.route('/<int:id>/answer/<int:inspectionAnswerId>', methods=['POST'])
+@login_required
+def add_inspection_photo(id, inspectionAnswerId):
+    '''
+    Add a photo to an inspection answer and return the inspection in a dictionary
+    '''
+    inspection = Inspection.query.get(id)
+
+    inspectionAnswer = InspectionAnswer.query.get(inspectionAnswerId)
+
+    if not inspectionAnswer or not inspection:
+            return {'errors': ['Inspection: Inspection error not found']}, 404
+
+    if "image" not in request.files:
+        return {"errors": ["Image: Image required"]}, 400
+
+    image = request.files["image"]
+
+    if not allowed_file(image.filename):
+        return {"errors": ["FileType: File type not permitted. Permitted file types: pdf, png, jpg, jpeg, gif."]}, 400
+
+    # Create a unique filename so it does not override previous images on AWS S3
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return {'errors': [upload]}, 400
+
+    url = upload["url"]
+
+    inspectionAnswer.imgUrl = url
+
+    db.session.add(inspectionAnswer)
+    db.session.commit()
+    return inspection.to_dict(), 201

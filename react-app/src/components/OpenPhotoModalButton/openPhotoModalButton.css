@@ -21,13 +21,21 @@
     overflow: hidden;
 }
 
-.modal-photo-title {
+.modal-photo-title-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: x-large;
     padding-bottom: 5px;
     text-align: center;
+}
+
+.modal-photo-title {
+    max-width: 80%;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .close-modal-button {

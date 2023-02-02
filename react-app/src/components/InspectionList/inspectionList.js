@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { loadAllInspections } from "../../store/inspections";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import AddInspectionModal from "./addInspectionModal";
+import OpenModalButton from "../OpenModalButton";
 import moment from 'moment'
 import './inspectionList.css'
 
@@ -70,6 +72,12 @@ const InspectionList = () => {
                     </div>
                     {inspectionContent}
                 </div>
+                <div className="address-modal-button-container jccen pad20">
+                        <OpenModalButton
+                            buttonText="Add Inspection"
+                            modalComponent={<AddInspectionModal />}
+                        />
+                    </div>
             </div>
         </>
     )
