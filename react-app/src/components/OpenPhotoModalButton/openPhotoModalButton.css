@@ -30,6 +30,13 @@
     text-align: center;
 }
 
+.inspection-modal-photo-title-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
 .modal-photo-title {
     max-width: 80%;
     text-align: center;
