@@ -26,8 +26,8 @@
     justify-content: space-between;
     align-items: center;
     font-size: x-large;
-    padding-left: 20px;
     padding-bottom: 5px;
+    text-align: center;
 }
 
 .close-modal-button {
@@ -35,7 +35,10 @@
     color: lightgray;
     border-radius: 10px;
     border: 2px solid black;
-    padding: 5px
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: large;
 }
 
 .close-modal-button:hover {
@@ -47,11 +50,26 @@
     height: 100%;
     border-radius: 10px;
     object-fit: fill;
-
     overflow: auto;
 }
 
 .modal-photo {
     object-fit: fill;
     width: 100%;
+}
+
+.delete-image-button>button {
+    background-color: var(--light-gunmetal);
+    color: lightgray;
+    border-radius: 10px;
+    border: 2px solid black;
+    font-size: large;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.delete-image-button>button:hover {
+    background-color: var(--gunmetal);
+    cursor: pointer;
 }
