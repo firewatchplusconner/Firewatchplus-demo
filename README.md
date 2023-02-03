@@ -1,7 +1,5 @@
 # Ready Resonse
 
-## Project Name: Ready Response
-
 [Ready Response](https://ready-response.onrender.com)
 
 Ready Response is designed to help responders before they arrive to an emergency. When dispatched to an address, responders are able to access owner information, google maps data, details from past inspections, and images/plans for the address. Sign up for Ready Response to be able manage addresses and inspections. Currently, all users are given add, update, and delete permissions. In a scalable version, these permissions would be limited to organization's admin or inspectors. Join our Ready Response community and be ready to respond!
