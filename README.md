@@ -1,9 +1,78 @@
-# Flask React Project
+# Ready Resonse
 
-This is the starter for the Flask React project.
+## Project Name: Ready Response
 
-## Getting started
-1. Clone this repository (only this branch)
+[Ready Response](https://ready-response.onrender.com)
+
+Ready Response is designed to help responders before they arrive to an emergency. When dispatched to an address, responders are able to access owner information, google maps data, details from past inspections, and images/plans for the address. Sign up for Ready Response to be able manage addresses and inspections. Currently, all users are given add, update, and delete permissions. In a scalable version, these permissions would be limited to organization's admin or inspectors. Join our Ready Response community and be ready to respond!
+
+## Tech Stack:
+- Javascript
+- Node.js
+- Flask.js
+- React
+- Redux
+- SQLalchemy
+- Python 3
+- Alembic
+- JSX
+- SQLite3
+- Html/CSS
+- Google Maps API
+- Google API Address Validator
+- AWS S3 Buckets
+
+### Database:
+[Postgres](https://www.postgresql.org/)
+
+## Hosting:
+[Render](https://render.com/)
+
+## Core Features:
+### Signup/Login
+* Users can sign up, log in, and log out.
+* Users can use a demo log-in to try the site.
+* Users can only access splash/login/sign up when not logged in.
+* Upon login User will be redirected to the home page.
+
+### Addresses (CRUD)
+* Logged-in users can create addresses.
+* Logged-in users can view all addresses.
+* Logged-in users can update the owner information of an address.
+* Logged-in users can delete any address other than the 3 seed addresses.
+
+### Inspections (CRUD)
+* Logged-in users can create an inspection for any address.
+* Logged-in users can read any past inspection for an address.
+* Logged-in users can update any past inspection for an address.
+* Logged-in users can delete any past inspection for an address.
+
+### Address Plans/Images (CRD)
+* Logged-in users can create/upload plans/images for addresses.
+* Logged-in users can read all plans/images for addresses.
+* Logged-in users can delete plans/images for addresses.
+
+### Inspection Images (CRD)
+* Logged-in users can create/upload images for failed inspection questions.
+* Logged-in users can view images for failed inspection questions.
+* Logged-in users can remove images for failed inspection questions by editing the inspection and changing the response to 'PASS'.
+
+## Bonus Features
+### Google API Address Validation
+* All addresses and validated/updated by the Google API Address Validator before being sent to the database.
+* Validation errors from the Google API Address Validator are displayed to the user prior to database submission.
+
+### Google Maps API Integrations
+* Logged-in users can view the integrated overhead satellite map and google street view when viewing addresses.
+
+### AWS Photo Upload
+* Logged-in users can upload photos/plans for an address via AWS.
+* Logged-in users can read photos/plans for each address.
+* Logged-in users can delete photos/plans for each address.
+
+## Running the app locally:
+
+1. Clone this repository
 
 2. Install dependencies
 
@@ -28,6 +97,10 @@ This is the starter for the Flask React project.
    ```
 
    ```bash
+   flask db migrate
+   ```
+
+   ```bash
    flask db upgrade
    ```
 
@@ -39,111 +112,21 @@ This is the starter for the Flask React project.
    flask run
    ```
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+7. To run the React App in development, in a different terminal, cd inside the `react-app`, install dependence, and start the react app.
 
+    ```bash
+    cd react-app/
+    ```
 
-## Deployment through Render.com
+    ```bash
+    npm install
+    ```
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+    ```bash
+    npm start
+    ```
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
-
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
-
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
-
-### Part A: Configure the Start and Build Commands
-
-Start by giving your application a name.
-
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
-
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
-
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
-
-For your Flask project, enter the following command into the Build field, all in
-one line:
-
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/# ReadyResponse
-# ReadyResponse
+## Developer Contact:
+Owen Shoop
+- [LinkedIn](https://www.linkedin.com/in/owen-shoop-62ba36231/)
+- [Github](https://github.com/owencshoop)
