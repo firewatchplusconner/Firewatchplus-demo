@@ -48,8 +48,10 @@ The inspections page displays a list of all inspection that link to each individ
 ![image](https://user-images.githubusercontent.com/104851938/216677879-d7e2aeba-05ab-4499-9356-00eacb83a729.png)
 
 ## Inspection:
-The inspection page displays the inspection with all associated questions, answers, and images. The inspection can be edited via the button at the bottom of the page.
+The inspection page displays the inspection with all associated questions, answers, and images. The inspection can be edited or deleted via the buttons at the bottom of the page.
 ![image](https://user-images.githubusercontent.com/104851938/216678070-67806f5d-1e27-4cb7-8a70-f59865d131b6.png)
+![image](https://user-images.githubusercontent.com/104851938/216679131-ea1d49fc-c704-41ac-af05-a1f3f19ec33b.png)
+
 
 ## Upload/Edit Inspection:
 The Upload and Edit inspection page is used to answer inspection questions and upload applicable images. The inspection can be submitted at the bottom of the form.
