@@ -104,10 +104,16 @@ The Upload and Edit inspection page is used to answer inspection questions and u
 * All responses will be able to be viewed in a list on the responses page.
 * All responses to an address will populate on each individual address page.
 
-
 ### Organizations:
 * Users would be created under an organization which would have its own set of addresses, inspections, inspection types, and responses.
 * Address and Inspection editing and deletion would be limited to certain user types.
+
+## Wiki Pages:
+* [API Routes](https://github.com/owencshoop/notOKcupid/wiki/API-Routes)
+* [Feature List](https://github.com/owencshoop/notOKcupid/wiki/MVP-Feature-List)
+* [Database Schema](https://github.com/owencshoop/notOKcupid/wiki/DB-Schema)
+* [Redux Store Shape](https://github.com/owencshoop/notOKcupid/wiki/notOKcupid-Redux-Store-Shape)
+* [User Stories](https://github.com/owencshoop/notOKcupid/wiki/User-Stories)
 
 ## Running the app locally:
 
