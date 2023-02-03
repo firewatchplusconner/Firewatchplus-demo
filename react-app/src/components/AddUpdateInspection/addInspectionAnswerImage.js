@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addInspectionAnswerImage } from "../../store/inspections";
 import { useModal } from "../../context/Modal";
+import altImage from '../../assets/alt-image.png'
 
 const UploadInspectionAnswerImage = ({inspectionId, inspectionAnswerId}) => {
     const [errors, setErrors] = useState([]);
@@ -39,7 +40,7 @@ const UploadInspectionAnswerImage = ({inspectionId, inspectionAnswerId}) => {
             <h1 className="marlrauto mar10b">Upload Image</h1>
             {imageUrl && (
                 <div className="image-preview-container" >
-                    <img src={imageUrl} alt="uploaded" className="image-preview"></img>
+                    <img src={imageUrl} alt="uploaded" className="image-preview" onError={e => { e.currentTarget.src = altImage}}></img>
                 </div>
             )}
             <form onSubmit={handleSubmit}>

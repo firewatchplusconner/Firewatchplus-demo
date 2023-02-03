@@ -479,7 +479,7 @@ const AddAddressForm = () => {
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Apt, suite, or unit</label>
+                    <label>Apt, suite, or unit{'       '}<small>{'(required if applicable)'}</small></label>
                     <input
                         type="text"
                         name="secondAddressLine"
@@ -555,7 +555,7 @@ const AddAddressForm = () => {
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Owner Street Address</label>
+                    <label>Owner Street Address{'       '}<small>{'(required if applicable)'}</small></label>
                     <input
                         type="text"
                         name="ownerFirstAddressLine"
@@ -568,7 +568,7 @@ const AddAddressForm = () => {
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Owner apt, suite, or unit</label>
+                    <label>Owner apt, suite, or unit{'       '}<small>{'(required if applicable)'}</small></label>
                     <input
                         type="text"
                         name="ownerSecondAddressLine"
@@ -581,7 +581,7 @@ const AddAddressForm = () => {
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Owner City</label>
+                    <label>Owner City{'       '}<small>{'(required if applicable)'}</small></label>
                     <input
                         type="text"
                         name="ownerCity"
@@ -592,7 +592,7 @@ const AddAddressForm = () => {
                     ></input>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Owner State</label>
+                    <label>Owner State{'       '}<small>{'(required if applicable)'}</small></label>
                     <select
                         type="select"
                         name="ownerState"
@@ -606,7 +606,7 @@ const AddAddressForm = () => {
                     </select>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Owner Zip Code</label>
+                    <label>Owner Zip Code{'       '}<small>{'(required if applicable)'}</small></label>
                     <input
                         type="text"
                         name="ownerZipCode"

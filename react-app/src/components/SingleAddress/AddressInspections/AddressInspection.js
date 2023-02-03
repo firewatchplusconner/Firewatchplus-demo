@@ -5,12 +5,13 @@ import InspectionAnswer from "./InspectionAnswers/InspectionAnswers";
 import "./AddressInspection.css";
 
 const AddressInspection = ({ inspection }) => {
+
     const failedAnswers = inspection.inspectionAnswers
         .filter((answer) => {
             return answer.passing === false;
         })
         .map((inspectionAnswer) => {
-            return <InspectionAnswer key={inspectionAnswer.id} inspectionAnswer={inspectionAnswer} />;
+            return <InspectionAnswer key={inspectionAnswer.id} inspectionAnswer={inspectionAnswer} addressId={inspection.addressId} />;
         });
 
     return (
@@ -43,7 +44,7 @@ const AddressInspection = ({ inspection }) => {
                     {inspection.passing ? "PASSED" : "FAILED"}
                 </div>
             </div>
-            {!inspection.passing && <div className="address-inspection-answers-container">
+            {!inspection.passing && <div className="address-inspection-answers-container" >
                 {failedAnswers}
             </div>}
         </NavLink>
