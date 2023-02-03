@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addAddressImage } from "../../store/addresses";
 import { useModal } from "../../context/Modal";
+import altImage from '../../assets/alt-image.png'
 
 const UploadImage = () => {
     const address = useSelector((state) => state.addresses.singleAddress);
@@ -40,9 +41,9 @@ const UploadImage = () => {
     return (
         <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
             <h1 className="marlrauto mar10b">Upload Image</h1>
-            {imageUrl && (
+            {imageUrl && !errors[0] && (
                 <div className="image-preview-container" >
-                    <img src={imageUrl} alt="uploaded" className="image-preview"></img>
+                    <img src={imageUrl} alt='upload' className="image-preview" onError={e => { e.currentTarget.src = altImage}}></img>
                 </div>
             )}
             <form onSubmit={handleSubmit}>
