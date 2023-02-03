@@ -106,6 +106,11 @@ The Upload and Edit inspection page is used to answer inspection questions and u
 * All responses will be able to be viewed in a list on the responses page.
 * All responses to an address will populate on each individual address page.
 
+
+### Organizations:
+* Users would be created under an organization which would have its own set of addresses, inspections, inspection types, and responses.
+* Address and Inspection editing and deletion would be limited to certain user types.
+
 ## Running the app locally:
 
 1. Clone this repository
