@@ -18,6 +18,18 @@ import { authenticate } from "./store/session";
 import Address from "./components/SingleAddress/Address";
 
 function App() {
+    // TODO - READ ME
+    // TODO - Update WIKI pages
+    // TODO - API Routes
+    // TODO - User Stories
+    // TODO - Update database schema
+    // TODO - more seed data!
+    // TODO - note about deleting inspection images is not intuitive
+    // TODO - note on add address form that addresses are validated using google api (and owner address)
+    // TODO - previous responses for address in production
+    // TODO - check Scroll height between pages
+    // TODO - edit favicon
+    // TODO - add siren to 404 page
     const [loaded, setLoaded] = useState(false);
     const dispatch = useDispatch();
 
