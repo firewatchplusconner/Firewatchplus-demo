@@ -23,7 +23,7 @@ const Footer = () => {
                         <div className="technology">PostgreSQL</div>
                     </div>
                     <div className="technologies-div">
-                        <div className="technology">SQLite3</div>
+                        <div className="technology">AWS</div>
                         <div className="technology">Alembic</div>
                         <div className="technology">Google API</div>
                     </div>
