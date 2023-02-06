@@ -10,6 +10,7 @@ import InspectionModalPhotoComponent from "../OpenPhotoModalButton/InspectionPho
 import DeleteInspectionModal from "./deleteInspectionModal";
 
 const Inspection = () => {
+    window.scrollTo(0, 0)
     const { inspectionId } = useParams();
     const inspection = useSelector(
         (state) => state.inspections.singleInspection
