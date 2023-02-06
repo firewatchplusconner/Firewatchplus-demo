@@ -48,6 +48,7 @@ export default function GenerateInspectionModal() {
         } else {
             await closeModal()
             history.push(`/address/${address.id}/inspection/${data.id}`)
+            window.scroll(0, 0)
         }
     };
 

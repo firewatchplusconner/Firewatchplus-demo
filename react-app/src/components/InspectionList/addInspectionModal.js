@@ -70,6 +70,7 @@ export default function AddInspectionModal() {
         } else {
             await closeModal();
             history.push(`/address/${data.addressId}/inspection/${data.id}`);
+            window.scroll(0, 0)
         }
     };
 
