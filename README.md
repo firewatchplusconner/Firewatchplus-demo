@@ -57,48 +57,6 @@ The Upload and Edit inspection page is used to answer inspection questions and u
 ![image](https://user-images.githubusercontent.com/104851938/216678291-93e7b204-3dbc-4668-8e42-ae8775aa6af9.png)
 
 
-## Core Features:
-### Signup/Login
-* Users can sign up, log in, and log out.
-* Users can use a demo log-in to try the site.
-* Users can only access splash/login/sign up when not logged in.
-* Upon login User will be redirected to the home page.
-
-### Addresses (CRUD)
-* Logged-in users can create addresses.
-* Logged-in users can view all addresses.
-* Logged-in users can update the owner information of an address.
-* Logged-in users can delete any address other than the 3 seed addresses.
-
-### Inspections (CRUD)
-* Logged-in users can create an inspection for any address.
-* Logged-in users can read any past inspection for an address.
-* Logged-in users can update any past inspection for an address.
-* Logged-in users can delete any past inspection for an address.
-
-### Address Plans/Images (CRD)
-* Logged-in users can create/upload plans/images for addresses.
-* Logged-in users can read all plans/images for addresses.
-* Logged-in users can delete plans/images for addresses.
-
-### Inspection Images (CRD)
-* Logged-in users can create/upload images for failed inspection questions.
-* Logged-in users can view images for failed inspection questions.
-* Logged-in users can remove images for failed inspection questions by editing the inspection and changing the response to 'PASS'.
-
-## Bonus Features
-### Google API Address Validation
-* All addresses and validated/updated by the Google API Address Validator before being sent to the database.
-* Validation errors from the Google API Address Validator are displayed to the user prior to database submission.
-
-### Google Maps API Integrations
-* Logged-in users can view the integrated overhead satellite map and google street view when viewing addresses.
-
-### AWS Photo Upload
-* Logged-in users can upload photos/plans for an address via AWS.
-* Logged-in users can read photos/plans for each address.
-* Logged-in users can delete photos/plans for each address.
-
 ## Future Feature Implementation:
 ### Responses:
 * Responses can be created for an emergency response to an address with the associated call type and dispatch information.
