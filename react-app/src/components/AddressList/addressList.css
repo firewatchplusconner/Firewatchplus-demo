@@ -1,9 +1,9 @@
 
 .address-list-container {
     border: 2px solid rgb(25, 29, 34);
+    background-color: var(--gray-web);
     width: 100%;
     border-radius: 15px;
-    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
     padding-left: 30px;
     padding-right: 30px;
     height: fit-content;

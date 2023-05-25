@@ -6,6 +6,7 @@ import AddInspectionModal from "./addInspectionModal";
 import OpenModalButton from "../OpenModalButton";
 import moment from 'moment'
 import './inspectionList.css'
+import { Notebook } from 'tabler-icons-react';
 
 const InspectionList = () => {
     const inspections = useSelector((state) => state.inspections.allInspections)
@@ -55,12 +56,13 @@ const InspectionList = () => {
     })
 
     return (
-        <>
+        <div className = "fdcol">
+            <h1 className="inspection-list-header accen mar10l">
+                <Notebook size={48} color="#b7c2c1" className="mar10r" />
+                All Inspections
+            </h1>
             <div className="mar20b w60vw w100p inspection-list-container">
                 <div className="inspection-list-header-container">
-                    <h1 className="inspection-list-header">
-                        All Inspections
-                    </h1>
                 </div>
                 <div>
                     <div className="inspection-container-header">
@@ -79,7 +81,7 @@ const InspectionList = () => {
                         />
                     </div>
             </div>
-        </>
+        </div>
     )
 }
 
