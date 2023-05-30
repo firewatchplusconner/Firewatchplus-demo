@@ -4,10 +4,10 @@
     --celadon: #b2d3a8ff;
     --olivine: #b6d094ff;
     --barn-red: #6f1a07ff;
-    --gunmetal: rgb(31, 36, 43);
+    --gunmetal: #292a2d;
     --light-gunmetal: rgb(49, 58, 70);
-    --gray-web: #7c7c7cff;
-    --morning-blue: rgb(183, 194, 193);
+    --gray-web: #202124;
+    --morning-blue: #b7c2c1;
     --saddle-brown: #874000ff;
     --pullman-brown-ups-brown: #5b3000ff;
     --black-bean: #301100ff;
@@ -230,7 +230,7 @@
 }
 
 .lighterbg {
-    background-color: var(--light-gunmetal);
+    background-color: var(--gray-web);
     color: var(--morning-blue)
 }
 

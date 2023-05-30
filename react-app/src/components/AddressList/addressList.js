@@ -6,6 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import AddAddressForm from "./addAddressForm";
 import moment from "moment";
 import "./addressList.css";
+import { BuildingCommunity } from 'tabler-icons-react';
 
 const AddressList = () => {
     const addresses = useSelector((state) => state.addresses.allAddresses);
@@ -54,12 +55,13 @@ const AddressList = () => {
     return (
         <>
             {loaded && (
+                <div className = "fdcol">
+                    <h1 className="address-list-header accen mar10l">
+                    <BuildingCommunity size={48} color="#b7c2c1" className="mar10r" />
+
+                        All Addresses
+                    </h1>
                 <div className="mar20b w100p address-list-container">
-                    <div className="address-list-header-container">
-                        <h1 className="address-list-header">
-                            All Addresses
-                        </h1>
-                    </div>
 
                     <div className="">
                         <div className="address-container-header">
@@ -77,6 +79,7 @@ const AddressList = () => {
                             modalComponent={<AddAddressForm />}
                         />
                     </div>
+                </div>
                 </div>
             )}
         </>
