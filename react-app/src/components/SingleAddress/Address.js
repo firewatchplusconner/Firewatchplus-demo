@@ -41,16 +41,19 @@ const Address = () => {
         return null;
     }
 
-    const inspectionContent = address?.inspections?.map((inspection) => {
+    const inspectionContent = address?.inspections?.map((inspection, i, {length}) => {
         return (
-            <AddressInspection key={inspection.id} inspection={inspection} />
+            <AddressInspection
+            i = {i}
+            length={length}
+            key={inspection.id} inspection={inspection} />
         );
     });
 
     return (
         <>
             {loaded && (
-                <div className="single-address-container">
+                <div>
                     <h1 className="single-address-header-container">
                         {address.firstAddressLine}
                         {address.secondAddressLine
@@ -58,8 +61,9 @@ const Address = () => {
                             : ""}{" "}
                         {address.city}, {address.state} {address.zipCode}
                     </h1>
+                <div className="single-address-container">
                     {address.ownerName && (
-                        <div className="info-label-container">
+                        <div className="address-info-label-container">
                             <div className="label-container">Owner:</div>
                             <div className="info-container">
                                 {address.ownerName}
@@ -67,7 +71,7 @@ const Address = () => {
                         </div>
                     )}
                     {address.ownerPhone && (
-                        <div className="info-label-container">
+                        <div className="address-info-label-container">
                             <div className="label-container">
                                 Owner Phone Number:
                             </div>
@@ -77,7 +81,7 @@ const Address = () => {
                         </div>
                     )}
                     {address.ownerEmail && (
-                        <div className="info-label-container">
+                        <div className="address-info-label-container">
                             <div className="label-container">
                                 Owner Email Address:
                             </div>
@@ -87,7 +91,7 @@ const Address = () => {
                         </div>
                     )}
                     {address.ownerFirstAddressLine && (
-                        <div className="info-label-container">
+                        <div className="address-info-label-container">
                             <div className="label-container">
                                 Owner Address:
                             </div>
@@ -102,14 +106,14 @@ const Address = () => {
                         </div>
                     )}
                     {address.notes && (
-                        <div className="info-label-container">
+                        <div className="address-info-label-container">
                             <div className="label-container">Notes:</div>
                             <div className="info-container">
                                 <div>{address.notes}</div>
                             </div>
                         </div>
                     )}
-                    <div className="info-label-container">
+                    <div className="address-info-label-container">
                         <div className="label-container">
                             Next Inspection Date:
                         </div>
@@ -123,12 +127,15 @@ const Address = () => {
                     </div>
                     <div className="address-map-container-outer">
                         <Map address={address} />
+                        </div>
                     </div>
                     {address.inspections[0] && (
-                        <div className="address-inspections-container">
-                            <h2 className="address-inspections-header">
+                        <div>
+                            <h2 className="address-inspections-header mar30t">
                                 Inspections
                             </h2>
+                        <div className="single-address-container">
+                        <div className="address-inspections-container">
                             <div>
                                 <div className="address-inspection-container-header">
                                     <div className="address-id-container">
@@ -149,12 +156,14 @@ const Address = () => {
                                 </div>
                                 {inspectionContent}
                             </div>
-                        </div>
+                            </div>
+                            </div>
+                            </div>
                     )}
                     {address.images[0] && (
                         <AddressPhotos images={address.images} />
                     )}
-                    <div className="address-responses-container">
+                    {/* <div className="address-responses-container">
                         <h2 className="address-responses-header">
                             Previous Responses
                         </h2>
@@ -303,21 +312,21 @@ const Address = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="sb mar30">
-                        <div className="modal-button-container jccen w100p h40px mar10l mar10r">
+                        <div className="modal-button-container jccen">
                             <OpenModalButton
                                 buttonText="Update Address"
                                 modalComponent={<UpdateAddressForm />}
                             />
                         </div>
-                        <div className="modal-button-container jccen w100p h40px mar10l mar10r">
+                        <div className="modal-button-container jccen">
                             <OpenModalButton
                                 buttonText="Add Inspection"
                                 modalComponent={<GenerateInspectionModal />}
                             />
                         </div>
-                        <div className="modal-button-container jccen w100p h40px mar10l mar10r">
+                        <div className="modal-button-container jccen">
                             <OpenModalButton
                                 buttonText="Add Images/Plans"
                                 modalComponent={<UploadImage />}

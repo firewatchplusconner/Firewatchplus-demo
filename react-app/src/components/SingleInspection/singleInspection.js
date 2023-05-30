@@ -32,12 +32,15 @@ const Inspection = () => {
     };
 
     const inspectionAnswerContent = inspectionAnswers
-        ?.map((inspectionAnswer) => {
+        ?.map((inspectionAnswer, i, {length}) => {
+            console.log("inspectionAnswers length:", length)
             if (inspectionAnswer.passing) {
                 return (
                     <div
                         key={inspectionAnswer.id}
                         className="inspection-answer-container"
+                        style={{border: (length - 1 === i) && 'none' }}
+
                     >
                         <div className="question-container">
                             <div className="question-label">Question: </div>
@@ -46,8 +49,8 @@ const Inspection = () => {
                             </div>
                         </div>
                         <div className="question-passing-container">
-                            <div className="question-passing-label">
-                                Response:
+                            <div className="question-passing-label mar5r">
+                                Response:{" "}
                             </div>
                             <div
                                 className={
@@ -66,7 +69,8 @@ const Inspection = () => {
                     <div
                         key={inspectionAnswer.id}
                         className="inspection-answer-failed-container"
-                    >
+                        style={{border: (length - 1 === i) && 'none' }}
+                        >
                         <div className="inspection-answer-left-container">
                             <div className="question-container">
                                 <div className="question-label">Question: </div>
@@ -76,7 +80,7 @@ const Inspection = () => {
                             </div>
                             <div className="question-passing-container">
                                 <div className="question-passing-label">
-                                    Response:
+                                    Response:{" "}
                                 </div>
                                 <div
                                     className={
@@ -112,8 +116,7 @@ const Inspection = () => {
                     </div>
                 );
             }
-        })
-        ?.reverse();
+        });
 
     useEffect(() => {
         dispatch(loadSingleInspection(inspectionId)).then((data) => {
@@ -132,7 +135,7 @@ const Inspection = () => {
     return (
         <>
             {loaded && (
-                <div className="single-inspection-container">
+                <div>
                     <NavLink
                         to={`/address/${inspection.address.id}`}
                         className="nhvr single-inspection-header-container"
@@ -144,44 +147,49 @@ const Inspection = () => {
                         {inspection.address.city}, {inspection.address.state}{" "}
                         {inspection.address.zipCode}
                     </NavLink>
-                    <div className="info-label-container">
-                        <div className="label-container">Date:</div>
-                        <div className="info-container">
-                            {moment(inspection.date).format("L")}
+                <div className="single-inspection-container">
+                    <div className = "flex jccen aicen sb info-label-container-container">
+                        <div className="info-label-container">
+                            <div className="label-container">Date:</div>
+                            <div className="info-container">
+                                {moment(inspection.date).format("L")}
+                            </div>
+                        </div>
+                        <div className="info-label-container">
+                            <div className="label-container">Inspector:</div>
+                            <div className="info-container">
+                                {inspection.inspector.firstName}{" "}
+                                {inspection.inspector.lastName}
+                            </div>
+                        </div>
+                        <div className="info-label-container">
+                            <div className="label-container">Status:</div>
+                            <div
+                                className={
+                                    inspection.passing
+                                        ? "info-container-passing"
+                                        : "info-container-failed"
+                                }
+                            >
+                                {inspection.passing ? "PASSED" : "FAILED"}
+                            </div>
                         </div>
                     </div>
-                    <div className="info-label-container">
-                        <div className="label-container">Inspector:</div>
-                        <div className="info-container">
-                            {inspection.inspector.firstName}{" "}
-                            {inspection.inspector.lastName}
-                        </div>
                     </div>
-                    <div className="info-label-container">
-                        <div className="label-container">Status:</div>
-                        <div
-                            className={
-                                inspection.passing
-                                    ? "info-container-passing"
-                                    : "info-container-failed"
-                            }
-                        >
-                            {inspection.passing ? "PASSED" : "FAILED"}
-                        </div>
+                    <div className= "flex accen aicen mar20 fxlar">
+                    Questions
                     </div>
-                    <div>
-                        <h2 className="single-inspection-header-container">
-                            Inspection Details
-                        </h2>
+                    
+                    <div className="single-inspection-container">
                         {inspectionAnswerContent}
                     </div>
                     <div className="edit-inspection-button-container">
-                        <div
+                        <button
                             className="edit-inspection-button"
                             onClick={editInspection}
                         >
                             Edit Inspection
-                        </div>
+                        </button>
                         <OpenModalButton
                             buttonText="Delete Inspection"
                             modalComponent={<DeleteInspectionModal />}

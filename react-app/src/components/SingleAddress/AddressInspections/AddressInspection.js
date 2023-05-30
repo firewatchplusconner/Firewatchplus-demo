@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import InspectionAnswer from "./InspectionAnswers/InspectionAnswers";
 import "./AddressInspection.css";
 
-const AddressInspection = ({ inspection }) => {
+const AddressInspection = ({ inspection,i,length }) => {
 
     const failedAnswers = inspection.inspectionAnswers
         .filter((answer) => {
@@ -19,6 +19,8 @@ const AddressInspection = ({ inspection }) => {
             to={`/inspection/${inspection.id}`}
             className="tdnone tclight address-inspection-container-nav"
             key={`${inspection.id}`}
+            style={{border: (length - 1 === i) && 'none' }}
+
         >
             <div className="address-inspection-container">
                 <div className="address-id-container">{inspection.id}</div>

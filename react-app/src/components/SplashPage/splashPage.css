@@ -52,7 +52,7 @@
 
 .signup-login-button:hover {
     cursor: pointer;
-    background-color: var(--gray-web);
+    background-color: var(--light-gunmetal);
 }
 
 @keyframes borderLights {

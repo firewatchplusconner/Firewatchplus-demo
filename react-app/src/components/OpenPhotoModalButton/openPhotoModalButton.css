@@ -57,7 +57,7 @@
 }
 
 .close-modal-button:hover {
-    background-color: var(--gunmetal);
+    background-color: var(--light-gunmetal);
     cursor: pointer;
 }
 
@@ -85,6 +85,6 @@
 }
 
 .delete-image-button>button:hover {
-    background-color: var(--gunmetal);
+    background-color: var(--light-gunmetal);
     cursor: pointer;
 }

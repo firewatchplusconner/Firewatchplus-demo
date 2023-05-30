@@ -26,12 +26,14 @@ const AddressList = () => {
         return <div className="placeholder"></div>;
     }
 
-    const addressContent = addressList.map((address) => {
+    const addressContent = addressList.map((address, i, {length}) => {
         return (
             <NavLink
                 to={`/address/${address.id}`}
                 className="tdnone tclight address-container"
                 key={`${address.id}`}
+                style={{border: (length - 1 === i) && 'none' }}
+
             >
                 <div className="id-container">{address.id}</div>
                 <div className="address">
@@ -56,7 +58,7 @@ const AddressList = () => {
         <>
             {loaded && (
                 <div className = "fdcol">
-                    <h1 className="address-list-header accen mar10l">
+                    <h1 className="address-list-header jccen aicen mar10l">
                     <BuildingCommunity size={48} color="#b7c2c1" className="mar10r" />
 
                         Addresses

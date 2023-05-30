@@ -1,16 +1,10 @@
 
 .address-inspection-container-nav {
-    border: 2px solid var(--light-gunmetal);
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 5px;
 }
 
 .address-inspection-container-nav:hover {
-    border: 2px solid rgb(85, 92, 102)
 }
 
 .address-inspection-container {
@@ -79,7 +73,7 @@
     box-sizing: border-box;
     height: 100%;
     text-align: center;
-    color: rgb(6, 182, 6);
+    color: var(--success);
 }
 
 .address-inspection-status-failed {
@@ -89,10 +83,8 @@
     box-sizing: border-box;
     height: 100%;
     text-align: center;
-    color: rgb(255, 37, 37)
+    color: var(--failure)
 }
 
 .address-inspection-answers-container {
-    width: 80%;
-    margin-top: 15px;
 }

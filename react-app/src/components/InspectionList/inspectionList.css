@@ -93,7 +93,7 @@
     box-sizing: border-box;
     height: 100%;
     text-align: center;
-    color: rgb(6, 182, 6);
+    color: var(--success);
 }
 
 .status-failed {
@@ -103,5 +103,5 @@
     box-sizing: border-box;
     height: 100%;
     text-align: center;
-    color: rgb(255, 37, 37)
+    color: var(--failure)
 }

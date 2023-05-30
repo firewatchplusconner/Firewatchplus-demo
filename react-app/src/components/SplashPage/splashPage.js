@@ -24,14 +24,14 @@ const SplashPage = () => {
             </div>
                 {!user && (
                     <div className="button-container">
-                        <NavLink
+                        {/* <NavLink
                             to="/sign-up"
                             exact={true}
                             activeClassName="active"
                             className="signup-login-button"
                         >
                             Sign Up
-                        </NavLink>
+                        </NavLink> */}
                         <NavLink
                             to="/login"
                             exact={true}

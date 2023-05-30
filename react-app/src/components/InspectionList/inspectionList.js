@@ -27,11 +27,12 @@ const InspectionList = () => {
         return null
     }
 
-    const inspectionContent = inspectionList.map((inspection) => {
+    const inspectionContent = inspectionList.map((inspection, i, {length}) => {
         return (
             <NavLink
                 to={`/inspection/${inspection.id}`}
                 className='tdnone tclight inspection-container-nav'
+                style={{border: (length - 1 === i) && 'none' }}
                 key={`${inspection.id}`}
             >
                 <div className="id-container">{inspection.id}</div>
@@ -57,7 +58,7 @@ const InspectionList = () => {
 
     return (
         <div className = "fdcol">
-            <h1 className="inspection-list-header accen mar10l">
+            <h1 className="inspection-list-header jccen aicen w100p mar10l">
                 <Notebook size={48} color="#b7c2c1" className="mar10r" />
                 Inspections
             </h1>

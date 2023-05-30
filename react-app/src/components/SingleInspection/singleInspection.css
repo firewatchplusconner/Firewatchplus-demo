@@ -1,13 +1,7 @@
 .single-inspection-container {
-    --morning-blue: rgb(183, 194, 193);
-    --gunmetal: rgb(31, 36, 43);
-    border: 2px solid rgb(25, 29, 34);
     width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 30px;
+    border-radius: 10px;
+    background-color: var(--gray-web);
 }
 
 .single-inspection-header-container {
@@ -19,14 +13,18 @@
     font-weight: 600;
     margin-top: 20px;
     margin-bottom: 20px;
+    
 }
-
+.info-label-container-container {
+    flex-wrap: wrap
+}
 .info-label-container {
     /* border: 3px solid green; */
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 10px;
     box-sizing: border-box;
+
 }
 
 .label-container {
@@ -40,7 +38,6 @@
 
 .info-container {
     font-size: larger;
-    color: rgb(255, 255, 255);
     font-weight: 500;
 }
 
@@ -48,43 +45,43 @@
     font-size: larger;
     color: rgb(255, 255, 255);
     font-weight: 500;
-    color: rgb(6, 182, 6);
+    color: var(--success);
 }
 
 .info-container-failed {
     font-size: larger;
     color: rgb(255, 255, 255);
     font-weight: 500;
-    color: rgb(255, 37, 37)
+    color: var(--failure)
 }
 
 .inspection-answer-container {
     /* border: 2px solid red; */
-    margin-bottom: 20px;
-    border: 2px solid var(--light-gunmetal);
-    padding: 10px;
-    border-radius: 5px;
+    border-bottom: 1px solid var(--light-gunmetal);
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: space-between;
 }
 
 .inspection-answer-failed-container {
     /* border: 2px solid red; */
-    margin-bottom: 20px;
-    border: 2px solid var(--light-gunmetal);
-    padding: 10px;
-    border-radius: 5px;
+    border-bottom: 1px solid var(--light-gunmetal);
     display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
     justify-content: space-between;
 }
 
 .inspection-answer-left-container {
     /* border: 2px solid green; */
-    width: 69%;
+    max-width: 69%;
 }
 
 .inspection-answer-right-container {
     /* border: 2px solid yellow; */
-    width: 25%;
-    padding: 20px;
+    /* width: 25%; */
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,7 +99,8 @@
     /* border: 3px solid yellow; */
     font-size: large;
     display: flex;
-    margin-bottom: 10px;
+    padding: 10px;
+    max-width: 69%;
 }
 
 .question-label {
@@ -117,29 +115,28 @@
 .question-passing-container {
     display: flex;
     align-items: center;
-    margin-left: 80px;
-    margin-bottom: 5px;
+    padding: 10px;
 }
 
 .question-passing-label {
-    margin-right: 10px;
+    font-size: large;
 }
 
 .question-passing-passed {
-    color: rgb(6, 182, 6);
+    color: var(--success);
 }
 
 .question-passing-failed {
-    color: rgb(255, 37, 37);
+    color: var(--failure);
 }
 
 .comment-container {
     display: flex;
-    margin-left: 80px;
+    font-size: large;
+    padding: 10px;
 }
 
 .comment-label {
-    margin-right: 10px;
 }
 
 .comment {
@@ -147,45 +144,26 @@
 }
 
 .edit-inspection-button-container {
+    padding: 10px;
     display: flex;
     justify-content: space-around;
-    margin-top: 30px;
 }
 
 .edit-inspection-button-container>button {
-    width: 40%;
-    height: 50px;
-    background-color: var(--light-gunmetal);
-    color: lightgray;
+    background-color: transparent;
+    color: var(--tertiary);
     border-radius: 10px;
     font-size: large;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid black;
+    border: 1px solid var(--tertiary);
     box-sizing: border-box;
+    padding:10px;
 }
 
 .edit-inspection-button-container>button:hover {
     cursor: pointer;
-    background-color: var(--gunmetal);
-}
-
-.edit-inspection-button {
-    width: 40%;
-    height: 50px;
     background-color: var(--light-gunmetal);
-    color: lightgray;
-    border-radius: 10px;
-    font-size: large;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    box-sizing: border-box;
 }
 
-.edit-inspection-button:hover {
-    cursor: pointer;
-    background-color: var(--gunmetal);
-}

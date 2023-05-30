@@ -2,29 +2,31 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "../auth/LogoutButton";
 import { useSelector } from "react-redux";
-
+import { HomePlus } from 'tabler-icons-react';
 const NavBar = () => {
     const user = useSelector((state) => state.session.user);
 
     return (
-        <div className="jccen lighterbg pad30 mh70px">
-            <nav className="flex sb tdnone w70p sticky aicen">
-                <div>
-                    <NavLink
-                        to="/"
-                        exact={true}
-                        activeClassName="active"
-                        className="tdnone tclight lighthover flarr"
-                    >
-                        Home
-                    </NavLink>
-                </div>
+        <div className="flex sb lighterbg pad10">
+                    <div>
+                        <NavLink
+                            to="/"
+                            exact={true}
+                            activeClassName="active"
+                            className="tdnone tclight lighthover flarr mar10r mar10l"
+                        >
+                            <HomePlus size={48} color="#F5E9CF" className="mar10r" />
+                        </NavLink>
+                    </div>
+                    
+                    <div className="flex jccen aicen" >
+
                 {user && (
                     <>
                         <div>
                             <NavLink
                                 to="/address"
-                                className="tdnone tclight lighthover flarr"
+                                className="tdnone tclight lighthover flarr mar10r mar10l" 
                             >
                                 Addresses
                             </NavLink>
@@ -32,7 +34,7 @@ const NavBar = () => {
                         <div>
                             <NavLink
                                 to="/inspection"
-                                className="tdnone tclight lighthover flarr"
+                                className="tdnone tclight lighthover flarr mar10r mar10l"
                             >
                                 Inspections
                             </NavLink>
@@ -51,19 +53,19 @@ const NavBar = () => {
                                 to="/login"
                                 exact={true}
                                 activeClassName="active"
-                                className="tdnone tclight lighthover flarr"
+                                className="tdnone tclight lighthover flarr mar10r mar10l"
                             >
                                 Login
                             </NavLink>
                         </div>
                     </>
                 )}
+                </div>
                 {user && (
-                    <div>
+                    <div className = "flex jccen aicen">
                         <LogoutButton />
                     </div>
                 )}
-            </nav>
         </div>
     );
 };

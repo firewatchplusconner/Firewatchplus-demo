@@ -2,13 +2,8 @@
 .single-address-container {
     --morning-blue: rgb(183, 194, 193);
     --gunmetal: rgb(31, 36, 43);
-    border: 2px solid rgb(25, 29, 34);
-    width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-bottom: 20px;
+    border-radius: 10px;
+    background-color: var(--gray-web);
 }
 
 .single-address-header-container {
@@ -17,11 +12,12 @@
     justify-content: center;
 }
 
-.info-label-container {
+.address-info-label-container {
     /* border: 3px solid green; */
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid var(--light-gunmetal);
     box-sizing: border-box;
 }
 
@@ -41,10 +37,7 @@
 }
 
 .address-map-container-outer {
-    border: 2px solid var(--light-gunmetal);
     width: 100%;
-    border-radius: 10px;
-    margin-top: 20px;
 }
 
 .address-map-container {
@@ -54,51 +47,35 @@
 }
 
 .address-inspections-container {
-    border: 2px solid var(--light-gunmetal);
-    padding: 30px;
-    padding-top: 0px;
     border-radius: 10px;
-    margin-bottom: 10px;
-    margin-top: 20px;
 }
 
 .address-inspections-header {
-    border-bottom: 4px solid var(--light-gunmetal);
-    padding-bottom: 10px;
     font-size: x-large;
     text-align: center;
 }
 
 .address-inspection-container-header {
-    border: 4px solid var(--light-gunmetal);
-    border-radius: 5px;
+    padding: 10px;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 25px;
     align-items: center;
     font-size: large;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    --light-gunmetal: rgb(49, 58, 70)
+    border-bottom: 1px solid var(--light-gunmetal)
 }
 
 .address-inspection-container-nav {
-    border: 2px solid var(--light-gunmetal);
+    border-bottom: 1px solid var(--light-gunmetal);
     display: flex;
     justify-content: space-around;
-    margin-bottom: 10px;
     align-items: center;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 5px;
 }
 
 .address-inspection-container-nav:hover {
-    border: 2px solid rgb(85, 92, 102)
+    background-color: var(--light-gunmetal)
 }
 
 .address-inspection-container-nav:hover>.address-inspection-answers-container>.inspection-answer-container {
-    border: 2px solid rgb(85, 92, 102)
 }
 
 .address-id-container {
@@ -155,7 +132,7 @@
     box-sizing: border-box;
     height: 100%;
     text-align: center;
-    color: rgb(6, 182, 6);
+    color: var(--success);
 }
 
 .address-inspection-status-failed {
@@ -165,7 +142,7 @@
     box-sizing: border-box;
     height: 100%;
     text-align: center;
-    color: rgb(255, 37, 37)
+    color: var(--failure)
 }
 
 .image-preview-container {
@@ -184,32 +161,24 @@
 }
 
 .address-responses-container{
-    border: 2px solid var(--light-gunmetal);
-    padding: 30px;
-    padding-top: 0px;
     border-radius: 10px;
-    margin-bottom: 10px;
-    margin-top: 20px;
 }
 
 .address-responses-header {
-    border-bottom: 4px solid var(--light-gunmetal);
     padding-bottom: 10px;
     font-size: x-large;
     text-align: center;
 }
 
 .address-response-container-header {
-    border: 4px solid var(--light-gunmetal);
-    border-radius: 5px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
     align-items: center;
     font-size: large;
     padding-top: 10px;
     /* padding-bottom: 10px; */
-    --light-gunmetal: rgb(49, 58, 70)
+    background-color: var(--gray-web);
 }
 
 .address-response-container {
