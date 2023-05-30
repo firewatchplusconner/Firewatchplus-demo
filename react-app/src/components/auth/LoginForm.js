@@ -47,38 +47,6 @@ const LoginForm = () => {
                         <div key={ind}>{error}</div>
                     ))}
                 </div>}
-                <div className="fdcol mar20b">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        name="email"
-                        type="text"
-                        placeholder="Email"
-                        value={email}
-                        onChange={updateEmail}
-                        className="iflight bnone h40px"
-                        required
-                    />
-                </div>
-                <div className="fdcol mar20b">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={updatePassword}
-                        className="iflight bnone h40px"
-                        required
-                    />
-                    <div className="jccen mar30t">
-                        <button
-                            type="submit"
-                            className="w100p h50px btndark pad0"
-                        >
-                            Login
-                        </button>
-                    </div>
-                </div>
                 <div className="jccen mar30t">
                     <button
                         type="submit"

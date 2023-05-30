@@ -31,11 +31,11 @@ const InspectionList = () => {
         return (
             <NavLink
                 to={`/inspection/${inspection.id}`}
-                className='tdnone tclight nhvr inspection-container-nav'
+                className='tdnone tclight inspection-container-nav'
                 key={`${inspection.id}`}
             >
                 <div className="id-container">{inspection.id}</div>
-                <div className="address nhvr">
+                <div className="address">
                     {inspection.address.firstAddressLine}
                     {inspection.address.secondAddressLine
                         ? ` ${inspection.address.secondAddressLine}`
@@ -59,7 +59,7 @@ const InspectionList = () => {
         <div className = "fdcol">
             <h1 className="inspection-list-header accen mar10l">
                 <Notebook size={48} color="#b7c2c1" className="mar10r" />
-                All Inspections
+                Inspections
             </h1>
             <div className="mar20b w60vw w100p inspection-list-container">
                 <div className="inspection-list-header-container">
@@ -74,13 +74,13 @@ const InspectionList = () => {
                     </div>
                     {inspectionContent}
                 </div>
+            </div>
                 <div className="address-modal-button-container jccen pad20">
                         <OpenModalButton
                             buttonText="Add Inspection"
                             modalComponent={<AddInspectionModal />}
                         />
                     </div>
-            </div>
         </div>
     )
 }

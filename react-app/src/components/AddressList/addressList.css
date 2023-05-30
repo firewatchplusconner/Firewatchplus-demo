@@ -1,25 +1,29 @@
 
 .address-list-container {
-    border: 2px solid rgb(25, 29, 34);
     background-color: var(--gray-web);
     width: 100%;
-    border-radius: 15px;
-    padding-left: 30px;
-    padding-right: 30px;
+    border-radius: 10px;
+    background-color: var(--gray-web);
     height: fit-content;
 }
 
 .address-modal-button-container>button {
-    background-color: var(--light-gunmetal);
-    color: lightgray;
-    border-radius: 10px;
-    width: 50%;
-    height: 40px
+    background-color: transparent;
+    color: var(--tertiary);
+    font-size: large;
+    border: 1px solid var(--tertiary);
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: none;
+    border-radius: 15px;
 }
 
 .address-modal-button-container>button:hover {
     cursor: pointer;
-    background-color: var(--gunmetal);
+    background-color: var(--gray-web);
+
 }
 
 .address-list-header-container {
@@ -29,15 +33,12 @@
 
 .address-list-header {
     /* border: 3px solid  yellow; */
-    margin-bottom: 20px;
 }
 
 .address-container-header {
-    border: 4px solid var(--light-gunmetal);
-    border-radius: 5px;
+    border-bottom: 1px solid var(--light-gunmetal);
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
     align-items: center;
     font-size: large;
     padding-top: 10px;
@@ -46,18 +47,16 @@
 }
 
 .address-container {
-    border: 2px solid var(--light-gunmetal);
+    border-bottom: 1px solid var(--light-gunmetal);
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-radius: 5px;
 }
 
 .address-container:hover {
-    border: 2px solid rgb(85, 92, 102)
+    background-color: var(--light-gunmetal);
 }
 
 .id-container {

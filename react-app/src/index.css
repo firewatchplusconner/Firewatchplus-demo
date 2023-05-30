@@ -1,5 +1,6 @@
 /* TODO Add site wide styles */
 * {
+    --tertiary: #E3B23C; /*-xanthous */
     --space-cadet: #1a2d57ff;
     --celadon: #b2d3a8ff;
     --olivine: #b6d094ff;
@@ -11,7 +12,7 @@
     --saddle-brown: #874000ff;
     --pullman-brown-ups-brown: #5b3000ff;
     --black-bean: #301100ff;
-    font-family: "Lato","Lucida Grande","Lucida Sans Unicode","Lucida Sans","Geneva","Verdana",sans-serif;;
+    font-family: "Inter";
     scrollbar-color: var(--gunmetal) var(--light-gunmetal);
 }
 
@@ -95,13 +96,14 @@
 }
 
 .btndark {
-    background-color: var(--light-gunmetal);
-    color: lightgray;
+    background-color:transparent;
+    border: 1px solid var(--tertiary);
+    color: var(--tertiary);
     border-radius: 10px;
 }
 
 .btndark:hover {
-    background-color: var(--gunmetal);
+    background-color: var(--light-gunmetal);
     cursor: pointer;
 }
 
@@ -122,8 +124,6 @@
 
 .btnlights:hover {
     cursor: pointer;
-    animation: borderLights .6s infinite;
-    animation-direction: alternate;
 }
 
 @keyframes borderLights {
@@ -155,8 +155,9 @@
 
 .lighthover:hover {
     color: rgb(170, 168, 168);
-    animation: underlineLights .6s infinite;
-    animation-direction: alternate;
+    text-decoration: underline;
+    /* animation: underlineLights .6s infinite; */
+    /* animation-direction: alternate; */
 }
 
 @keyframes underlineLights {
@@ -250,6 +251,7 @@
 .fdcol {
     display: flex;
     flex-direction: column;
+    width: 100%
 }
 
 .aicen {
@@ -466,4 +468,17 @@
 
 .mar0 {
     margin: 0;
+}
+
+
+.tertiary-button>button {
+    background-color: none;
+    border: none;
+    color: var(--tertiary);
+    
+}
+
+.tertiary-button>button:hover {
+    text-decoration: underline;
+    font-weight: 200;
 }

@@ -21,6 +21,7 @@ const SplashPage = () => {
                     be limited to organization's admin or inspectors. Join our
                     Ready Response community and be ready to respond!
                 </div>
+            </div>
                 {!user && (
                     <div className="button-container">
                         <NavLink
@@ -45,23 +46,18 @@ const SplashPage = () => {
                     <div className="button-container">
                         <NavLink
                             to="/address"
-                            exact={true}
-                            activeClassName="active"
                             className="signup-login-button"
                         >
                             Addresses
                         </NavLink>
                         <NavLink
                             to="/inspection"
-                            exact={true}
-                            activeClassName="active"
                             className="signup-login-button"
                         >
                             Inspections
                         </NavLink>
                     </div>
                 )}
-            </div>
         </div>
     );
 };

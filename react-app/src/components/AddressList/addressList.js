@@ -30,11 +30,11 @@ const AddressList = () => {
         return (
             <NavLink
                 to={`/address/${address.id}`}
-                className="tdnone tclight nhvr address-container"
+                className="tdnone tclight address-container"
                 key={`${address.id}`}
             >
                 <div className="id-container">{address.id}</div>
-                <div className="address nhvr">
+                <div className="address">
                     {address.firstAddressLine}
                     {address.secondAddressLine
                         ? ` ${address.secondAddressLine}`
@@ -59,7 +59,7 @@ const AddressList = () => {
                     <h1 className="address-list-header accen mar10l">
                     <BuildingCommunity size={48} color="#b7c2c1" className="mar10r" />
 
-                        All Addresses
+                        Addresses
                     </h1>
                 <div className="mar20b w100p address-list-container">
 
@@ -73,13 +73,13 @@ const AddressList = () => {
                         </div>
                         {addressContent}
                     </div>
+                </div>
                     <div className="address-modal-button-container jccen pad20">
                         <OpenModalButton
                             buttonText="Add Address"
                             modalComponent={<AddAddressForm />}
                         />
                     </div>
-                </div>
                 </div>
             )}
         </>

@@ -5,24 +5,6 @@
     align-items: center;
 }
 
-.splash-page-header {
-    background-image: url('../../assets/flashing-lights-gif.gif');
-    background-size: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-    padding: 20px;
-    height: 15%;
-    width: 46%;
-    min-width: 460px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
-    font-size: 45px;
-    font-weight: 600;
-}
 
 .error-description-container {
     width: 80%;
@@ -42,26 +24,6 @@
     /* border: 3px solid red */
 }
 
-.signup-login-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    padding: 10px;
-    background-color: var(--light-gunmetal);
-    border: 2px solid rgb(25, 29, 34);
-    color: lightgray;
-    border-radius: 10px;
-    width: 30%;
-    font-size: larger;
-}
-
-.signup-login-button:hover {
-    background-color: var(--gunmetal);
-    cursor: pointer;
-    animation: borderLights .6s infinite;
-    animation-direction: alternate;
-}
 
 @keyframes borderLights {
     0% {

@@ -48,16 +48,6 @@ const NavBar = () => {
                     <>
                         <div>
                             <NavLink
-                                to="/sign-up"
-                                exact={true}
-                                activeClassName="active"
-                                className="tdnone tclight lighthover flarr"
-                            >
-                                Sign Up
-                            </NavLink>
-                        </div>
-                        <div>
-                            <NavLink
                                 to="/login"
                                 exact={true}
                                 activeClassName="active"

@@ -6,28 +6,22 @@
 }
 
 .splash-page-header {
-    background-image: url('../../assets/flashing-lights-gif.gif');
-    background-size: auto;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
     padding: 20px;
-    height: 15%;
-    width: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
     font-size: 45px;
     font-weight: 600;
 }
 
 .description-container {
     width: 80%;
-    border: 2px solid rgb(25, 29, 34);
-    border-radius: 15px;
-    box-shadow: 0 0 10px 1px rgb(25, 29, 34);
+    background-color: var(--gray-web);
+    border-radius: 10px;
     padding: 30px;
     font-size: larger;
 }
@@ -41,24 +35,24 @@
 }
 
 .signup-login-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: transparent;
+    color: var(--tertiary);
+    font-size: large;
+    border: 1px solid var(--tertiary);
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top:10px;
+    padding-bottom:10px;
+    box-shadow: none;
+    border-radius: 15px;
     text-decoration: none;
-    padding: 10px;
-    background-color: var(--light-gunmetal);
-    border: 2px solid rgb(25, 29, 34);
-    color: lightgray;
-    border-radius: 10px;
-    width: 30%;
-    font-size: larger;
+    align-self: center;
+    text-align: center;
 }
 
 .signup-login-button:hover {
-    background-color: var(--gunmetal);
     cursor: pointer;
-    animation: borderLights .6s infinite;
-    animation-direction: alternate;
+    background-color: var(--gray-web);
 }
 
 @keyframes borderLights {
