@@ -40,7 +40,7 @@ function App() {
     }
 
     return (
-        <>
+        <div className="w100p bsbb fdcol h100p sb">
             <NavBar />
             <div className="jccen w80p marlrauto mar20t mw1000px mh75vh">
                 <Switch>
@@ -82,8 +82,8 @@ function App() {
                     </Route>
                 </Switch>
             </div>
-            {/* <Footer /> */}
-        </>
+            <Footer />
+        </div>
     );
 }
 

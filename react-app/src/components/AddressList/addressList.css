@@ -8,8 +8,7 @@
 }
 
 .address-modal-button-container>button {
-    background-color: transparent;
-    color: var(--tertiary);
+    background-color: var(--tertiary);
     font-size: large;
     border: 1px solid var(--tertiary);
     padding-right: 20px;
@@ -22,7 +21,6 @@
 
 .address-modal-button-container>button:hover {
     cursor: pointer;
-    background-color: var(--gray-web);
 
 }
 
@@ -33,6 +31,7 @@
 
 .address-list-header {
     /* border: 3px solid  yellow; */
+    color: var(--secondary)
 }
 
 .address-container-header {
@@ -47,16 +46,18 @@
 }
 
 .address-container {
-    border-bottom: 1px solid var(--light-gunmetal);
+    height: var(--table-row-height);
+    border-bottom: 1px solid var(--gunmetal);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
+    background-color: var(--light-gunmetal)
 }
 
 .address-container:hover {
-    background-color: var(--light-gunmetal);
+    background-color: var(--gunmetal);
 }
 
 .id-container {
@@ -64,7 +65,7 @@
     width: 20%;
     display: flex;
     justify-content: center;
-    border-right: 2px solid var(--light-gunmetal)
+    border-right: 2px solid var(--gunmetal)
 }
 
 .address {
@@ -79,8 +80,7 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    border-left: 2px solid var(--light-gunmetal);
-    height: 100%;
+    border-left: 2px solid var(--gunmetal);
     text-align: center;
     padding-right: 5px;
     padding-left: 5px;

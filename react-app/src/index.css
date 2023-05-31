@@ -1,6 +1,7 @@
 /* TODO Add site wide styles */
 * {
-    --tertiary: #F5E9CF; /*-xanthous */
+    --secondary: white; 
+    --tertiary: #ffe5b4; 
     --space-cadet: #1a2d57ff;
     --celadon: #b2d3a8ff;
     --olivine: #b6d094ff;
@@ -16,6 +17,7 @@
     --failure:#E96479;
     font-family: "Inter";
     scrollbar-color: var(--gunmetal) var(--light-gunmetal);
+    --table-row-height: 40px;
 }
 
 .errors-div {
@@ -98,14 +100,13 @@
 }
 
 .btndark {
-    background-color:transparent;
+    background-color:var(--tertiary);
     border: 1px solid var(--tertiary);
-    color: var(--tertiary);
+    color: var(--gray-web);
     border-radius: 10px;
 }
 
 .btndark:hover {
-    background-color: var(--light-gunmetal);
     cursor: pointer;
 }
 
@@ -182,8 +183,8 @@
 }
 
 .modal-button-container>button {
-    background-color: transparent;
-    color: var(--tertiary);
+    background-color: var(--tertiary);
+    color: var(--gray-web);
     border-radius: 10px;
     border: 1px solid var(--tertiary);
     font-size: large;
@@ -192,7 +193,6 @@
 
 .modal-button-container>button:hover {
     cursor: pointer;
-    background-color: var(--light-gunmetal);
 }
 
 .ofyscroll {
@@ -486,4 +486,18 @@
 .tertiary-button>button:hover {
     text-decoration: underline;
     font-weight: 200;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    overflow: auto;
+    height: 100%;
+}
+
+h1 {
+    color: var(--secondary);
 }

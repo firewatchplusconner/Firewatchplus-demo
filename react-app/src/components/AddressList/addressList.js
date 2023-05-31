@@ -59,8 +59,7 @@ const AddressList = () => {
             {loaded && (
                 <div className = "fdcol">
                     <h1 className="address-list-header jccen aicen mar10l">
-                    <BuildingCommunity size={48} color="#b7c2c1" className="mar10r" />
-
+                    <BuildingCommunity size={48} color="#ffe5b4" className="mar10r" />
                         Addresses
                     </h1>
                 <div className="mar20b w100p address-list-container">

@@ -16,43 +16,45 @@
     border-radius: 20px;
     font-size: 45px;
     font-weight: 600;
+    color: var(--secondary);
 }
 
 .description-container {
     width: 80%;
-    background-color: var(--gray-web);
+    background-color: var(--light-gunmetal);
     border-radius: 10px;
     padding: 30px;
-    font-size: larger;
+    font-size: large;
 }
 
 .button-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
     margin-top: 20px;
     /* border: 3px solid red */
 }
 
 .signup-login-button {
-    background-color: transparent;
-    color: var(--tertiary);
+    background-color: var(--tertiary);
+    color: var(--gray-web);
     font-size: large;
     border: 1px solid var(--tertiary);
     padding-right: 20px;
     padding-left: 20px;
     padding-top:10px;
     padding-bottom:10px;
+    margin: 10px;
     box-shadow: none;
-    border-radius: 15px;
+    border-radius: 5px;
     text-decoration: none;
     align-self: center;
     text-align: center;
 }
 
+
 .signup-login-button:hover {
     cursor: pointer;
-    background-color: var(--light-gunmetal);
 }
 
 @keyframes borderLights {

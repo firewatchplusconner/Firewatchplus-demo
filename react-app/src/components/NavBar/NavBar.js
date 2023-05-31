@@ -15,7 +15,7 @@ const NavBar = () => {
                             activeClassName="active"
                             className="tdnone tclight lighthover flarr mar10r mar10l"
                         >
-                            <HomePlus size={48} color="#F5E9CF" className="mar10r" />
+                            <HomePlus size={48} color="white" className="mar10r" />
                         </NavLink>
                     </div>
                     

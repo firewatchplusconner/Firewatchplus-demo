@@ -59,7 +59,7 @@ const InspectionList = () => {
     return (
         <div className = "fdcol">
             <h1 className="inspection-list-header jccen aicen w100p mar10l">
-                <Notebook size={48} color="#b7c2c1" className="mar10r" />
+                <Notebook size={48} color="#ffe5b4" className="mar10r" />
                 Inspections
             </h1>
             <div className="mar20b w60vw w100p inspection-list-container">

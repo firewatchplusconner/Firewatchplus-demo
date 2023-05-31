@@ -42,7 +42,7 @@ const SplashPage = () => {
                         </NavLink>
                     </div>
                 )}
-                {user && (
+                {/* {user && (
                     <div className="button-container">
                         <NavLink
                             to="/address"
@@ -57,7 +57,7 @@ const SplashPage = () => {
                             Inspections
                         </NavLink>
                     </div>
-                )}
+                )} */}
         </div>
     );
 };

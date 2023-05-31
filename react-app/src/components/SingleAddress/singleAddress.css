@@ -10,6 +10,7 @@
     /* border: 3px solid yellow; */
     display: flex;
     justify-content: center;
+    color: var(--secondary);
 }
 
 .address-info-label-container {
@@ -24,14 +25,14 @@
 .label-container {
     /* border: 3px solid blue; */
     color: var(--morning-blue);
-    font-size: larger;
+    font-size: large;
     margin-right: 10px;
     display: flex;
     align-items: center;
 }
 
 .info-container {
-    font-size: larger;
+    font-size: large;
     color: rgb(255, 255, 255);
     font-weight: 500;
 }
@@ -49,6 +50,9 @@
 .address-inspections-container {
     border-radius: 10px;
 }
+.address-inspection-container:hover {
+    background-color: var(--gunmetal);
+}
 
 .address-inspections-header {
     font-size: x-large;
@@ -65,25 +69,24 @@
 }
 
 .address-inspection-container-nav {
-    border-bottom: 1px solid var(--light-gunmetal);
+    border-bottom: 1px solid var(--gunmetal);
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-color: var(--light-gunmetal);
 }
 
 .address-inspection-container-nav:hover {
-    background-color: var(--light-gunmetal)
+    background-color: var(--gunmetal)
 }
 
-.address-inspection-container-nav:hover>.address-inspection-answers-container>.inspection-answer-container {
-}
 
 .address-id-container {
     box-sizing: border-box;
     width: 15%;
     display: flex;
     justify-content: center;
-    border-right: 2px solid var(--light-gunmetal);
+    border-right: 2px solid var(--gunmetal);
 }
 
 .address-inspection-date {
@@ -91,8 +94,7 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    border-right: 2px solid var(--light-gunmetal);
-    height: 100%;
+    border-right: 2px solid var(--gunmetal);
     text-align: center;
     padding-right: 10px;
 }
@@ -102,14 +104,13 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    border-right: 2px solid var(--light-gunmetal);
-    height: 100%;
+    border-right: 2px solid var(--gunmetal);
     text-align: center;
 }
 
 .address-inspection-inspector {
     width: 30%;
-    border-right: 2px solid var(--light-gunmetal);
+    border-right: 2px solid var(--gunmetal);
     display: flex;
     justify-content: center;
     box-sizing: border-box;
@@ -121,7 +122,6 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 100%;
     text-align: center;
 }
 
@@ -130,7 +130,6 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 100%;
     text-align: center;
     color: var(--success);
 }
@@ -140,7 +139,6 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 100%;
     text-align: center;
     color: var(--failure)
 }

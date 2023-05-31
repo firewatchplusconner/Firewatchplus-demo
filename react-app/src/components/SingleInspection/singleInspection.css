@@ -13,8 +13,9 @@
     font-weight: 600;
     margin-top: 20px;
     margin-bottom: 20px;
-    
+    color: var(--secondary);
 }
+
 .info-label-container-container {
     flex-wrap: wrap
 }
@@ -30,26 +31,26 @@
 .label-container {
     /* border: 3px solid blue; */
     color: var(--morning-blue);
-    font-size: larger;
+    font-size: large;
     margin-right: 10px;
     display: flex;
     align-items: center;
 }
 
 .info-container {
-    font-size: larger;
+    font-size: large;
     font-weight: 500;
 }
 
 .info-container-passing {
-    font-size: larger;
+    font-size: large;
     color: rgb(255, 255, 255);
     font-weight: 500;
     color: var(--success);
 }
 
 .info-container-failed {
-    font-size: larger;
+    font-size: large;
     color: rgb(255, 255, 255);
     font-weight: 500;
     color: var(--failure)
@@ -66,7 +67,7 @@
 
 .inspection-answer-failed-container {
     /* border: 2px solid red; */
-    border-bottom: 1px solid var(--light-gunmetal);
+    border-bottom: 1px solid var(--gunmetal);
     display: flex;
     flex-direction: row;
     flex-wrap:wrap;
@@ -150,8 +151,7 @@
 }
 
 .edit-inspection-button-container>button {
-    background-color: transparent;
-    color: var(--tertiary);
+    background-color: var(--tertiary);
     border-radius: 10px;
     font-size: large;
     display: flex;
@@ -164,6 +164,5 @@
 
 .edit-inspection-button-container>button:hover {
     cursor: pointer;
-    background-color: var(--light-gunmetal);
 }
 

@@ -12,6 +12,7 @@
 
 .inspection-list-header {
     /* border: 3px solid  yellow; */
+    color: var(--secondary);
 }
 
 .inspection-container-header {
@@ -26,16 +27,18 @@
 }
 
 .inspection-container-nav {
-    border-bottom: 1px solid var(--light-gunmetal);
+    border-bottom: 1px solid var(--gunmetal);
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding-top: 5px;
     padding-bottom: 5px;
+    height: var(--table-row-height);
+    background-color: var(--light-gunmetal)
 }
 
 .inspection-container-nav:hover {
-    background-color: var(--light-gunmetal);
+    background-color: var(--gunmetal);
 }
 
 .id-container {
@@ -43,7 +46,7 @@
     width: 10%;
     display: flex;
     justify-content: center;
-    border-right: 2px solid var(--light-gunmetal);
+    border-right: 2px solid var(--gunmetal);
 }
 
 .address {
@@ -58,8 +61,8 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    border-left: 2px solid var(--light-gunmetal);
-    border-right: 2px solid var(--light-gunmetal);
+    border-left: 2px solid var(--gunmetal);
+    border-right: 2px solid var(--gunmetal);
     height: 100%;
     text-align: center;
     padding-left: 10px;
@@ -71,7 +74,7 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    border-right: 2px solid var(--light-gunmetal);
+    border-right: 2px solid var(--gunmetal);
     height: 100%;
     text-align: center;
     padding-right: 10px
