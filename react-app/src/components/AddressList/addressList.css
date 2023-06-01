@@ -5,6 +5,7 @@
     border-radius: 10px;
     background-color: var(--gray-web);
     height: fit-content;
+    overflow: hidden;
 }
 
 .address-modal-button-container>button {
@@ -35,7 +36,6 @@
 }
 
 .address-container-header {
-    border-bottom: 1px solid var(--light-gunmetal);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -57,7 +57,7 @@
 }
 
 .address-container:hover {
-    background-color: var(--gunmetal);
+    opacity: 0.75;
 }
 
 .id-container {

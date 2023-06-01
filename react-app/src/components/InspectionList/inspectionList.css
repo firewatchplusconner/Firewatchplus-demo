@@ -1,6 +1,7 @@
 .inspection-list-container {
     width: 100%;
     border-radius: 10px;
+    overflow: hidden;
     background-color: var(--gray-web);
     height: fit-content;
 }
@@ -38,7 +39,7 @@
 }
 
 .inspection-container-nav:hover {
-    background-color: var(--gunmetal);
+    opacity: 0.75;
 }
 
 .id-container {
@@ -63,7 +64,6 @@
     box-sizing: border-box;
     border-left: 2px solid var(--gunmetal);
     border-right: 2px solid var(--gunmetal);
-    height: 100%;
     text-align: center;
     padding-left: 10px;
     padding-right: 10px;
@@ -75,7 +75,6 @@
     justify-content: center;
     box-sizing: border-box;
     border-right: 2px solid var(--gunmetal);
-    height: 100%;
     text-align: center;
     padding-right: 10px
 }
@@ -85,7 +84,6 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 100%;
     text-align: center;
 }
 
@@ -94,7 +92,6 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 100%;
     text-align: center;
     color: var(--success);
 }
@@ -104,7 +101,6 @@
     display: flex;
     justify-content: center;
     box-sizing: border-box;
-    height: 100%;
     text-align: center;
     color: var(--failure)
 }

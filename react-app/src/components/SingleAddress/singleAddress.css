@@ -49,9 +49,10 @@
 
 .address-inspections-container {
     border-radius: 10px;
+    overflow: hidden;
 }
 .address-inspection-container:hover {
-    background-color: var(--gunmetal);
+    opacity: 0.75;
 }
 
 .address-inspections-header {
@@ -77,7 +78,7 @@
 }
 
 .address-inspection-container-nav:hover {
-    background-color: var(--gunmetal)
+    opacity: 0.75;
 }
 
 

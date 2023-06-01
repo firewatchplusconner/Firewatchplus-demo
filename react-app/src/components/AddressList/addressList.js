@@ -32,7 +32,7 @@ const AddressList = () => {
                 to={`/address/${address.id}`}
                 className="tdnone tclight address-container"
                 key={`${address.id}`}
-                style={{border: (length - 1 === i) && 'none' }}
+                style={{borderBottom: (length - 1 === i) && 'none' }}
 
             >
                 <div className="id-container">{address.id}</div>
