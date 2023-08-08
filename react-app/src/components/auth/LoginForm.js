@@ -26,10 +26,12 @@ const LoginForm = () => {
         }
     };
 
+    // eslint-disable-next-line
     const updateEmail = (e) => {
         setEmail(e.target.value);
     };
 
+    // eslint-disable-next-line
     const updatePassword = (e) => {
         setPassword(e.target.value);
     };
