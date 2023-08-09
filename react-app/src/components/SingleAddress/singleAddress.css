@@ -11,6 +11,7 @@
     display: flex;
     justify-content: center;
     color: var(--secondary);
+    text-align: center;
 }
 
 .address-info-label-container {
