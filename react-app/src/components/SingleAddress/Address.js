@@ -163,7 +163,7 @@ const Address = () => {
                     {address.images[0] && (
                         <AddressPhotos images={address.images} />
                     )}
-                    {/* <div className="address-responses-container">
+                    <div className="address-responses-container">
                         <h2 className="address-responses-header">
                             Previous Responses
                         </h2>
@@ -181,26 +181,6 @@ const Address = () => {
                                 </div>
                                 <div className="address-response-type">
                                     Type
-                                </div>
-                            </div>
-                            <div className="address-response-bottom-container">
-                                <div className="address-response-units">
-                                    <div className="address-response-units-header">
-                                        Units
-                                    </div>
-                                    <div className="address-response-units-list">
-                                        <div>- Unit 1</div>
-                                        <div>- Unit 2</div>
-                                    </div>
-                                </div>
-                                <div className="address-response-description">
-                                    <div className="address-response-description-header">
-                                        Description
-                                    </div>
-                                    <div className="address-response-description-text">
-                                        This is an example. Responses Feature is
-                                        in development.
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -312,7 +292,7 @@ const Address = () => {
                                 </div>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                     <div className="sb mar30">
                         <div className="modal-button-container jccen">
                             <OpenModalButton
