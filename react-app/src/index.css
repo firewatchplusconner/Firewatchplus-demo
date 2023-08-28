@@ -56,6 +56,7 @@
 
 .flar {
     font-size: large;
+    color: var(--gray-web);
 }
 
 .fmed {
@@ -331,6 +332,10 @@
 
 .w50p {
     width: 50%
+}
+
+.wauto {
+    width: auto;
 }
 
 .w100px {

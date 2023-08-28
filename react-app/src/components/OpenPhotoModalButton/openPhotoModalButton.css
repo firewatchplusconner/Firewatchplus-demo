@@ -46,10 +46,12 @@
 }
 
 .close-modal-button {
-    background-color: var(--light-gunmetal);
-    color: lightgray;
+    --tertiary: #ffe5b4; 
+    --gray-web: #202124;
+    background-color: var(--tertiary);
+    color: var(--gray-web);
     border-radius: 10px;
-    border: 2px solid black;
+    border: 1px solid var(--tertiary);
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -57,7 +59,7 @@
 }
 
 .close-modal-button:hover {
-    background-color: var(--light-gunmetal);
+    /* background-color: var(--light-gunmetal); */
     cursor: pointer;
 }
 
@@ -74,17 +76,19 @@
 }
 
 .delete-image-button>button {
-    background-color: var(--light-gunmetal);
-    color: lightgray;
+    --tertiary: #ffe5b4; 
+    --gray-web: #202124;
+    background-color: var(--tertiary);
+    color: var(--gray-web);
     border-radius: 10px;
-    border: 2px solid black;
-    font-size: large;
+    border: 1px solid var(--tertiary);
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
+    font-size: large;
 }
 
 .delete-image-button>button:hover {
-    background-color: var(--light-gunmetal);
+    /* background-color: var(--light-gunmetal); */
     cursor: pointer;
 }

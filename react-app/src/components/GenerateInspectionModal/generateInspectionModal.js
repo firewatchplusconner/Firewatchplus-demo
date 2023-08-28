@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { addInspection } from "../../store/inspections";
 import { loadAllInspectionTypes } from "../../store/inspectionTypes";
+import "./generateInspectionModal.css"
 
 export default function GenerateInspectionModal() {
     const address = useSelector((state) => state.addresses.singleAddress);
@@ -57,9 +58,9 @@ export default function GenerateInspectionModal() {
     }
 
     return (
-        <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
-            <h1 className='marlrauto mar10b'>Create an Inspection</h1>
-            <h3 className="marlrauto mar10b">
+        <div className="outer-container">
+            <h1 className='title-container'>Create an Inspection</h1>
+            <h3 className="address-title-container">
                 {address.firstAddressLine}
                 {address.secondAddressLine
                     ? ` ${address.secondAddressLine}`
@@ -72,50 +73,54 @@ export default function GenerateInspectionModal() {
                         <div key={ind}>{error}</div>
                     ))}
                 </div>
-                <div className="fdcol mar20b">
-                    <label>Inspection Type *</label>
-                    <select
-                        type="select"
-                        name="inspection-type"
-                        onChange={(e) => setInspectionTypeId(e.target.value)}
-                        required={true}
-                        defaultValue=""
-                        className='iflight bnone h40px state'
-                    >
-                        <option disabled value="">
-                            -- select an inspection type --
-                        </option>
-                        {inspectionTypeOptions}
-                    </select>
+                <div className="form-container">
+                    <div className="inspection-type-container">
+                        <label>Inspection Type *</label>
+                        <select
+                            type="select"
+                            name="inspection-type"
+                            onChange={(e) => setInspectionTypeId(e.target.value)}
+                            required={true}
+                            defaultValue=""
+                            className='iflight bnone h40px state'
+                        >
+                            <option disabled value="">
+                                -- select an inspection type --
+                            </option>
+                            {inspectionTypeOptions}
+                        </select>
+                    </div>
                 </div>
                 <div className="fdcol mar20b">
-                    <label>Inspection Number *</label>
-                    <select
-                        type="select"
-                        name="inspection-number"
-                        onChange={(e) => setInspectionNumber(e.target.value)}
-                        required={true}
-                        defaultValue=""
-                        className='iflight bnone h40px state'
-                    >
-                        <option disabled value="">
-                            -- select an inspection number --
-                        </option>
-                        <option value={1}>1st</option>
-                        <option value={2}>2nd</option>
-                        <option value={3}>3rd</option>
-                    </select>
+                    <div className="inspection-number-container">
+                        <label>Inspection Number *</label>
+                        <select
+                            type="select"
+                            name="inspection-number"
+                            onChange={(e) => setInspectionNumber(e.target.value)}
+                            required={true}
+                            defaultValue=""
+                            className='iflight bnone h40px state'
+                            >
+                            <option disabled value="">
+                                -- select an inspection number --
+                            </option>
+                            <option value={1}>1st</option>
+                            <option value={2}>2nd</option>
+                            <option value={3}>3rd</option>
+                        </select>
+                    </div>
                 </div>
-                <div className="sa w100p">
+                <div className="inspection-button-container">
                     <button
                         type="submit"
-                        className="btnlight p20 w100p br10px mar10l mar10r h40px"
+                        className="generate-inspection-button"
                     >
                         Generate Inspection
                     </button>
                     <button
                         onClick={handleCloseModal}
-                        className="btnlight p20 w100p br10px mar10l mar10r h40px"
+                        className="cancel-inspection-button"
                     >
                         Cancel
                     </button>

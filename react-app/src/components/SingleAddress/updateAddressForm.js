@@ -335,7 +335,7 @@ const UpdateAddressForm = () => {
     ]);
 
     return (
-        <div className="pad0t pad30lr fdcol w30vw ofhidden h100p">
+        <div className="pad0t pad30lr fdcol w80p wauto h100p">
             <h1 className="marlrauto mar10b">Update Address</h1>
             <form onSubmit={handleSubmit}>
                 {(errors.length > 0 || ownerErrors.length > 0) && (
@@ -459,7 +459,7 @@ const UpdateAddressForm = () => {
                     ></input>
                 </div>
                 <div className="jccen mar30t">
-                    <button type="submit" className="w100p h50px btndark pad0">
+                    <button type="submit" className="w100p h50px btndark pad0 flar">
                         Save
                     </button>
                 </div>

@@ -22,7 +22,8 @@
     position: absolute;
     background-color: rgb(66, 76, 90);
     border-radius: 10px;
-    max-width: 40vw;
+    width: 50vw;
+    max-width: 50%;
     max-height: 80vh;
     padding: 10px;
     /* overflow-y: hidden; */
@@ -39,6 +40,7 @@
     overflow-y: auto;
     scrollbar-track-color: var(--gunmetal);
     scrollbar-base-color: gray;
+    justify-content: center;
 }
 
 #photo-modal-content-container {
